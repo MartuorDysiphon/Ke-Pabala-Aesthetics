@@ -9,7 +9,7 @@ const Checkout = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitError, setSubmitError] = useState('');
 
-    // FormBackend Configuration - Optional for local testing
+    // FormBackend Configuration - Get from https://formbackend.com
     const FORMBACKEND_FORM_ID = process.env.REACT_APP_FORMBACKEND_FORM_ID;
 
     // Form state
@@ -60,14 +60,6 @@ const Checkout = () => {
         return `KPA${timestamp}${random}`;
     };
 
-    const simulateFormSubmission = async (orderData) => {
-        // Simulate API call delay
-        await new Promise(resolve => setTimeout(resolve, 2000));
-        
-        // For testing, just return success
-        return { success: true, data: { message: 'Order received successfully' } };
-    };
-
     const submitToFormBackend = async (orderData) => {
         const selectedDelivery = deliveryOptions.find(d => d.value === formData.deliveryMethod);
         const subtotal = getTotalPrice();
@@ -84,43 +76,40 @@ const Checkout = () => {
             total: ((parseFloat(item.price) + (item.customColor ? 100 : 0)) * item.quantity).toFixed(2)
         }));
 
-        const submissionData = {
-            // Customer Information
-            firstName: orderData.customerInfo.firstName,
-            lastName: orderData.customerInfo.lastName,
-            email: orderData.customerInfo.email,
-            phone: orderData.customerInfo.phone,
-            
-            // Delivery Address
-            streetAddress: orderData.customerInfo.streetAddress,
-            suburb: orderData.customerInfo.suburb,
-            city: orderData.customerInfo.city,
-            province: orderData.customerInfo.province,
-            postalCode: orderData.customerInfo.postalCode,
-            
-            // Order Details
-            orderNumber: orderData.orderNumber,
-            deliveryMethod: selectedDelivery.label,
-            paymentMethod: orderData.customerInfo.paymentMethod,
-            subtotal: `R${subtotal.toFixed(2)}`,
-            deliveryCost: `R${deliveryCost.toFixed(2)}`,
-            total: `R${total.toFixed(2)}`,
-            
-            // Order Items
-            orderItems: JSON.stringify(orderItems),
-            itemCount: orderData.cartItems.length.toString(),
-            
-            // Timestamp
-            orderDate: new Date().toLocaleString('en-ZA')
-        };
+        const formData = new FormData();
+        
+        // Customer Information
+        formData.append('firstName', orderData.customerInfo.firstName);
+        formData.append('lastName', orderData.customerInfo.lastName);
+        formData.append('email', orderData.customerInfo.email);
+        formData.append('phone', orderData.customerInfo.phone);
+        
+        // Delivery Address
+        formData.append('streetAddress', orderData.customerInfo.streetAddress);
+        formData.append('suburb', orderData.customerInfo.suburb);
+        formData.append('city', orderData.customerInfo.city);
+        formData.append('province', orderData.customerInfo.province);
+        formData.append('postalCode', orderData.customerInfo.postalCode);
+        
+        // Order Details
+        formData.append('orderNumber', orderData.orderNumber);
+        formData.append('deliveryMethod', selectedDelivery.label);
+        formData.append('paymentMethod', orderData.customerInfo.paymentMethod);
+        formData.append('subtotal', `R${subtotal.toFixed(2)}`);
+        formData.append('deliveryCost', `R${deliveryCost.toFixed(2)}`);
+        formData.append('total', `R${total.toFixed(2)}`);
+        
+        // Order Items
+        formData.append('orderItems', JSON.stringify(orderItems));
+        formData.append('itemCount', orderData.cartItems.length.toString());
+        
+        // Timestamp
+        formData.append('orderDate', new Date().toLocaleString('en-ZA'));
 
         try {
             const response = await fetch(`https://formbackend.com/forms/${FORMBACKEND_FORM_ID}/submissions`, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(submissionData)
+                body: formData
             });
 
             if (!response.ok) {
@@ -139,6 +128,13 @@ const Checkout = () => {
         e.preventDefault();
         setIsSubmitting(true);
         setSubmitError('');
+
+        // Validate FormBackend form ID
+        if (!FORMBACKEND_FORM_ID) {
+            setSubmitError('Form submission is currently unavailable. Please contact us directly to place your order.');
+            setIsSubmitting(false);
+            return;
+        }
 
         // Basic form validation
         if (!formData.firstName || !formData.lastName || !formData.email || !formData.phone) {
@@ -181,30 +177,13 @@ const Checkout = () => {
                 timestamp: new Date().toISOString()
             };
 
-            let result;
-
-            // Check if FormBackend is configured, otherwise use simulation
-            if (FORMBACKEND_FORM_ID) {
-                console.log('Submitting to FormBackend...');
-                result = await submitToFormBackend(orderData);
-            } else {
-                console.log('FormBackend not configured - using simulation');
-                console.log('Order Data:', orderData);
-                result = await simulateFormSubmission(orderData);
-            }
+            // Submit to FormBackend
+            const result = await submitToFormBackend(orderData);
 
             if (result.success) {
                 // Clear cart and show success
                 clearCart();
                 setOrderComplete(true);
-                
-                // Log order details for testing
-                console.log('Order completed successfully:', {
-                    orderNumber: newOrderNumber,
-                    customer: `${formData.firstName} ${formData.lastName}`,
-                    email: formData.email,
-                    total: total
-                });
             } else {
                 throw new Error(result.error || 'Form submission failed');
             }
@@ -227,18 +206,6 @@ const Checkout = () => {
             <div className="checkout">
                 <div className="checkout__container">
                     <div className="order-success">
-                        {/* Development Mode Banner */}
-                        {!FORMBACKEND_FORM_ID && (
-                            <div className="development__banner">
-                                <i className="fas fa-code development__banner-icon"></i>
-                                <div className="development__banner-content">
-                                    <h4>Development Mode</h4>
-                                    <p>Form submission is simulated. No actual order has been placed.</p>
-                                    <p>Configure FormBackend for production use.</p>
-                                </div>
-                            </div>
-                        )}
-
                         {/* Success Icon and Header */}
                         <div className="success__icon">
                             <i className="fas fa-check-circle"></i>
@@ -251,18 +218,15 @@ const Checkout = () => {
                             <div className="email__sent">
                                 <i className="fas fa-envelope email__icon"></i>
                                 <div className="email__content">
-                                    <h4>Order Received</h4>
-                                    <p>Your order has been processed successfully</p>
-                                    {!FORMBACKEND_FORM_ID && (
-                                        <p className="development__note">(Email simulation in development mode)</p>
-                                    )}
+                                    <h4>Receipt Sent</h4>
+                                    <p>Confirmation sent to: <strong>{formData.email}</strong></p>
                                 </div>
                             </div>
                             <div className="email__sent">
                                 <i className="fas fa-store email__icon"></i>
                                 <div className="email__content">
-                                    <h4>Ready for Processing</h4>
-                                    <p>We&apos;ll prepare your items for delivery</p>
+                                    <h4>Order Processed</h4>
+                                    <p>Your order has been received successfully</p>
                                 </div>
                             </div>
                         </div>
@@ -531,38 +495,7 @@ const Checkout = () => {
                                 <i className="fas fa-print"></i>
                                 Print Receipt
                             </button>
-                            {/* Development Tools */}
-                            {!FORMBACKEND_FORM_ID && (
-                                <button 
-                                    className="btn btn-secondary"
-                                    onClick={() => {
-                                        setOrderComplete(false);
-                                        setOrderNumber('');
-                                    }}
-                                >
-                                    <i className="fas fa-redo"></i>
-                                    Test Again
-                                </button>
-                            )}
                         </div>
-
-                        {/* Development Information */}
-                        {!FORMBACKEND_FORM_ID && (
-                            <div className="development__info">
-                                <div className="development__notice">
-                                    <i className="fas fa-info-circle development__notice-icon"></i>
-                                    <div className="development__notice-content">
-                                        <h4>Testing Mode Active</h4>
-                                        <p>For production use, configure FormBackend:</p>
-                                        <ul>
-                                            <li>Create account at <a href="https://formbackend.com" target="_blank" rel="noopener noreferrer">formbackend.com</a></li>
-                                            <li>Get your Form ID</li>
-                                            <li>Add to .env: REACT_APP_FORMBACKEND_FORM_ID=your_form_id</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        )}
                     </div>
                 </div>
             </div>
@@ -573,14 +506,6 @@ const Checkout = () => {
         <div className="checkout">
             <div className="checkout__container">
                 <h1 className="checkout__title">Complete Your Order</h1>
-                
-                {/* Development Mode Indicator */}
-                {!FORMBACKEND_FORM_ID && (
-                    <div className="development__mode">
-                        <i className="fas fa-flask development__mode-icon"></i>
-                        <span className="development__mode-text">Development Mode - Form submissions are simulated</span>
-                    </div>
-                )}
                 
                 <div className="checkout__content">
                     <form className="checkout__form" onSubmit={handleSubmit}>
@@ -874,12 +799,7 @@ const Checkout = () => {
 
                         <div className="email__notice">
                             <i className="fas fa-info-circle email__notice-icon"></i>
-                            <p className="email__notice-text">
-                                {FORMBACKEND_FORM_ID 
-                                    ? "When you place this order, we'll automatically send order details to our store and a receipt to your email."
-                                    : "In development mode, order details are logged to the console for testing."
-                                }
-                            </p>
+                            <p className="email__notice-text">When you place this order, we'll automatically send order details to our store and a receipt to your email.</p>
                         </div>
                     </form>
 
