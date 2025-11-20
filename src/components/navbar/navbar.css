@@ -1,0 +1,249 @@
+.navbar {
+    background-color: #ffffff;
+    padding: 0.75rem 0;
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.nav-logo img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    transition: var(--transition);
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: clamp(1rem, 2vw, 2rem);
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-link {
+    font-weight: 500;
+    position: relative;
+    padding: 0.5rem 0;
+    font-size: clamp(0.9rem, 1.1vw, 1.1rem);
+    white-space: nowrap;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--accent);
+    transition: var(--transition);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 100%;
+}
+
+.nav-icons {
+    display: flex;
+    gap: clamp(0.75rem, 1.5vw, 1.5rem);
+    align-items: center;
+}
+
+.nav-icon {
+    font-size: clamp(1rem, 1.3vw, 1.3rem);
+    transition: var(--transition);
+    padding: 0.25rem;
+}
+
+.nav-icon:hover {
+    color: var(--accent);
+    transform: scale(1.1);
+}
+
+.hamburger {
+    display: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    padding: 0.25rem;
+    transition: var(--transition);
+}
+
+.hamburger:hover {
+    color: var(--accent);
+}
+
+.cart-icon {
+    position: relative;
+}
+
+.cart-count {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: var(--accent);
+    color: white;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+@media (max-width: 768px) {
+    .cart-count {
+        top: -6px;
+        right: -6px;
+        width: 16px;
+        height: 16px;
+        font-size: 0.65rem;
+    }
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 0.5rem 0;
+    }
+    
+    .hamburger {
+        display: block;
+    }
+
+    .nav-menu {
+        position: fixed;
+        left: -100%;
+        top: 70px;
+        flex-direction: column;
+        background-color: #ffffff;
+        width: 100%;
+        text-align: center;
+        transition: var(--transition);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        padding: 1.5rem 0;
+        gap: 1.5rem;
+        z-index: 999;
+    }
+
+    .nav-menu.active {
+        left: 0;
+    }
+
+    .nav-link {
+        font-size: 1.1rem;
+        padding: 0.75rem 0;
+        display: block;
+        width: 100%;
+    }
+
+    .nav-logo img {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+/* Tablet Styles */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .nav-container {
+        padding: 0 1rem;
+    }
+    
+    .nav-menu {
+        gap: 1.25rem;
+    }
+    
+    .nav-link {
+        font-size: 0.95rem;
+    }
+    
+    .nav-logo img {
+        width: 55px;
+        height: 55px;
+    }
+}
+
+/* Small Mobile Devices */
+@media (max-width: 480px) {
+    .navbar {
+        padding: 0.4rem 0;
+    }
+    
+    .nav-logo img {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .nav-icons {
+        gap: 0.5rem;
+    }
+    
+    .nav-icon {
+        font-size: 1.1rem;
+    }
+    
+    .hamburger {
+        font-size: 1.3rem;
+    }
+    
+    .nav-menu {
+        top: 62px;
+        padding: 1rem 0;
+        gap: 1rem;
+    }
+}
+
+/* Large Desktop Screens */
+@media (min-width: 1440px) {
+    .nav-container {
+        max-width: 1400px;
+    }
+    
+    .nav-menu {
+        gap: 2.5rem;
+    }
+    
+    .nav-link {
+        font-size: 1.15rem;
+    }
+}
+
+/* Extra Large Screens */
+@media (min-width: 1920px) {
+    .nav-container {
+        max-width: 1800px;
+    }
+}
+
+/* Prevent horizontal scroll on mobile */
+@media (max-width: 768px) {
+    .nav-container {
+        width: 95%;
+        margin: 0 auto;
+    }
+}
+
+/* Smooth transitions for all interactive elements */
+.nav-link, .nav-icon, .hamburger, .nav-logo img {
+    transition: var(--transition);
+}
+
+/* Active state for better UX */
+.nav-link.active {
+    color: var(--accent);
+    font-weight: 600;
+}
