@@ -7,6 +7,8 @@ import './home.css';
 import Blondie from '../../assets/Home/blondie.jpg';
 import SddBabyCurls from '../../assets/Home/sdd baby curls.jpg';
 import Iphone11Pro from '../../assets/Home/iphone 11 pro.jpg';
+import JeanHm from '../../assets/Home/jean hm.avif';
+
 import DonorHair from '../../assets/Hair/donor1.jpg';
 import CurlyHair from '../../assets/Hair/curly1.jpg';
 import SddCurls from '../../assets/Hair/sdd baby curls.jpg';
@@ -102,7 +104,9 @@ const Home = () => {
                         </Link>
                         <Link to="/jeans" className="category-card">
                             <div className="category-image">
-                                <div style={{ backgroundColor: '#2a2a2a', height: '100%' }}></div>
+                                <div style={{ backgroundColor: '#2a2a2a', height: '100%' }}>
+                                    <img src={JeanHm} alt="Latest Jeans" />
+                                </div>
                             </div>
                             <div className="category-card-content">
                                 <h3>Designer Jeans</h3>
@@ -113,7 +117,7 @@ const Home = () => {
                 </div>
             </section>
 
-            <section className="Home__products">
+            <section className="Home__products" id='Home__products'>
                 <div className="container">
                     <h2 className="section-title">Featured This Week</h2>
                     <div className="Home__product-grid">
