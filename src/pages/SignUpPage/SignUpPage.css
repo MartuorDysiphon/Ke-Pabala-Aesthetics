@@ -1,0 +1,134 @@
+.signup-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px;
+}
+
+.signup-card {
+  background: white;
+  border-radius: 12px;
+  padding: 40px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  max-width: 420px;
+  width: 100%;
+}
+
+.signup-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.signup-logo {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin: 0 auto 20px;
+  object-fit: cover;
+  display: block;
+}
+
+.signup-title {
+  font-size: 1.75rem;
+  font-weight: bold;
+  color: #1f2937;
+  margin-bottom: 8px;
+}
+
+.signup-subtitle {
+  color: #6b7280;
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* Clerk component styles - same as signin */
+.cl-rootBox {
+  width: 100%;
+}
+
+.cl-card {
+  box-shadow: none !important;
+  border: none !important;
+  padding: 0 !important;
+}
+
+.cl-header {
+  display: none !important;
+}
+
+.cl-socialButtonsBlockButton {
+  border: 1px solid #d1d5db !important;
+  border-radius: 8px !important;
+  transition: background-color 0.2s ease !important;
+  margin-bottom: 12px !important;
+}
+
+.cl-socialButtonsBlockButton:hover {
+  background-color: #f9fafb !important;
+}
+
+.cl-formButtonPrimary {
+  background-color: #2563eb !important;
+  border-radius: 8px !important;
+  padding: 12px !important;
+  font-weight: 500 !important;
+  transition: background-color 0.2s ease !important;
+  font-size: 14px !important;
+  margin-top: 16px !important;
+}
+
+.cl-formButtonPrimary:hover {
+  background-color: #1d4ed8 !important;
+}
+
+.cl-formFieldInput {
+  border: 1px solid #d1d5db !important;
+  border-radius: 8px !important;
+  transition: all 0.2s ease !important;
+  padding: 12px !important;
+  font-size: 14px !important;
+}
+
+.cl-formFieldInput:focus {
+  border-color: #2563eb !important;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1) !important;
+  outline: none !important;
+}
+
+.cl-footerActionLink {
+  color: #2563eb !important;
+  font-weight: 500 !important;
+  transition: color 0.2s ease !important;
+  text-decoration: none !important;
+  font-size: 14px !important;
+}
+
+.cl-footerActionLink:hover {
+  color: #1d4ed8 !important;
+  text-decoration: underline !important;
+}
+
+.cl-dividerLine {
+  background-color: #d1d5db !important;
+  margin: 24px 0 !important;
+}
+
+.cl-dividerText {
+  color: #6b7280 !important;
+  background-color: white !important;
+  padding: 0 12px !important;
+  font-size: 14px !important;
+}
+
+.cl-formFieldLabel {
+  font-size: 14px !important;
+  color: #374151 !important;
+  margin-bottom: 6px !important;
+}
+
+.cl-alert {
+  border-radius: 8px !important;
+  margin-bottom: 16px !important;
+}

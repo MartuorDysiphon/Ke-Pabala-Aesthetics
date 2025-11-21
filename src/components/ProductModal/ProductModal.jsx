@@ -1,3 +1,4 @@
+// ProductModal.jsx
 import React, { useState } from 'react';
 import { useCart } from '../../context/CartContext';
 import './ProductModal.css';
@@ -13,7 +14,8 @@ const ProductModal = ({ product, isOpen, onClose }) => {
         'Standard color', 
     ];
 
-    const hairSizes = ['12-14"', '14-16"', '16-18"', '18-20"', '20-22"', '22-24"', '24-26"', '26-28"'];
+    // Reduced to 3 hair sizes
+    const hairSizes = ['16-18"', '20-22"', '24-26"'];
 
     const handleAddToCart = () => {
         if (!selectedColor || !selectedSize) {

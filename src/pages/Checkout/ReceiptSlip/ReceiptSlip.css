@@ -1,0 +1,721 @@
+/* ReceiptSlip.css - Compact Premium Version with Larger Logo */
+:root {
+  --primary: #f8f3f0;
+  --secondary: #2a2a2a;
+  --accent: #c4a287;
+  --accent-light: #e7d5c9;
+  --text: #333333;
+  --text-light: #777777;
+  --success: #a3c9b8;
+  --luxury-gold: #C4A287;
+  --deep-charcoal: #1A1A1A;
+  --cream-white: #F8F3F0;
+  --soft-ivory: #FFFBF8;
+  --platinum: #E8E2DC;
+  --success-emerald: #10B981;
+  
+  /* Compact spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 0.75rem;
+  --spacing-lg: 1rem;
+  --spacing-xl: 1.5rem;
+  
+  --border-radius: 8px;
+  --shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+  --transition: all 0.2s ease;
+}
+
+.receipt-slip.compact {
+    min-height: 100vh;
+    padding: var(--spacing-md);
+    background: var(--cream-white);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    font-family: 'Segoe UI', 'Inter', system-ui, sans-serif;
+    font-size: 0.875rem;
+}
+
+.slip-container {
+    width: 100%;
+    max-width: 500px;
+    background: var(--soft-ivory);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    border: 1px solid var(--platinum);
+}
+
+/* Compact Header with Larger Logo */
+.slip-header {
+    background: linear-gradient(135deg, var(--deep-charcoal) 0%, #2a2a2a 100%);
+    color: var(--soft-ivory);
+    padding: var(--spacing-lg);
+    position: relative;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.brand-section {
+    display: flex;
+    align-items: center;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+.brand-logo {
+    width: 60px;
+    height: 120px;
+    border-radius: 8px;
+    object-fit: cover;
+    border: 2px solid var(--luxury-gold);
+    background: var(--soft-ivory);
+}
+
+.brand-text h1 {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin: 0 0 0.2rem 0;
+    color: var(--soft-ivory);
+    letter-spacing: 0.3px;
+    font-family: 'Segoe UI', 'Inter', system-ui, sans-serif;
+}
+
+.brand-text .tagline {
+    font-size: 0.8rem;
+    opacity: 0.8;
+    margin: 0;
+    font-weight: 300;
+}
+
+.order-info {
+    text-align: right;
+}
+
+.order-number {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+    color: var(--soft-ivory);
+}
+
+.order-date {
+    font-size: 0.75rem;
+    opacity: 0.7;
+    font-weight: 300;
+}
+
+/* Compact Info Cards */
+.info-sections.compact {
+    padding: var(--spacing-md);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-md);
+}
+
+.info-card.compact {
+    background: var(--soft-ivory);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-md);
+    border: 1px solid var(--platinum);
+    transition: var(--transition);
+}
+
+.info-card.compact:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow);
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-sm);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--deep-charcoal);
+}
+
+.card-header i {
+    color: var(--luxury-gold);
+    font-size: 0.8rem;
+}
+
+.card-content p {
+    margin: 0.2rem 0;
+    font-size: 0.75rem;
+    line-height: 1.3;
+}
+
+.customer-name {
+    font-weight: 600;
+    color: var(--deep-charcoal);
+}
+
+.customer-contact, .customer-email {
+    color: var(--text-light);
+}
+
+.delivery-address, .delivery-area {
+    color: var(--text);
+}
+
+.delivery-method.accent {
+    color: var(--luxury-gold);
+    font-weight: 600;
+    font-size: 0.7rem;
+}
+
+/* Compact Order Items */
+.order-items-section.compact {
+    padding: 0 var(--spacing-md);
+}
+
+.section-header.compact {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 1px solid var(--platinum);
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--deep-charcoal);
+}
+
+.section-title i {
+    color: var(--luxury-gold);
+    font-size: 0.9rem;
+}
+
+.items-table.compact {
+    background: var(--soft-ivory);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    border: 1px solid var(--platinum);
+}
+
+.table-header.compact {
+    display: grid;
+    grid-template-columns: 1fr 0.4fr 0.8fr;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: var(--deep-charcoal);
+    color: var(--soft-ivory);
+    font-weight: 600;
+    font-size: 0.75rem;
+    letter-spacing: 0.3px;
+}
+
+.table-body.compact {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.table-row.compact {
+    display: grid;
+    grid-template-columns: 1fr 0.4fr 0.8fr;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-bottom: 1px solid var(--platinum);
+    align-items: start;
+    font-size: 0.75rem;
+}
+
+.table-row.compact:last-child {
+    border-bottom: none;
+}
+
+.table-row.compact:hover {
+    background: var(--cream-white);
+}
+
+.item-name {
+    font-weight: 600;
+    color: var(--deep-charcoal);
+    margin-bottom: 0.2rem;
+    font-size: 0.75rem;
+}
+
+.item-variants {
+    display: flex;
+    gap: 0.3rem;
+    flex-wrap: wrap;
+}
+
+.variant {
+    background: var(--platinum);
+    padding: 0.1rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.65rem;
+    color: var(--text-light);
+    border: 1px solid var(--platinum);
+}
+
+.variant.custom {
+    background: var(--luxury-gold);
+    color: var(--deep-charcoal);
+    font-weight: 600;
+}
+
+.quantity {
+    font-weight: 600;
+    color: var(--deep-charcoal);
+}
+
+.amount {
+    font-weight: 600;
+    color: var(--deep-charcoal);
+    font-size: 0.8rem;
+}
+
+.empty-state.compact {
+    text-align: center;
+    padding: var(--spacing-lg);
+    color: var(--text-light);
+}
+
+.empty-state.compact i {
+    font-size: 1.5rem;
+    margin-bottom: var(--spacing-sm);
+    color: var(--platinum);
+}
+
+.empty-state.compact p {
+    font-size: 0.8rem;
+    margin: 0;
+}
+
+/* Compact Summary */
+.summary-section.compact {
+    padding: var(--spacing-md);
+}
+
+.summary-card.compact {
+    background: linear-gradient(135deg, var(--deep-charcoal) 0%, #2a2a2a 100%);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-md);
+    color: var(--soft-ivory);
+    border: 1px solid var(--platinum);
+}
+
+.summary-content {
+    max-width: 100%;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.3rem 0;
+    font-size: 0.8rem;
+}
+
+.summary-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--luxury-gold), transparent);
+    margin: 0.5rem 0;
+}
+
+.summary-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-top: 1px solid var(--luxury-gold);
+    margin-top: 0.3rem;
+}
+
+/* Compact Payment */
+.payment-section.compact {
+    padding: 0 var(--spacing-md) var(--spacing-md);
+}
+
+.payment-card.compact {
+    background: var(--soft-ivory);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-md);
+    border: 1px solid var(--platinum);
+}
+
+.payment-header.compact {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 1px solid var(--platinum);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--deep-charcoal);
+}
+
+.payment-header.compact i {
+    color: var(--luxury-gold);
+    font-size: 1rem;
+}
+
+.payment-instructions.compact p {
+    margin: 0 0 0.5rem 0;
+    color: var(--text);
+    font-weight: 500;
+    font-size: 0.8rem;
+    line-height: 1.3;
+}
+
+.bank-details {
+    background: var(--cream-white);
+    padding: var(--spacing-sm);
+    border-radius: 6px;
+    border-left: 2px solid var(--luxury-gold);
+    margin: var(--spacing-sm) 0;
+    border: 1px solid var(--platinum);
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.2rem 0;
+    font-size: 0.75rem;
+}
+
+.detail-row:last-child {
+    border-bottom: none;
+}
+
+.detail-row span:first-child {
+    color: var(--text-light);
+    font-weight: 500;
+}
+
+.highlight {
+    font-family: 'Courier New', monospace;
+    font-weight: 600;
+    color: var(--deep-charcoal);
+    background: rgba(196, 162, 135, 0.1);
+    padding: 0.1rem 0.4rem;
+    border-radius: 4px;
+    border: 1px solid var(--platinum);
+    font-size: 0.7rem;
+}
+
+/* Compact Footer with QR Code */
+.slip-footer.compact {
+    background: var(--deep-charcoal);
+    color: var(--soft-ivory);
+    padding: var(--spacing-lg);
+}
+
+.footer-content {
+    margin-bottom: var(--spacing-lg);
+}
+
+.thank-you.compact {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-lg);
+    text-align: left;
+}
+
+.thank-you.compact i {
+    color: var(--success-emerald);
+    font-size: 1.2rem;
+}
+
+.thank-you.compact h4 {
+    font-size: 1rem;
+    font-weight: 500;
+    margin: 0 0 0.1rem 0;
+    color: var(--soft-ivory);
+}
+
+.thank-you.compact p {
+    margin: 0;
+    opacity: 0.8;
+    font-size: 0.8rem;
+    font-weight: 300;
+}
+
+/* QR Code Section */
+.qr-section {
+    display: flex;
+    justify-content: center;
+    margin: var(--spacing-lg) 0;
+}
+
+.qr-code {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.05);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius);
+    border: 1px solid rgba(196, 162, 135, 0.2);
+}
+
+.qr-grid {
+    display: inline-block;
+    background: var(--soft-ivory);
+    padding: var(--spacing-sm);
+    border-radius: 6px;
+    border: 1px solid var(--platinum);
+}
+
+.qr-pattern {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    background: white;
+    border: 1px solid var(--platinum);
+}
+
+.qr-corner {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: var(--deep-charcoal);
+    border: 2px solid var(--deep-charcoal);
+}
+
+.qr-corner.tl {
+    top: 5px;
+    left: 5px;
+}
+
+.qr-corner.tr {
+    top: 5px;
+    right: 5px;
+}
+
+.qr-corner.bl {
+    bottom: 5px;
+    left: 5px;
+}
+
+.qr-data {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    right: 30px;
+    bottom: 30px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    gap: 2px;
+}
+
+.qr-dot {
+    background: var(--platinum);
+    border-radius: 1px;
+    transition: var(--transition);
+}
+
+.qr-dot.active {
+    background: var(--deep-charcoal);
+}
+
+.qr-text {
+    font-family: 'Courier New', monospace;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-top: var(--spacing-sm);
+    font-size: 0.75rem;
+    color: var(--soft-ivory);
+}
+
+.contact-info.compact {
+    display: flex;
+    gap: var(--spacing-lg);
+    justify-content: center;
+    margin-top: var(--spacing-lg);
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    font-size: 0.75rem;
+    opacity: 0.8;
+    font-weight: 300;
+}
+
+.contact-item i {
+    color: var(--luxury-gold);
+    font-size: 0.8rem;
+}
+
+/* Compact Action Buttons */
+.action-buttons.compact {
+    display: flex;
+    gap: var(--spacing-sm);
+    justify-content: center;
+}
+
+.btn-compact {
+    padding: 0.6rem 1rem;
+    border: none;
+    border-radius: var(--border-radius);
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    font-size: 0.8rem;
+    min-width: 120px;
+    justify-content: center;
+}
+
+.btn-compact.primary {
+    background: linear-gradient(135deg, var(--luxury-gold) 0%, #b08f76 100%);
+    color: var(--deep-charcoal);
+}
+
+.btn-compact.secondary {
+    background: var(--text-light);
+    color: var(--soft-ivory);
+}
+
+.btn-compact:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Print Styles */
+@media print {
+    .receipt-slip.compact {
+        background: white !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    
+    .slip-container {
+        box-shadow: none !important;
+        max-width: 100% !important;
+        border-radius: 0 !important;
+        margin: 0 !important;
+    }
+    
+    .action-buttons {
+        display: none !important;
+    }
+    
+    .slip-header {
+        background: var(--deep-charcoal) !important;
+        color: var(--soft-ivory) !important;
+    }
+    
+    .summary-card.compact {
+        background: var(--deep-charcoal) !important;
+        color: var(--soft-ivory) !important;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .receipt-slip.compact {
+        padding: var(--spacing-sm);
+    }
+    
+    .header-content {
+        flex-direction: column;
+        text-align: center;
+        gap: var(--spacing-sm);
+    }
+    
+    .order-info {
+        text-align: center;
+        margin-top: var(--spacing-sm);
+    }
+    
+    .logo-container {
+        justify-content: center;
+    }
+    
+    .info-sections.compact {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-sm);
+        padding: var(--spacing-sm);
+    }
+    
+    .contact-info.compact {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+    }
+    
+    .action-buttons.compact {
+        flex-direction: column;
+    }
+    
+    .btn-compact {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .slip-header,
+    .info-sections.compact,
+    .order-items-section.compact,
+    .summary-section.compact,
+    .payment-section.compact,
+    .slip-footer.compact {
+        padding: var(--spacing-sm);
+    }
+    
+    .brand-text h1 {
+        font-size: 1.1rem;
+    }
+    
+    .brand-logo {
+        width: 50px;
+        height: 100px;
+    }
+    
+    .qr-pattern {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .qr-data {
+        top: 25px;
+        left: 25px;
+        right: 25px;
+        bottom: 25px;
+    }
+}
+
+/* Scrollbar Styling */
+.table-body.compact::-webkit-scrollbar {
+    width: 4px;
+}
+
+.table-body.compact::-webkit-scrollbar-track {
+    background: var(--platinum);
+    border-radius: 2px;
+}
+
+.table-body.compact::-webkit-scrollbar-thumb {
+    background: var(--luxury-gold);
+    border-radius: 2px;
+}
+
+.table-body.compact::-webkit-scrollbar-thumb:hover {
+    background: var(--accent);
+}

@@ -1,4 +1,7 @@
+// home.jsx
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import ProductModal from '../../components/ProductModal/ProductModal';
 import './home.css';
 
 import Blondie from '../../assets/Home/blondie.jpg';
@@ -10,6 +13,54 @@ import SddCurls from '../../assets/Hair/sdd baby curls.jpg';
 import Iphone from '../../assets/Iphones/iphone xr.jpg';
 
 const Home = () => {
+    const [selectedProduct, setSelectedProduct] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const featuredProducts = [
+        {
+            id: 1,
+            name: "Matladi Donor Hair",
+            price: "1189.99",
+            image: DonorHair,
+            category: "Luxury Hair",
+            length: "Various Lengths"
+        },
+        {
+            id: 2,
+            name: "Faith Wave Curls",
+            price: "619.99",
+            image: CurlyHair,
+            category: "Luxury Hair",
+            length: "Various Lengths"
+        },
+        {
+            id: 3,
+            name: "SDD Baby Curls",
+            price: "899.99",
+            image: SddCurls,
+            category: "Luxury Hair",
+            length: "Various Lengths"
+        },
+        {
+            id: 4,
+            name: "iPhone 11 Pro",
+            price: "6399.99",
+            image: Iphone,
+            category: "iPhone",
+            length: "64GB/256GB"
+        }
+    ];
+
+    const openProductModal = (product) => {
+        setSelectedProduct(product);
+        setIsModalOpen(true);
+    };
+
+    const closeProductModal = () => {
+        setIsModalOpen(false);
+        setSelectedProduct(null);
+    };
+
     return (
         <>
             <section className="hero">
@@ -66,45 +117,42 @@ const Home = () => {
                 <div className="container">
                     <h2 className="section-title">Featured This Week</h2>
                     <div className="Home__product-grid">
-                        <div className="Home__product-card">
-                            <div className="Home__product-img">
-                                <img src={DonorHair} alt="Matladi Donor Hair" />
+                        {featuredProducts.map(product => (
+                            <div 
+                                key={product.id} 
+                                className="Home__product-card"
+                                onClick={() => openProductModal(product)}
+                            >
+                                <div className="Home__product-img">
+                                    <img src={product.image} alt={product.name} />
+                                    <button 
+                                        className="Home__add-to-cart-btn"
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            openProductModal(product);
+                                        }}
+                                        aria-label={`Add ${product.name} to cart`}
+                                    >
+                                        <i className="fas fa-shopping-cart"></i>
+                                    </button>
+                                </div>
+                                <div className="Home__product-info">
+                                    <h3 className="Home__product-title">{product.name}</h3>
+                                    <p className="Home__product-price">From R{product.price}</p>
+                                </div>
                             </div>
-                            <div className="Home__product-info">
-                                <h3 className="Home__product-title">Matladi Donor Hair</h3>
-                                <p className="Home__product-price">From R1189.99</p>
-                            </div>
-                        </div>
-                        <div className="Home__product-card">
-                            <div className="Home__product-img">
-                                <img src={CurlyHair} alt="Faith Wave Curls" />
-                            </div>
-                            <div className="Home__product-info">
-                                <h3 className="Home__product-title">Faith Wave Curls</h3>
-                                <p className="Home__product-price">From R619.99</p>
-                            </div>
-                        </div>
-                        <div className="Home__product-card">
-                            <div className="Home__product-img">
-                                <img src={SddCurls} alt="SDD Baby Curls" />
-                            </div>
-                            <div className="Home__product-info">
-                                <h3 className="Home__product-title">SDD Baby Curls</h3>
-                                <p className="Home__product-price">From R899.99</p>
-                            </div>
-                        </div>
-                        <div className="Home__product-card">
-                            <div className="Home__product-img">
-                                <img src={Iphone} alt="iPhone 11 Pro" />
-                            </div>
-                            <div className="Home__product-info">
-                                <h3 className="Home__product-title">iPhone 11 Pro</h3>
-                                <p className="Home__product-price">From R6399.99</p>
-                            </div>
-                        </div>
+                        ))}
                     </div>
                 </div>
             </section>
+
+            {selectedProduct && (
+                <ProductModal
+                    product={selectedProduct}
+                    isOpen={isModalOpen}
+                    onClose={closeProductModal}
+                />
+            )}
         </>
     );
 };

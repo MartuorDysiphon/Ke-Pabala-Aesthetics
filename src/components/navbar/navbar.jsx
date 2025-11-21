@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useCart } from '../../context/CartContext';
+import { UserButton, useUser, SignInButton } from '@clerk/clerk-react';
 import './navbar.css';
 
 import Logo from '../../assets/Logo/IMG.jpg';
@@ -10,6 +11,7 @@ const Navbar = () => {
     const location = useLocation();
     const { getTotalItems } = useCart();
     const [cartItemsCount, setCartItemsCount] = useState(0);
+    const { isSignedIn } = useUser();
 
     useEffect(() => {
         setCartItemsCount(getTotalItems());
@@ -75,9 +77,24 @@ const Navbar = () => {
                             <span className="cart-count">{cartItemsCount}</span>
                         )}
                     </Link>
-                    <a href="/" className="nav-icon" aria-label="User Account">
-                        <i className="fas fa-user"></i>
-                    </a>
+                    
+                    {/* Clerk authentication - redirect version */}
+                    {isSignedIn ? (
+                        <UserButton 
+                            appearance={{
+                                elements: {
+                                    rootBox: "nav-icon",
+                                    userButtonAvatarBox: "w-6 h-6"
+                                }
+                            }} 
+                        />
+                    ) : (
+                        <SignInButton mode="redirect" redirectUrl="/">
+                            <button className="nav-icon" aria-label="Sign In">
+                                <i className="fas fa-user"></i>
+                            </button>
+                        </SignInButton>
+                    )}
                 </div>
 
                 <div 

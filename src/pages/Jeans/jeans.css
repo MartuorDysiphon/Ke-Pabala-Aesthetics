@@ -1,189 +1,199 @@
-/* .category-page {
-    padding: var(--spacing-lg) 0;
-    min-height: 70vh;
+/* Jeans.css */
+.jp-page {
+    min-height: 100vh;
+    background: var(--background);
 }
 
-.category-header {
+.jp-hero {
+    padding: var(--spacing-xl) 0;
+    background: linear-gradient(135deg, var(--primary-light) 0%, #ffffff 100%);
     text-align: center;
-    margin-bottom: var(--spacing-lg);
 }
 
-.page-subtitle {
-    font-size: 1.2rem;
-    color: var(--text-light);
-    margin-bottom: var(--spacing-md);
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.filters-section {
-    display: flex;
-    gap: var(--spacing-lg);
-    margin-bottom: var(--spacing-lg);
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.filter-group {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-sm);
-}
-
-.filter-group h4 {
-    margin-bottom: 0.5rem;
+.jp-hero-content h1 {
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    margin-bottom: var(--spacing-sm);
+    line-height: 1.2;
     color: var(--text);
-    font-weight: 600;
 }
 
-.filter-options {
+.jp-hero-content p {
+    font-size: 1.1rem;
+    color: var(--text-light);
+    max-width: 500px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+.jp-products {
+    padding: var(--spacing-lg) 0;
+}
+
+.jp-filter-bar {
     display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-lg);
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 1px solid var(--accent-light);
 }
 
-.filter-btn {
-    padding: 0.5rem 1rem;
-    border: 1px solid var(--accent-light);
-    background: white;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: var(--transition);
+.jp-section-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0;
+}
+
+.jp-stats {
+    color: var(--text-light);
     font-size: 0.9rem;
 }
 
-.filter-btn:hover,
-.filter-btn.active {
-    background: var(--accent);
-    color: white;
-    border-color: var(--accent);
-}
-
-.product-grid {
+.jp-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: var(--spacing-md);
 }
 
-.product-card {
+.jp-card {
     background: white;
-    border-radius: var(--border-radius);
+    border-radius: 8px;
     overflow: hidden;
-    box-shadow: var(--shadow);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     transition: var(--transition);
+    position: relative;
+    cursor: pointer;
     height: fit-content;
 }
 
-.product-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+.jp-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
 }
 
-.product-img {
+.jp-card-image {
     background-color: #f5f5f5;
     position: relative;
-}
-
-.product-img img {
-    width: 100%;
+    overflow: hidden;
     height: 350px;
+}
+
+.jp-card-image img {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
+    transition: var(--transition);
 }
 
-.brand-badge {
+.jp-card:hover .jp-card-image img {
+    transform: scale(1.05);
+}
+
+.jp-add-to-cart-btn {
     position: absolute;
-    top: 10px;
-    left: 10px;
-    background: var(--secondary);
+    top: 0.75rem;
+    right: 0.75rem;
+    background: var(--accent);
     color: white;
-    padding: 0.25rem 0.75rem;
-    border-radius: 12px;
-    font-size: 0.8rem;
-    font-weight: 600;
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition);
+    opacity: 1;
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    z-index: 2;
 }
 
-.product-info {
-    padding: var(--spacing-sm);
+.jp-add-to-cart-btn:hover {
+    background: var(--accent-dark);
+    transform: scale(1.1);
 }
 
-.product-title {
+.jp-card-info {
+    padding: 1rem;
+    text-align: center;
+}
+
+.jp-card-title {
     font-weight: 600;
-    margin-bottom: var(--spacing-sm);
+    margin-bottom: 0.3rem;
+    font-size: 1rem;
+    line-height: 1.3;
+    color: var(--text);
+}
+
+.jp-card-category {
+    color: var(--text-light);
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+}
+
+.jp-card-price {
+    color: var(--accent);
+    font-weight: 700;
     font-size: 1.1rem;
 }
 
-.product-details {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-    margin-bottom: var(--spacing-sm);
-}
-
-.detail {
-    color: var(--text-light);
-    font-size: 0.9rem;
-}
-
-.product-price {
-    color: var(--accent);
-    font-weight: 700;
-    font-size: 1.2rem;
-    margin-bottom: var(--spacing-sm);
-}
-
-.product-actions {
-    display: flex;
-    gap: 0.5rem;
-    flex-direction: column;
-}
-
-.btn-outline {
-    background: transparent;
-    border: 2px solid var(--secondary);
-    color: var(--secondary);
-}
-
-.btn-outline:hover {
-    background: var(--secondary);
-    color: var(--primary);
-}
-
 @media (max-width: 768px) {
-    .filters-section {
+    .jp-filter-bar {
         flex-direction: column;
-        align-items: center;
-        gap: var(--spacing-md);
+        gap: var(--spacing-sm);
+        text-align: center;
     }
-    
-    .filter-group {
-        align-items: center;
-    }
-    
-    .product-grid {
+
+    .jp-grid {
         grid-template-columns: repeat(2, 1fr);
     }
-    
-    .product-img img {
-        height: 250px;
+
+    .jp-card-image {
+        height: 280px;
+    }
+
+    .jp-add-to-cart-btn {
+        width: 32px;
+        height: 32px;
+        top: 0.5rem;
+        right: 0.5rem;
     }
 }
 
 @media (max-width: 480px) {
-    .product-grid {
+    .jp-hero {
+        padding: var(--spacing-lg) 0;
+    }
+
+    .jp-grid {
         grid-template-columns: 1fr;
+        gap: var(--spacing-md);
     }
-    
-    .product-actions {
-        flex-direction: row;
+
+    .jp-card-image {
+        height: 300px;
     }
-    
-    .btn {
-        flex: 1;
-        text-align: center;
+
+    .jp-card-title {
+        font-size: 0.95rem;
     }
-    
-    .filter-options {
-        justify-content: center;
+
+    .jp-card-price {
+        font-size: 1rem;
     }
-} */
+
+    .jp-add-to-cart-btn {
+        width: 30px;
+        height: 30px;
+        top: 0.4rem;
+        right: 0.4rem;
+    }
+
+    .jp-add-to-cart-btn i {
+        font-size: 0.9rem;
+    }
+}

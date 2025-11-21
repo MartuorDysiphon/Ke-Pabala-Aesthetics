@@ -65,6 +65,8 @@
     font-size: clamp(1rem, 1.3vw, 1.3rem);
     transition: var(--transition);
     padding: 0.25rem;
+    border: none;
+    background-color: transparent;
 }
 
 .nav-icon:hover {
@@ -246,4 +248,70 @@
 .nav-link.active {
     color: var(--accent);
     font-weight: 600;
+}
+
+
+
+.auth-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.modal-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 400px;
+  width: 90%;
+  position: relative;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #666;
+  padding: 0.25rem;
+}
+
+.close-btn:hover {
+  color: var(--accent);
+}
+
+.auth-switch {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+.auth-link {
+  background: none;
+  border: none;
+  color: var(--accent);
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* Clerk component adjustments */
+.cl-rootBox {
+  width: 100%;
+}
+
+.cl-userButtonBox {
+  display: flex;
+  align-items: center;
 }

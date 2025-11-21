@@ -1,5 +1,5 @@
-/* IphoneModal.css */
-.ipmod-overlay {
+/* JeansModal.css */
+.jpmodal-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -13,7 +13,7 @@
     padding: 0.5rem;
 }
 
-.ipmod-content {
+.jpmodal-content {
     background: white;
     border-radius: 12px;
     max-width: 800px;
@@ -24,7 +24,7 @@
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
 }
 
-.ipmod-close {
+.jpmodal-close {
     position: absolute;
     top: 0.75rem;
     right: 0.75rem;
@@ -42,39 +42,40 @@
     font-size: 0.9rem;
 }
 
-.ipmod-close:hover {
+.jpmodal-close:hover {
     background: rgba(0, 0, 0, 0.15);
 }
 
-.ipmod-body {
+.jpmodal-body {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1.5rem;
     padding: 1.5rem;
 }
 
-.ipmod-image {
+.jpmodal-image {
     display: flex;
     align-items: center;
     justify-content: center;
     background: #f8f9fa;
     border-radius: 8px;
-    padding: 1.5rem;
+    height: 400px;
 }
 
-.ipmod-image img {
+.jpmodal-image img {
     width: 100%;
-    height: 280px;
-    object-fit: contain;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
 }
 
-.ipmod-details {
+.jpmodal-details {
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
 }
 
-.ipmod-title {
+.jpmodal-title {
     font-size: 1.4rem;
     font-weight: 700;
     color: var(--text);
@@ -82,43 +83,22 @@
     line-height: 1.3;
 }
 
-.ipmod-category {
+.jpmodal-category {
     color: var(--text-light);
     font-size: 0.85rem;
     margin: 0;
-}
-
-.ipmod-specs-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.75rem;
-    padding: 0.75rem;
-    background: var(--primary-light);
-    border-radius: 8px;
-}
-
-.ipmod-spec-item {
-    display: flex;
-    flex-direction: column;
-    gap: 0.2rem;
-}
-
-.ipmod-spec-label {
-    font-size: 0.75rem;
-    color: var(--text-light);
-    font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 
-.ipmod-spec-value {
-    font-size: 0.85rem;
+.jpmodal-description {
+    line-height: 1.5;
     color: var(--text);
-    font-weight: 500;
-    line-height: 1.3;
+    margin: 0;
+    font-size: 0.9rem;
 }
 
-.ipmod-price-section {
+.jpmodal-price-section {
     display: flex;
     flex-direction: column;
     gap: 0.4rem;
@@ -127,43 +107,43 @@
     border-radius: 8px;
 }
 
-.ipmod-price {
+.jpmodal-price {
     font-size: 1.3rem;
     font-weight: 700;
     color: var(--accent);
 }
 
-.ipmod-total-price {
+.jpmodal-total-price {
     font-size: 1.1rem;
     font-weight: 700;
     color: var(--secondary);
 }
 
-.ipmod-options-section {
+.jpmodal-options-section {
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
 }
 
-.ipmod-option-group {
+.jpmodal-option-group {
     display: flex;
     flex-direction: column;
     gap: 0.6rem;
 }
 
-.ipmod-option-label {
+.jpmodal-option-label {
     font-weight: 600;
     color: var(--text);
     font-size: 0.85rem;
 }
 
-.ipmod-storage-options, .ipmod-color-options, .ipmod-condition-options {
+.jpmodal-size-options, .jpmodal-color-options {
     display: flex;
     flex-wrap: wrap;
     gap: 0.4rem;
 }
 
-.ipmod-storage-option, .ipmod-color-option, .ipmod-condition-option {
+.jpmodal-size-option, .jpmodal-color-option {
     padding: 0.5rem 0.8rem;
     border: 1.5px solid var(--accent-light);
     background: white;
@@ -173,49 +153,29 @@
     font-size: 0.8rem;
     color: var(--text);
     flex: 1;
-    min-width: 80px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.2rem;
+    min-width: 60px;
+    text-align: center;
 }
 
-.ipmod-storage-option:hover, .ipmod-color-option:hover, .ipmod-condition-option:hover {
+.jpmodal-size-option:hover, .jpmodal-color-option:hover {
     border-color: var(--accent);
     transform: translateY(-1px);
 }
 
-.ipmod-storage-option.selected, .ipmod-color-option.selected, .ipmod-condition-option.selected {
+.jpmodal-size-option.selected, .jpmodal-color-option.selected {
     background: var(--accent);
     color: white;
     border-color: var(--accent);
 }
 
-.ipmod-price-addon {
-    font-size: 0.65rem;
-    color: var(--success);
-    font-weight: 600;
-}
-
-.ipmod-price-discount {
-    font-size: 0.65rem;
-    color: var(--error);
-    font-weight: 600;
-}
-
-.ipmod-storage-option.selected .ipmod-price-addon,
-.ipmod-condition-option.selected .ipmod-price-discount {
-    color: white;
-}
-
-.ipmod-quantity-selector {
+.jpmodal-quantity-selector {
     display: flex;
     align-items: center;
     gap: 0.8rem;
     width: fit-content;
 }
 
-.ipmod-quantity-btn {
+.jpmodal-quantity-btn {
     width: 34px;
     height: 34px;
     border: 1.5px solid var(--accent-light);
@@ -230,23 +190,23 @@
     transition: var(--transition);
 }
 
-.ipmod-quantity-btn:hover {
+.jpmodal-quantity-btn:hover {
     border-color: var(--accent);
     background: var(--accent-light);
 }
 
-.ipmod-quantity-display {
+.jpmodal-quantity-display {
     font-size: 1rem;
     font-weight: 600;
     min-width: 34px;
     text-align: center;
 }
 
-.ipmod-actions {
+.jpmodal-actions {
     margin-top: 0.8rem;
 }
 
-.ipmod-add-to-cart-btn {
+.jpmodal-add-to-cart-btn {
     width: 100%;
     padding: 0.8rem 1.5rem;
     font-size: 1rem;
@@ -264,97 +224,88 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.ipmod-add-to-cart-btn:hover:not(:disabled) {
+.jpmodal-add-to-cart-btn:hover:not(:disabled) {
     background: var(--accent-dark);
     transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-.ipmod-add-to-cart-btn:disabled {
+.jpmodal-add-to-cart-btn:disabled {
     background: var(--text-light);
     cursor: not-allowed;
     transform: none;
     box-shadow: none;
 }
 
-.ipmod-features {
+.jpmodal-features {
     margin-top: 1.25rem;
     padding-top: 1.25rem;
     border-top: 1px solid var(--accent-light);
 }
 
-.ipmod-features h4 {
+.jpmodal-features h4 {
     margin-bottom: 0.6rem;
     color: var(--text);
     font-size: 0.95rem;
 }
 
-.ipmod-features ul {
+.jpmodal-features ul {
     list-style: none;
     padding: 0;
     margin: 0;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: 0.3rem;
 }
 
-.ipmod-features li {
+.jpmodal-features li {
     padding: 0.2rem 0;
     color: var(--text-light);
     font-size: 0.8rem;
 }
 
 @media (max-width: 768px) {
-    .ipmod-body {
+    .jpmodal-body {
         grid-template-columns: 1fr;
         padding: 1.25rem;
         gap: 1.25rem;
     }
     
-    .ipmod-image img {
-        height: 220px;
+    .jpmodal-image {
+        height: 300px;
     }
     
-    .ipmod-storage-options, .ipmod-color-options, .ipmod-condition-options {
+    .jpmodal-size-options, .jpmodal-color-options {
         justify-content: center;
     }
     
-    .ipmod-features ul {
-        grid-template-columns: 1fr;
-    }
-    
-    .ipmod-add-to-cart-btn {
+    .jpmodal-add-to-cart-btn {
         padding: 0.7rem 1.25rem;
         font-size: 0.95rem;
     }
 }
 
 @media (max-width: 480px) {
-    .ipmod-content {
+    .jpmodal-content {
         margin: 0.25rem;
     }
     
-    .ipmod-body {
+    .jpmodal-body {
         padding: 1rem;
     }
     
-    .ipmod-title {
+    .jpmodal-title {
         font-size: 1.2rem;
     }
     
-    .ipmod-storage-option, .ipmod-color-option, .ipmod-condition-option {
-        min-width: 70px;
+    .jpmodal-size-option, .jpmodal-color-option {
+        min-width: 55px;
         font-size: 0.75rem;
         padding: 0.4rem 0.6rem;
     }
     
-    .ipmod-add-to-cart-btn {
+    .jpmodal-add-to-cart-btn {
         padding: 0.6rem 1rem;
         font-size: 0.9rem;
-    }
-    
-    .ipmod-specs-grid {
-        grid-template-columns: 1fr;
-        gap: 0.5rem;
     }
 }
