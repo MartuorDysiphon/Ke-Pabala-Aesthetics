@@ -197,3 +197,168 @@
         font-size: 0.9rem;
     }
 }
+
+/* Add to jeans.css */
+
+/* iPhone Mini Series (12/13 Mini) */
+@media (width: 360px) and (height: 780px) {
+    .jp-hero {
+        padding: var(--spacing-sm) 0;
+    }
+    
+    .jp-hero-content h1 {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .jp-hero-content p {
+        font-size: 0.85rem;
+        max-width: 320px;
+    }
+    
+    .jp-products {
+        padding: var(--spacing-md) 0;
+    }
+    
+    .jp-section-title {
+        font-size: 1.3rem;
+    }
+    
+    .jp-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem;
+    }
+    
+    .jp-card-image {
+        height: 120px;
+    }
+    
+    .jp-card-info {
+        padding: 0.5rem;
+    }
+    
+    .jp-card-title {
+        font-size: 0.8rem;
+    }
+    
+    .jp-card-category {
+        font-size: 0.75rem;
+    }
+    
+    .jp-card-price {
+        font-size: 0.85rem;
+    }
+}
+
+/* iPhone Standard (11 Pro, 15/15 Pro) */
+@media (width: 390px) and (height: 844px) {
+    .jp-hero {
+        padding: var(--spacing-md) 0;
+    }
+    
+    .jp-hero-content h1 {
+        font-size: 1.6rem;
+    }
+    
+    .jp-hero-content p {
+        font-size: 0.9rem;
+        max-width: 350px;
+    }
+    
+    .jp-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+    }
+    
+    .jp-card-image {
+        height: 140px;
+    }
+    
+    .jp-card-title {
+        font-size: 0.85rem;
+    }
+}
+
+/* iPhone Plus/Max Group 1 */
+@media (width: 414px) and (height: 896px), 
+       (width: 428px) and (height: 926px) {
+    .jp-hero-content h1 {
+        font-size: 1.7rem;
+    }
+    
+    .jp-hero-content p {
+        font-size: 0.9rem;
+    }
+    
+    .jp-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+    
+    .jp-card-image {
+        height: 160px;
+    }
+}
+
+/* iPhone Plus/Max Group 2 */
+@media (width: 430px) and (height: 932px) {
+    .jp-hero-content h1 {
+        font-size: 1.8rem;
+    }
+    
+    .jp-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+    
+    .jp-card-image {
+        height: 180px;
+    }
+}
+
+/* Universal small-screen scaling for jeans */
+@media (max-width: 430px) {
+    .jp-filter-bar {
+        margin-bottom: var(--spacing-md);
+        padding-bottom: 0.5rem;
+    }
+    
+    .jp-stats {
+        font-size: 0.8rem;
+    }
+    
+    .jp-add-to-cart-btn {
+        width: 32px;
+        height: 32px;
+        top: 0.4rem;
+        right: 0.4rem;
+    }
+    
+    /* Ensure 2-column grid stays consistent */
+    .jp-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Optimize existing media queries */
+@media (max-width: 768px) {
+    .jp-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-sm);
+    }
+    
+    .jp-card-image {
+        height: 180px;
+    }
+}
+
+@media (max-width: 480px) {
+    .jp-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+    }
+    
+    .jp-card-image {
+        height: 140px;
+    }
+}

@@ -1,11 +1,15 @@
-// Checkout.jsx
+// Checkout.jsx - Complete Updated Version
 import React, { useState } from 'react';
 import { useCart } from '../../context/CartContext';
+import { useUser } from '@clerk/clerk-react';
 import ReceiptSlip from './ReceiptSlip/ReceiptSlip';
 import './Checkout.css';
 
+const API_BASE = process.env.REACT_APP_API_URL || 'https://pabala-aesthetics.onrender.com/api';
+
 const Checkout = () => {
     const { cart, getTotalPrice, clearCart } = useCart();
+    const { user } = useUser();
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
@@ -78,6 +82,23 @@ const Checkout = () => {
             return;
         }
 
+        // Email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(formData.email)) {
+            alert('Please enter a valid email address.');
+            setIsSubmitting(false);
+            return;
+        }
+
+        // Phone validation (South African format)
+        const phoneRegex = /^(\+27|0)[1-9][0-9]{8}$/;
+        const cleanedPhone = formData.phone.replace(/\s/g, '');
+        if (!phoneRegex.test(cleanedPhone)) {
+            alert('Please enter a valid South African phone number.');
+            setIsSubmitting(false);
+            return;
+        }
+
         try {
             const newOrderNumber = generateOrderNumber();
             setOrderNumber(newOrderNumber);
@@ -85,18 +106,54 @@ const Checkout = () => {
             // Store cart data before clearing
             const cartSnapshot = {
                 items: [...cart.items],
-                total: getTotalPrice ? getTotalPrice() : cart.items.reduce((sum, item) => sum + (parseFloat(item.price) * item.quantity), 0)
+                total: getTotalPrice()
             };
             setOrderCart(cartSnapshot);
             
-            await new Promise(resolve => setTimeout(resolve, 1500));
+            // Create order in backend if user is logged in
+            if (user) {
+                try {
+                    const orderResponse = await fetch(`${API_BASE}/orders/${user.id}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            items: cart.items,
+                            customerInfo: formData,
+                            deliveryMethod: selectedDelivery,
+                            paymentMethod: formData.paymentMethod,
+                            subtotal: subtotal,
+                            deliveryCost: deliveryCost,
+                            total: total
+                        })
+                    });
+
+                    if (!orderResponse.ok) {
+                        const errorData = await orderResponse.json();
+                        throw new Error(errorData.error || 'Failed to create order');
+                    }
+
+                    console.log('Order created successfully in backend');
+                } catch (backendError) {
+                    console.error('Backend order creation failed:', backendError);
+                    // Continue with frontend order process even if backend fails
+                }
+            } else {
+                console.log('User not logged in, order saved locally only');
+            }
+            
+            // Simulate payment processing
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            
+            // Clear cart after successful order
+            clearCart();
             
             setOrderComplete(true);
             setShowReceipt(true);
             
-            // Clear cart after showing receipt
-            clearCart();
         } catch (error) {
+            console.error('Order processing error:', error);
             alert('Failed to process order. Please try again.');
         } finally {
             setIsSubmitting(false);
@@ -104,7 +161,7 @@ const Checkout = () => {
     };
 
     const selectedDelivery = deliveryOptions.find(d => d.id === formData.deliveryMethod);
-    const subtotal = getTotalPrice ? getTotalPrice() : cart.items.reduce((sum, item) => sum + (parseFloat(item.price) * item.quantity), 0);
+    const subtotal = getTotalPrice();
     const deliveryCost = selectedDelivery ? selectedDelivery.cost : 0;
     const total = subtotal + deliveryCost;
 
@@ -136,8 +193,22 @@ const Checkout = () => {
                         <div className="detail-item">
                             <i className="fas fa-envelope"></i>
                             <div>
-                                <h4>Receipt Sent</h4>
-                                <p>Sent to: <strong>{formData.email}</strong></p>
+                                <h4>Order Confirmed</h4>
+                                <p>Order #<strong>{orderNumber}</strong> has been placed</p>
+                            </div>
+                        </div>
+                        <div className="detail-item">
+                            <i className="fas fa-truck"></i>
+                            <div>
+                                <h4>Delivery</h4>
+                                <p><strong>{selectedDelivery?.name}</strong> - {selectedDelivery?.time}</p>
+                            </div>
+                        </div>
+                        <div className="detail-item">
+                            <i className="fas fa-credit-card"></i>
+                            <div>
+                                <h4>Payment</h4>
+                                <p>{paymentMethods.find(p => p.id === formData.paymentMethod)?.name}</p>
                             </div>
                         </div>
                     </div>
@@ -490,7 +561,7 @@ const Checkout = () => {
                             ) : (
                                 <>
                                     <i className="fas fa-lock"></i>
-                                    Pay R{total.toFixed(2)}
+                                    Complete Order - R{total.toFixed(2)}
                                 </>
                             )}
                         </button>
@@ -500,6 +571,13 @@ const Checkout = () => {
                     <aside className="checkout-summary">
                         <h3 className="summary-title">Order Summary</h3>
                         
+                        <div className="order-header">
+                            <div className="order-meta">
+                                <span className="item-count">{cart.items.length} items</span>
+                                <span className="order-total">R{getTotalPrice().toFixed(2)}</span>
+                            </div>
+                        </div>
+
                         <div className="cart-items">
                             {cart.items.length === 0 ? (
                                 <div className="empty-cart-message">
@@ -516,7 +594,10 @@ const Checkout = () => {
                                                 className="item-image"
                                                 onError={(e) => {
                                                     e.target.style.display = 'none';
-                                                    e.target.nextSibling.style.display = 'flex';
+                                                    const placeholder = e.target.nextSibling;
+                                                    if (placeholder) {
+                                                        placeholder.style.display = 'flex';
+                                                    }
                                                 }}
                                             />
                                             <div className="image-placeholder">

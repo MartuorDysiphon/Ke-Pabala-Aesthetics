@@ -719,3 +719,448 @@
 .table-body.compact::-webkit-scrollbar-thumb:hover {
     background: var(--accent);
 }
+
+/* Add to ReceiptSlip.css */
+
+/* iPhone Mini Series (12/13 Mini) */
+@media (width: 360px) and (height: 780px) {
+    .receipt-slip.compact {
+        padding: 0.25rem;
+        min-height: 100vh;
+    }
+    
+    .slip-container {
+        max-width: 100%;
+        border-radius: 8px;
+    }
+    
+    .slip-header {
+        padding: 0.75rem;
+    }
+    
+    .brand-logo {
+        width: 45px;
+        height: 90px;
+        border-radius: 6px;
+    }
+    
+    .brand-text h1 {
+        font-size: 1rem;
+        margin-bottom: 0.1rem;
+    }
+    
+    .brand-text .tagline {
+        font-size: 0.7rem;
+    }
+    
+    .order-number {
+        font-size: 0.8rem;
+    }
+    
+    .order-date {
+        font-size: 0.65rem;
+    }
+    
+    .info-sections.compact {
+        padding: 0.5rem;
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+    }
+    
+    .info-card.compact {
+        padding: 0.75rem;
+    }
+    
+    .card-header {
+        font-size: 0.75rem;
+        margin-bottom: 0.4rem;
+    }
+    
+    .card-header i {
+        font-size: 0.7rem;
+    }
+    
+    .card-content p {
+        font-size: 0.7rem;
+        margin: 0.15rem 0;
+    }
+    
+    .order-items-section.compact {
+        padding: 0 0.5rem;
+    }
+    
+    .section-header.compact {
+        margin-bottom: 0.75rem;
+        padding-bottom: 0.4rem;
+    }
+    
+    .section-title {
+        font-size: 0.8rem;
+    }
+    
+    .section-title i {
+        font-size: 0.8rem;
+    }
+    
+    .table-header.compact {
+        padding: 0.4rem 0.75rem;
+        font-size: 0.7rem;
+        grid-template-columns: 1fr 0.3fr 0.6fr;
+    }
+    
+    .table-row.compact {
+        padding: 0.4rem 0.75rem;
+        grid-template-columns: 1fr 0.3fr 0.6fr;
+        font-size: 0.7rem;
+    }
+    
+    .item-name {
+        font-size: 0.7rem;
+        margin-bottom: 0.15rem;
+    }
+    
+    .variant {
+        font-size: 0.6rem;
+        padding: 0.08rem 0.3rem;
+    }
+    
+    .amount {
+        font-size: 0.75rem;
+    }
+    
+    .summary-section.compact {
+        padding: 0.5rem;
+    }
+    
+    .summary-card.compact {
+        padding: 0.75rem;
+    }
+    
+    .summary-row {
+        font-size: 0.75rem;
+        padding: 0.25rem 0;
+    }
+    
+    .summary-total {
+        font-size: 0.8rem;
+        padding: 0.4rem 0;
+    }
+    
+    .payment-section.compact {
+        padding: 0 0.5rem 0.5rem;
+    }
+    
+    .payment-card.compact {
+        padding: 0.75rem;
+    }
+    
+    .payment-header.compact {
+        font-size: 0.8rem;
+        margin-bottom: 0.75rem;
+        padding-bottom: 0.4rem;
+    }
+    
+    .payment-instructions.compact p {
+        font-size: 0.75rem;
+        margin-bottom: 0.4rem;
+    }
+    
+    .bank-details {
+        padding: 0.5rem;
+        margin: 0.4rem 0;
+    }
+    
+    .detail-row {
+        font-size: 0.7rem;
+        padding: 0.15rem 0;
+    }
+    
+    .highlight {
+        font-size: 0.65rem;
+        padding: 0.08rem 0.3rem;
+    }
+    
+    .slip-footer.compact {
+        padding: 0.75rem;
+    }
+    
+    .thank-you.compact h4 {
+        font-size: 0.9rem;
+    }
+    
+    .thank-you.compact p {
+        font-size: 0.75rem;
+    }
+    
+    .qr-pattern {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .qr-corner {
+        width: 15px;
+        height: 15px;
+    }
+    
+    .qr-corner.tl,
+    .qr-corner.tr,
+    .qr-corner.bl {
+        top: 3px;
+        left: 3px;
+    }
+    
+    .qr-corner.tr {
+        right: 3px;
+        left: auto;
+    }
+    
+    .qr-corner.bl {
+        bottom: 3px;
+    }
+    
+    .qr-data {
+        top: 20px;
+        left: 20px;
+        right: 20px;
+        bottom: 20px;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(4, 1fr);
+    }
+    
+    .qr-text {
+        font-size: 0.65rem;
+        margin-top: 0.4rem;
+    }
+    
+    .contact-info.compact {
+        margin-top: 0.75rem;
+        gap: 0.5rem;
+    }
+    
+    .contact-item {
+        font-size: 0.65rem;
+        gap: 0.4rem;
+    }
+    
+    .contact-item i {
+        font-size: 0.7rem;
+    }
+    
+    .action-buttons.compact {
+        gap: 0.5rem;
+    }
+    
+    .btn-compact {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.75rem;
+        min-width: 100px;
+        min-height: 36px;
+    }
+}
+
+/* iPhone Standard (11 Pro, 15/15 Pro) */
+@media (width: 390px) and (height: 844px) {
+    .receipt-slip.compact {
+        padding: 0.5rem;
+    }
+    
+    .brand-logo {
+        width: 50px;
+        height: 100px;
+    }
+    
+    .info-sections.compact {
+        grid-template-columns: 1fr;
+        padding: 0.75rem;
+    }
+    
+    .qr-pattern {
+        width: 90px;
+        height: 90px;
+    }
+    
+    .btn-compact {
+        min-height: 40px;
+    }
+}
+
+/* iPhone Plus/Max Group 1 */
+@media (width: 414px) and (height: 896px), 
+       (width: 428px) and (height: 926px) {
+    .receipt-slip.compact {
+        padding: 0.75rem;
+    }
+    
+    .info-sections.compact {
+        grid-template-columns: 1fr 1fr;
+        padding: 1rem;
+    }
+    
+    .brand-logo {
+        width: 55px;
+        height: 110px;
+    }
+    
+    .qr-pattern {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+/* iPhone Plus/Max Group 2 */
+@media (width: 430px) and (height: 932px) {
+    .receipt-slip.compact {
+        padding: 1rem;
+    }
+    
+    .slip-header {
+        padding: 1rem;
+    }
+    
+    .brand-logo {
+        width: 60px;
+        height: 120px;
+    }
+    
+    .info-sections.compact {
+        padding: 1rem;
+    }
+    
+    .qr-pattern {
+        width: 110px;
+        height: 110px;
+    }
+}
+
+/* Universal small-screen optimizations for receipt */
+@media (max-width: 430px) {
+    .receipt-slip.compact {
+        align-items: flex-start;
+    }
+    
+    .slip-container {
+        margin: 0 auto;
+    }
+    
+    .header-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5rem;
+    }
+    
+    .logo-container {
+        justify-content: center;
+    }
+    
+    .order-info {
+        text-align: center;
+        width: 100%;
+    }
+    
+    .info-sections.compact {
+        grid-template-columns: 1fr;
+    }
+    
+    .table-body.compact {
+        max-height: 150px;
+    }
+    
+    .btn-compact {
+        min-height: 44px;
+    }
+    
+    /* Ensure print layout remains intact */
+    @media print {
+        .receipt-slip.compact {
+            padding: 0 !important;
+        }
+        
+        .slip-container {
+            max-width: 100% !important;
+            margin: 0 !important;
+        }
+        
+        .brand-logo {
+            width: 50px !important;
+            height: 100px !important;
+        }
+    }
+}
+
+/* Enhanced existing media queries */
+@media (max-width: 768px) {
+    .receipt-slip.compact {
+        padding: 0.5rem;
+    }
+    
+    .header-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.75rem;
+    }
+    
+    .info-sections.compact {
+        grid-template-columns: 1fr;
+    }
+    
+    .contact-info.compact {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .receipt-slip.compact {
+        padding: 0.25rem;
+    }
+    
+    .slip-header,
+    .info-sections.compact,
+    .order-items-section.compact,
+    .summary-section.compact,
+    .payment-section.compact,
+    .slip-footer.compact {
+        padding: 0.75rem;
+    }
+    
+    .brand-text h1 {
+        font-size: 1rem;
+    }
+    
+    .brand-logo {
+        width: 45px;
+        height: 90px;
+    }
+    
+    .action-buttons.compact {
+        flex-direction: column;
+    }
+    
+    .btn-compact {
+        width: 100%;
+    }
+}
+
+/* Landscape optimization for receipt */
+@media (max-width: 930px) and (orientation: landscape) {
+    .receipt-slip.compact {
+        padding: 0.5rem;
+        align-items: flex-start;
+    }
+    
+    .slip-container {
+        max-width: 100%;
+    }
+    
+    .info-sections.compact {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .table-body.compact {
+        max-height: 120px;
+    }
+    
+    .qr-section {
+        margin: 0.75rem 0;
+    }
+}

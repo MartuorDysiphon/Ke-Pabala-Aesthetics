@@ -1,135 +1,348 @@
-import React, { createContext, useContext, useReducer } from 'react';
+import React, { createContext, useContext, useReducer, useEffect } from 'react';
+import { useUser } from '@clerk/clerk-react';
 
 const CartContext = createContext();
 
+// Use your Render backend URL
+const API_BASE = process.env.REACT_APP_API_URL || 'https://pabala-aesthetics.onrender.com/api';
+
 const cartReducer = (state, action) => {
-    switch (action.type) {
-        case 'ADD_TO_CART':
-            const existingItem = state.items.find(item => 
-                item.id === action.payload.id && 
-                item.color === action.payload.color &&
-                item.size === action.payload.size
-            );
-            
-            if (existingItem) {
-                return {
-                    ...state,
-                    items: state.items.map(item =>
-                        item.id === action.payload.id && 
-                        item.color === action.payload.color &&
-                        item.size === action.payload.size
-                            ? { ...item, quantity: item.quantity + action.payload.quantity }
-                            : item
-                    )
-                };
-            }
-            return {
-                ...state,
-                items: [...state.items, action.payload]
-            };
-        
-        case 'REMOVE_FROM_CART':
-            return {
-                ...state,
-                items: state.items.filter(item => 
-                    !(item.id === action.payload.id && 
-                      item.color === action.payload.color &&
-                      item.size === action.payload.size)
-                )
-            };
-        
-        case 'UPDATE_QUANTITY':
-            return {
-                ...state,
-                items: state.items.map(item =>
-                    item.id === action.payload.id && 
-                    item.color === action.payload.color &&
-                    item.size === action.payload.size
-                        ? { ...item, quantity: action.payload.quantity }
-                        : item
-                )
-            };
-        
-        case 'CLEAR_CART':
-            return {
-                ...state,
-                items: []
-            };
-        
-        default:
-            return state;
-    }
+  switch (action.type) {
+    case 'SET_CART':
+      return {
+        ...state,
+        items: action.payload.items || [],
+        isLoading: false
+      };
+    
+    case 'ADD_TO_CART':
+      const existingItem = state.items.find(item => 
+        item.productId === action.payload.productId && 
+        item.color === action.payload.color &&
+        item.size === action.payload.size
+      );
+      
+      if (existingItem) {
+        return {
+          ...state,
+          items: state.items.map(item =>
+            item.productId === action.payload.productId && 
+            item.color === action.payload.color &&
+            item.size === action.payload.size
+              ? { ...item, quantity: item.quantity + action.payload.quantity }
+              : item
+          )
+        };
+      }
+      return {
+        ...state,
+        items: [...state.items, action.payload]
+      };
+    
+    case 'REMOVE_FROM_CART':
+      return {
+        ...state,
+        items: state.items.filter(item => 
+          !(item.productId === action.payload.productId && 
+            item.color === action.payload.color &&
+            item.size === action.payload.size)
+        )
+      };
+    
+    case 'UPDATE_QUANTITY':
+      return {
+        ...state,
+        items: state.items.map(item =>
+          item.productId === action.payload.productId && 
+          item.color === action.payload.color &&
+          item.size === action.payload.size
+            ? { ...item, quantity: action.payload.quantity }
+            : item
+        )
+      };
+    
+    case 'CLEAR_CART':
+      return {
+        ...state,
+        items: []
+      };
+    
+    case 'SET_LOADING':
+      return {
+        ...state,
+        isLoading: action.payload
+      };
+    
+    default:
+      return state;
+  }
 };
 
 const initialState = {
-    items: []
+  items: [],
+  isLoading: true
 };
 
 export const CartProvider = ({ children }) => {
-    const [state, dispatch] = useReducer(cartReducer, initialState);
+  const [state, dispatch] = useReducer(cartReducer, initialState);
+  const { user, isSignedIn } = useUser();
 
-    const addToCart = (product, color, size, quantity = 1) => {
-        dispatch({
-            type: 'ADD_TO_CART',
-            payload: {
-                ...product,
-                color,
-                size,
-                quantity,
-                customColor: color === 'custom' ? product.customColor : null
-            }
+  // Fetch cart from backend when user signs in
+  useEffect(() => {
+    if (isSignedIn && user) {
+      fetchCart();
+    } else {
+      // Use local storage for guest users
+      const guestCart = localStorage.getItem('guestCart');
+      if (guestCart) {
+        dispatch({ type: 'SET_CART', payload: { items: JSON.parse(guestCart) } });
+      } else {
+        dispatch({ type: 'SET_CART', payload: { items: [] } });
+      }
+    }
+  }, [isSignedIn, user]);
+
+  const fetchCart = async () => {
+    try {
+      dispatch({ type: 'SET_LOADING', payload: true });
+      
+      const response = await fetch(`${API_BASE}/cart/${user.id}`);
+      
+      if (response.ok) {
+        const cartData = await response.json();
+        dispatch({ type: 'SET_CART', payload: cartData });
+      } else {
+        console.error('Failed to fetch cart');
+        dispatch({ type: 'SET_CART', payload: { items: [] } });
+      }
+    } catch (error) {
+      console.error('Error fetching cart:', error);
+      dispatch({ type: 'SET_CART', payload: { items: [] } });
+    }
+  };
+
+  const addToCart = async (product, color, size, quantity = 1, customColor = '') => {
+    const item = {
+      productId: product.id.toString(),
+      name: product.name,
+      price: parseFloat(product.price),
+      image: product.image,
+      category: product.category,
+      color,
+      size,
+      customColor,
+      quantity,
+      length: product.length || ''
+    };
+
+    dispatch({ type: 'ADD_TO_CART', payload: item });
+
+    if (isSignedIn && user) {
+      // Sync with backend for logged-in users
+      try {
+        const response = await fetch(`${API_BASE}/cart/${user.id}/items`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            product: {
+              id: product.id.toString(),
+              name: product.name,
+              price: parseFloat(product.price),
+              image: product.image,
+              category: product.category,
+              length: product.length || ''
+            },
+            color,
+            size,
+            quantity,
+            customColor
+          })
         });
-    };
 
-    const removeFromCart = (productId, color, size) => {
-        dispatch({
-            type: 'REMOVE_FROM_CART',
-            payload: { id: productId, color, size }
+        if (!response.ok) {
+          console.error('Backend sync failed');
+        }
+      } catch (error) {
+        console.error('Error adding item to backend:', error);
+      }
+    } else {
+      // Save to local storage for guest users
+      const updatedItems = [...state.items];
+      const existingIndex = updatedItems.findIndex(i => 
+        i.productId === item.productId && i.color === color && i.size === size
+      );
+      
+      if (existingIndex > -1) {
+        updatedItems[existingIndex].quantity += quantity;
+      } else {
+        updatedItems.push(item);
+      }
+      
+      localStorage.setItem('guestCart', JSON.stringify(updatedItems));
+    }
+  };
+
+  const removeFromCart = async (productId, color, size) => {
+    dispatch({
+      type: 'REMOVE_FROM_CART',
+      payload: { productId: productId.toString(), color, size }
+    });
+
+    if (isSignedIn && user) {
+      try {
+        await fetch(`${API_BASE}/cart/${user.id}/items/${productId}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ color, size })
         });
-    };
+      } catch (error) {
+        console.error('Error removing item from backend:', error);
+      }
+    } else {
+      // Update local storage for guest users
+      const updatedItems = state.items.filter(item => 
+        !(item.productId === productId.toString() && item.color === color && item.size === size)
+      );
+      localStorage.setItem('guestCart', JSON.stringify(updatedItems));
+    }
+  };
 
-    const updateQuantity = (productId, color, size, quantity) => {
-        dispatch({
-            type: 'UPDATE_QUANTITY',
-            payload: { id: productId, color, size, quantity }
+  const updateQuantity = async (productId, color, size, quantity) => {
+    dispatch({
+      type: 'UPDATE_QUANTITY',
+      payload: { 
+        productId: productId.toString(), 
+        color, 
+        size, 
+        quantity 
+      }
+    });
+
+    if (isSignedIn && user) {
+      try {
+        await fetch(`${API_BASE}/cart/${user.id}/items/${productId}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ color, size, quantity })
         });
-    };
+      } catch (error) {
+        console.error('Error updating quantity in backend:', error);
+      }
+    } else {
+      // Update local storage for guest users
+      const updatedItems = state.items.map(item => 
+        item.productId === productId.toString() && item.color === color && item.size === size
+          ? { ...item, quantity }
+          : item
+      );
+      localStorage.setItem('guestCart', JSON.stringify(updatedItems));
+    }
+  };
 
-    const clearCart = () => {
-        dispatch({ type: 'CLEAR_CART' });
-    };
+  const clearCart = async () => {
+    dispatch({ type: 'CLEAR_CART' });
 
-    const getTotalItems = () => {
-        return state.items.reduce((total, item) => total + item.quantity, 0);
-    };
+    if (isSignedIn && user) {
+      try {
+        await fetch(`${API_BASE}/cart/${user.id}/clear`, {
+          method: 'DELETE',
+        });
+      } catch (error) {
+        console.error('Error clearing cart in backend:', error);
+      }
+    } else {
+      // Clear local storage for guest users
+      localStorage.removeItem('guestCart');
+    }
+  };
 
-    const getTotalPrice = () => {
-        return state.items.reduce((total, item) => {
-            const basePrice = parseFloat(item.price);
-            const customColorCost = item.customColor ? 100 : 0;
-            return total + (basePrice + customColorCost) * item.quantity;
-        }, 0);
-    };
+  const getTotalItems = () => {
+    return state.items.reduce((total, item) => total + item.quantity, 0);
+  };
 
-    return (
-        <CartContext.Provider value={{
-            cart: state,
-            addToCart,
-            removeFromCart,
-            updateQuantity,
-            clearCart,
-            getTotalItems,
-            getTotalPrice
-        }}>
-            {children}
-        </CartContext.Provider>
-    );
+  const getTotalPrice = () => {
+    return state.items.reduce((total, item) => {
+      const basePrice = parseFloat(item.price);
+      const customColorCost = item.customColor ? 100 : 0;
+      return total + (basePrice + customColorCost) * item.quantity;
+    }, 0);
+  };
+
+  // Function to migrate guest cart to user cart when user logs in
+  const migrateGuestCart = async () => {
+    const guestCart = localStorage.getItem('guestCart');
+    if (guestCart && isSignedIn && user) {
+      const guestItems = JSON.parse(guestCart);
+      
+      // Add each guest item to user's backend cart
+      for (const item of guestItems) {
+        try {
+          await fetch(`${API_BASE}/cart/${user.id}/items`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              product: {
+                id: item.productId,
+                name: item.name,
+                price: item.price,
+                image: item.image,
+                category: item.category,
+                length: item.length
+              },
+              color: item.color,
+              size: item.size,
+              quantity: item.quantity,
+              customColor: item.customColor
+            })
+          });
+        } catch (error) {
+          console.error('Error migrating cart item:', error);
+        }
+      }
+      
+      // Clear guest cart
+      localStorage.removeItem('guestCart');
+      // Refresh cart from backend
+      fetchCart();
+    }
+  };
+
+  // Auto-migrate guest cart when user signs in
+  useEffect(() => {
+    if (isSignedIn && user) {
+      migrateGuestCart();
+    }
+  }, [isSignedIn, user]);
+
+  return (
+    <CartContext.Provider value={{
+      cart: state,
+      addToCart,
+      removeFromCart,
+      updateQuantity,
+      clearCart,
+      getTotalItems,
+      getTotalPrice,
+      refreshCart: fetchCart,
+      migrateGuestCart
+    }}>
+      {children}
+    </CartContext.Provider>
+  );
 };
 
 export const useCart = () => {
-    const context = useContext(CartContext);
-    if (!context) {
-        throw new Error('useCart must be used within a CartProvider');
-    }
-    return context;
+  const context = useContext(CartContext);
+  if (!context) {
+    throw new Error('useCart must be used within a CartProvider');
+  }
+  return context;
 };
