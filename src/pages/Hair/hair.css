@@ -21,6 +21,8 @@
     font-weight: 600;
     color: #1a1a1a;
     margin-bottom: 0.25rem;
+    border-bottom: 2px solid #e0e0e0;
+    border-bottom-right-radius: 10px;
 }
 
 /* SINGLE LINE SUBHEADER */
@@ -462,7 +464,7 @@
     }
     
     .product-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(3, 1fr);
         gap: 1rem;
     }
     
@@ -521,7 +523,7 @@
     }
     
     .product-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
         gap: 1rem;
     }
     

@@ -5,6 +5,7 @@ import './IphoneModal.css';
 const IphoneModal = ({ product, isOpen, onClose }) => {
     const [selectedStorage, setSelectedStorage] = useState('');
     const [selectedColor, setSelectedColor] = useState('');
+    const [selectedCondition, setSelectedCondition] = useState('Fair'); // Default to Fair
     const [quantity, setQuantity] = useState(1);
     const { addToCart } = useCart();
 
@@ -120,6 +121,13 @@ const IphoneModal = ({ product, isOpen, onClose }) => {
         }
     };
 
+    // Condition options and pricing
+    const conditionOptions = [
+        { name: 'New', price: 500, description: 'Brand new, sealed in box' },
+        { name: 'Fair', price: 0, description: 'Standard refurbished condition' },
+        { name: 'Eco-Friendly', price: -200, description: 'Eco-friendly packaging, minor signs of use' }
+    ];
+
     const storageOptions = appleStorageOptions[product.name] || [{ storage: '64GB', price: 0 }];
     const colorOptions = appleColorOptions[product.name] || ['Space Gray', 'Silver'];
     const specs = iphoneSpecs[product.name] || iphoneSpecs["iPhone 12"];
@@ -129,14 +137,19 @@ const IphoneModal = ({ product, isOpen, onClose }) => {
         return option ? option.price : 0;
     };
 
+    const getConditionPrice = () => {
+        const option = conditionOptions.find(opt => opt.name === selectedCondition);
+        return option ? option.price : 0;
+    };
+
     const handleAddToCart = () => {
         if (!selectedStorage || !selectedColor) {
             alert('Please select storage and color');
             return;
         }
 
-        const finalProductName = `${product.name} ${selectedStorage} ${selectedColor}`;
-        const totalPrice = parseFloat(product.price) + getStoragePrice();
+        const finalProductName = `${product.name} ${selectedStorage} ${selectedColor} (${selectedCondition})`;
+        const totalPrice = parseFloat(product.price) + getStoragePrice() + getConditionPrice();
         
         addToCart(
             {
@@ -144,13 +157,16 @@ const IphoneModal = ({ product, isOpen, onClose }) => {
                 displayName: finalProductName,
                 price: totalPrice.toString(),
                 selectedColor: selectedColor,
-                selectedStorage: selectedStorage
+                selectedStorage: selectedStorage,
+                selectedCondition: selectedCondition,
+                conditionPriceAdjustment: getConditionPrice()
             },
             quantity
         );
 
         setSelectedStorage('');
         setSelectedColor('');
+        setSelectedCondition('Fair'); // Reset to default
         setQuantity(1);
         onClose();
         alert('Added to cart!');
@@ -159,7 +175,8 @@ const IphoneModal = ({ product, isOpen, onClose }) => {
     const calculateTotalPrice = () => {
         const basePrice = parseFloat(product.price);
         const storagePrice = getStoragePrice();
-        return (basePrice + storagePrice) * quantity;
+        const conditionPrice = getConditionPrice();
+        return (basePrice + storagePrice + conditionPrice) * quantity;
     };
 
     const getColorHex = (colorName) => {
@@ -227,7 +244,7 @@ const IphoneModal = ({ product, isOpen, onClose }) => {
 
                         <div className="iphone-modal-price-section">
                             <div className="base-price">R{product.price}</div>
-                            {selectedStorage && (
+                            {(selectedStorage || selectedCondition !== 'Fair') && (
                                 <div className="total-price">
                                     Total: <span>R{calculateTotalPrice().toFixed(2)}</span>
                                 </div>
@@ -235,6 +252,30 @@ const IphoneModal = ({ product, isOpen, onClose }) => {
                         </div>
 
                         <div className="iphone-modal-options-section">
+                            {/* Condition Selection */}
+                            <div className="option-group">
+                                <div className="option-label">Condition</div>
+                                <div className="condition-options">
+                                    {conditionOptions.map((condition, index) => (
+                                        <button
+                                            key={index}
+                                            className={`condition-option ${
+                                                selectedCondition === condition.name ? 'selected' : ''
+                                            }`}
+                                            onClick={() => setSelectedCondition(condition.name)}
+                                            title={condition.description}
+                                        >
+                                            {condition.name}
+                                            {condition.price !== 0 && (
+                                                <span className={`price-badge ${condition.price > 0 ? 'positive' : 'negative'}`}>
+                                                    {condition.price > 0 ? '+' : ''}R{condition.price}
+                                                </span>
+                                            )}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+
                             {/* Storage Selection */}
                             <div className="option-group">
                                 <div className="option-label">Storage</div>
