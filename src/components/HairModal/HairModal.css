@@ -1,5 +1,4 @@
-/* iPhone Modal - Ultra Minimalist */
-.iphone-modal-overlay {
+.hr-modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -13,24 +12,24 @@
     padding: 10px;
 }
 
-.iphone-modal-content {
+.hr-modal-content {
     background: white;
     border-radius: 12px;
     width: 100%;
-    max-width: 700px;
+    max-width: 800px;
     max-height: 90vh;
     overflow-y: auto;
     position: relative;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    animation: modalFadeIn 0.2s ease;
+    animation: hr-modalFadeIn 0.2s ease;
 }
 
-@keyframes modalFadeIn {
+@keyframes hr-modalFadeIn {
     from { opacity: 0; transform: scale(0.95); }
     to { opacity: 1; transform: scale(1); }
 }
 
-.iphone-modal-close {
+.hr-modal-close {
     position: absolute;
     top: 12px;
     right: 12px;
@@ -49,58 +48,73 @@
     z-index: 10;
 }
 
-.iphone-modal-close:hover {
+.hr-modal-close:hover {
     background: #e5e5e5;
     color: #000;
 }
 
-.iphone-modal-body {
+.hr-modal-body {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 24px;
     padding: 24px;
-    min-height: 400px;
+    min-height: 500px;
 }
 
-.iphone-modal-image {
+.hr-modal-image {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     background: #f8f9fa;
     border-radius: 8px;
-    padding: 20px;
+    padding: 30px;
     height: 100%;
 }
 
-.iphone-modal-img {
+.hr-modal-img {
     width: 100%;
     height: auto;
-    max-height: 280px;
+    max-height: 320px;
     object-fit: contain;
 }
 
-.iphone-modal-info {
+.hr-type-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.hr-modal-info {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-.iphone-modal-header h1 {
-    font-size: 20px;
+.hr-modal-header h1 {
+    font-size: 22px;
     font-weight: 700;
     color: #1d1d1f;
     margin: 0 0 4px 0;
     line-height: 1.2;
 }
 
-.iphone-modal-header p {
+.hr-modal-header p {
     font-size: 12px;
     color: #86868b;
     font-weight: 500;
     margin: 0;
 }
 
-.iphone-modal-specs {
+.hr-modal-specs {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
@@ -110,24 +124,26 @@
     font-size: 12px;
 }
 
-.spec-item {
+.hr-spec-item {
     display: flex;
     flex-direction: column;
     gap: 4px;
 }
 
-.spec-label {
+.hr-spec-label {
     color: #86868b;
     font-weight: 600;
     text-transform: uppercase;
+    font-size: 11px;
 }
 
-.spec-value {
+.hr-spec-value {
     color: #1d1d1f;
     font-weight: 500;
+    font-size: 12px;
 }
 
-.iphone-modal-price-section {
+.hr-modal-price-section {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -136,99 +152,57 @@
     border-bottom: 1px solid #f0f0f0;
 }
 
-.base-price {
+.hr-base-price {
     font-size: 24px;
     font-weight: 700;
     color: #1d1d1f;
 }
 
-.total-price {
+.hr-total-price {
     font-size: 14px;
     color: #86868b;
     font-weight: 500;
 }
 
-.total-price span {
+.hr-total-price span {
     color: #1d1d1f;
     font-weight: 700;
 }
 
-.iphone-modal-options-section {
+.hr-modal-options-section {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-.option-group {
+.hr-option-group {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 10px;
 }
 
-.option-label {
+.hr-option-label {
     font-size: 13px;
     font-weight: 600;
     color: #1d1d1f;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
-/* Storage Options */
-.storage-options {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-}
-
-.storage-option {
-    padding: 8px 16px;
-    background: #f5f5f5;
-    border: 1px solid transparent;
-    border-radius: 6px;
-    font-size: 13px;
-    font-weight: 500;
-    color: #1d1d1f;
-    cursor: pointer;
-    transition: all 0.15s ease;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    min-width: 80px;
-}
-
-.storage-option:hover {
-    background: #e5e5e5;
-}
-
-.storage-option.selected {
-    background: #000000;
-    color: white;
-}
-
-.price-badge {
-    font-size: 11px;
-    color: #000000;
-    font-weight: 600;
-    background: white;
-    padding: 2px 6px;
-    border-radius: 10px;
-}
-
-.storage-option.selected .price-badge {
-    color: #000000;
-    background: white;
+/* Color Options - Simple Grid */
+.hr-color-options {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
 }
 
 /* Color Options - Circles Only */
-.color-options {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-}
-
-.color-option {
-    width: 32px;
-    height: 32px;
+.hr-color-option {
+    position: relative;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
-    border: 1px solid transparent;
+    border: 2px solid transparent;
     background: none;
     padding: 0;
     cursor: pointer;
@@ -236,41 +210,134 @@
     align-items: center;
     justify-content: center;
     transition: all 0.15s ease;
-    position: relative;
 }
 
-.color-option:hover {
+.hr-color-option:hover {
     transform: scale(1.1);
 }
 
-.color-option.selected {
+.hr-color-option.hr-selected {
     border-color: #000000;
     transform: scale(1.1);
 }
 
-.color-option.selected::after {
+.hr-color-option.hr-selected::after {
     content: '✓';
     position: absolute;
     color: white;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: bold;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    z-index: 2;
 }
 
-.color-dot {
-    width: 24px;
-    height: 24px;
+.hr-color-dot {
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     border: 1px solid white;
     box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
 }
 
-.color-option.selected .color-dot {
+.hr-color-option.hr-selected .hr-color-dot {
     border-color: white;
 }
 
+.hr-premium-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background: #f0c040;
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+}
+
+.hr-color-note {
+    font-size: 12px;
+    color: #86868b;
+    margin-top: 8px;
+    text-align: center;
+}
+
+.hr-premium-text {
+    color: #f0c040;
+    font-weight: 600;
+}
+
+/* Length Options */
+.hr-length-options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+.hr-length-option {
+    padding: 10px 8px;
+    background: #f5f5f5;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #1d1d1f;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 2px;
+}
+
+.hr-length-option:hover {
+    background: #e5e5e5;
+}
+
+.hr-length-option.hr-selected {
+    background: #000000;
+    color: white;
+}
+
+.hr-length-text {
+    font-weight: 600;
+    font-size: 11px;
+}
+
+.hr-length-desc {
+    font-size: 10px;
+    opacity: 0.8;
+}
+
+.hr-custom-length-input {
+    margin-top: 8px;
+}
+
+.hr-length-input {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 13px;
+    color: #1d1d1f;
+    background: white;
+    transition: all 0.15s ease;
+}
+
+.hr-length-input:focus {
+    outline: none;
+    border-color: #000000;
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+}
+
 /* Quantity Selector */
-.quantity-selector {
+.hr-quantity-selector {
     display: flex;
     align-items: center;
     gap: 16px;
@@ -280,7 +347,7 @@
     width: fit-content;
 }
 
-.qty-btn {
+.hr-qty-btn {
     width: 28px;
     height: 28px;
     border-radius: 6px;
@@ -296,11 +363,11 @@
     transition: all 0.15s ease;
 }
 
-.qty-btn:hover {
+.hr-qty-btn:hover {
     background: #e5e5e5;
 }
 
-.qty-value {
+.hr-qty-value {
     font-size: 16px;
     font-weight: 600;
     color: #1d1d1f;
@@ -309,9 +376,9 @@
 }
 
 /* Add to Cart Button */
-.add-to-cart-btn {
+.hr-add-to-cart-btn {
     width: 100%;
-    padding: 12px;
+    padding: 14px;
     background: #000000;
     color: white;
     border: none;
@@ -323,17 +390,17 @@
     margin-top: 8px;
 }
 
-.add-to-cart-btn:hover:not(.disabled) {
+.hr-add-to-cart-btn:hover:not(.hr-disabled) {
     background: #45484b;
 }
 
-.add-to-cart-btn.disabled {
+.hr-add-to-cart-btn.hr-disabled {
     opacity: 0.5;
     cursor: not-allowed;
 }
 
-/* Warranty Info */
-.warranty-info {
+/* Guarantee Info */
+.hr-guarantee-info {
     display: flex;
     justify-content: space-between;
     gap: 8px;
@@ -342,7 +409,7 @@
     border-top: 1px solid #f0f0f0;
 }
 
-.warranty-badge {
+.hr-guarantee-badge {
     font-size: 11px;
     color: #666;
     font-weight: 500;
@@ -350,47 +417,58 @@
     background: #f8f9fa;
     border-radius: 12px;
     border: 1px solid #e5e5e5;
+    flex: 1;
+    text-align: center;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .iphone-modal-body {
+    .hr-modal-body {
         grid-template-columns: 1fr;
         gap: 20px;
         padding: 20px;
         min-height: auto;
     }
     
-    .iphone-modal-image {
-        height: 220px;
-        padding: 16px;
+    .hr-modal-image {
+        height: 240px;
+        padding: 20px;
     }
     
-    .iphone-modal-img {
-        max-height: 180px;
+    .hr-modal-img {
+        max-height: 200px;
     }
     
-    .iphone-modal-header h1 {
+    .hr-modal-header h1 {
         font-size: 18px;
     }
     
-    .base-price {
+    .hr-base-price {
         font-size: 20px;
+    }
+    
+    .hr-color-options {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+    }
+    
+    .hr-length-options {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
 @media (max-width: 480px) {
-    .iphone-modal-content {
+    .hr-modal-content {
         max-height: 95vh;
         border-radius: 10px;
     }
     
-    .iphone-modal-body {
+    .hr-modal-body {
         padding: 16px;
         gap: 16px;
     }
     
-    .iphone-modal-close {
+    .hr-modal-close {
         top: 8px;
         right: 8px;
         width: 24px;
@@ -398,191 +476,186 @@
         font-size: 14px;
     }
     
-    .iphone-modal-image {
-        height: 180px;
-        padding: 12px;
+    .hr-modal-image {
+        height: 200px;
+        padding: 16px;
     }
     
-    .iphone-modal-img {
-        max-height: 150px;
+    .hr-modal-img {
+        max-height: 160px;
     }
     
-    .iphone-modal-specs {
+    .hr-modal-specs {
         grid-template-columns: 1fr;
         gap: 8px;
         padding: 12px;
     }
     
-    .iphone-modal-price-section {
+    .hr-modal-price-section {
         flex-direction: column;
         align-items: flex-start;
         gap: 8px;
         padding: 12px 0;
     }
     
-    .base-price {
+    .hr-base-price {
         font-size: 18px;
     }
     
-    .storage-options {
-        gap: 6px;
+    .hr-color-options {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
     }
     
-    .storage-option {
-        min-width: 70px;
-        padding: 6px 12px;
-        font-size: 12px;
+    .hr-color-option {
+        width: 36px;
+        height: 36px;
     }
     
-    .color-option {
+    .hr-color-dot {
         width: 28px;
         height: 28px;
     }
     
-    .color-dot {
-        width: 20px;
-        height: 20px;
+    .hr-length-options {
+        grid-template-columns: repeat(2, 1fr);
     }
     
-    .add-to-cart-btn {
-        padding: 10px;
+    .hr-length-option {
+        padding: 8px 6px;
+        font-size: 11px;
+    }
+    
+    .hr-add-to-cart-btn {
+        padding: 12px;
         font-size: 13px;
     }
     
-    .quantity-selector {
+    .hr-quantity-selector {
         width: 100%;
         justify-content: space-between;
     }
     
-    .warranty-info {
+    .hr-guarantee-info {
         flex-direction: column;
         gap: 6px;
     }
     
-    .warranty-badge {
+    .hr-guarantee-badge {
         text-align: center;
     }
 }
 
 @media (max-width: 360px) {
-    .iphone-modal-body {
+    .hr-modal-body {
         padding: 12px;
     }
     
-    .iphone-modal-image {
-        height: 150px;
+    .hr-modal-image {
+        height: 180px;
     }
     
-    .iphone-modal-header h1 {
+    .hr-modal-header h1 {
         font-size: 16px;
     }
     
-    .storage-options {
-        flex-direction: column;
+    .hr-color-options {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 6px;
     }
     
-    .storage-option {
-        width: 100%;
-        justify-content: center;
+    .hr-color-option {
+        width: 32px;
+        height: 32px;
     }
     
-    .color-options {
-        justify-content: space-around;
-    }
-    
-    .color-option {
+    .hr-color-dot {
         width: 24px;
         height: 24px;
     }
     
-    .color-dot {
-        width: 16px;
-        height: 16px;
+    .hr-length-options {
+        grid-template-columns: 1fr;
     }
     
-    .qty-btn {
+    .hr-qty-btn {
         width: 24px;
         height: 24px;
         font-size: 14px;
     }
     
-    .qty-value {
+    .hr-qty-value {
         font-size: 14px;
     }
 }
 
 /* Ultra Compact Mode */
-.iphone-modal-content.compact {
+.hr-modal-content.hr-compact {
     max-width: 500px;
 }
 
-.iphone-modal-body.compact {
+.hr-modal-body.hr-compact {
     grid-template-columns: 180px 1fr;
     gap: 16px;
     padding: 16px;
 }
 
-.iphone-modal-image.compact {
-    height: 160px;
+.hr-modal-image.hr-compact {
+    height: 180px;
     padding: 12px;
 }
 
-.iphone-modal-img.compact {
-    max-height: 120px;
+.hr-modal-img.hr-compact {
+    max-height: 140px;
 }
 
-.iphone-modal-info.compact {
+.hr-modal-info.hr-compact {
     gap: 12px;
 }
 
-.iphone-modal-header.compact h1 {
+.hr-modal-header.hr-compact h1 {
     font-size: 16px;
 }
 
-.iphone-modal-specs.compact {
+.hr-modal-specs.hr-compact {
     padding: 10px;
     font-size: 11px;
 }
 
-.iphone-modal-options-section.compact {
+.hr-modal-options-section.hr-compact {
     gap: 12px;
 }
 
-.storage-options.compact {
-    gap: 4px;
+.hr-color-options.hr-compact {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
 }
 
-.storage-option.compact {
-    padding: 4px 8px;
-    font-size: 11px;
-    min-width: 60px;
+.hr-color-option.hr-compact {
+    width: 32px;
+    height: 32px;
 }
 
-.color-options.compact {
-    gap: 8px;
-}
-
-.color-option.compact {
+.hr-color-dot.hr-compact {
     width: 24px;
     height: 24px;
 }
 
-.color-dot.compact {
-    width: 16px;
-    height: 16px;
+.hr-length-options.hr-compact {
+    grid-template-columns: repeat(2, 1fr);
 }
 
-.add-to-cart-btn.compact {
-    padding: 8px;
+.hr-add-to-cart-btn.hr-compact {
+    padding: 10px;
     font-size: 12px;
 }
 
-.warranty-info.compact {
+.hr-guarantee-info.hr-compact {
     margin-top: 8px;
     padding-top: 8px;
 }
 
-.warranty-badge.compact {
+.hr-guarantee-badge.hr-compact {
     font-size: 10px;
     padding: 3px 6px;
 }

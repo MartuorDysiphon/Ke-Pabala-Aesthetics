@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { SignedIn, SignedOut } from '@clerk/clerk-react';
 import Layout from './components/layout';
 import Home from './pages/Home/home';
 import Hair from './pages/Hair/hair';
@@ -8,17 +9,16 @@ import Jeans from './pages/Jeans/jeans';
 import Cart from './pages/Cart/Cart';
 import { CartProvider } from './context/CartContext';
 import Checkout from './pages/Checkout/Checkout';
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 
 import ContactUs from './components/footer/support/ContactUs';
 import FAQ from './components/footer/support/FAQ';
 import PaymentMethods from './components/footer/support/PaymentMethods';
 import ShippingReturns from './components/footer/support/ShippingReturns';
 
-import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import ProfilePage from './pages/ProfilePage/ProfilePage';
 import SignInPage from './pages/SignInPage/SignInPage';
 import SignUpPage from './pages/SignUpPage/SignUpPage';
-
 
 function App() {
   return (
@@ -37,16 +37,38 @@ function App() {
             <Route path="paymentmethods" element={<PaymentMethods />} />
             <Route path="shippingreturns" element={<ShippingReturns />} />
             <Route 
-            path="/profile" 
+              path="/profile" 
+              element={
+                <ProtectedRoute>
+                  <ProfilePage />
+                </ProtectedRoute>
+              } 
+            />
+          </Route>
+          <Route 
+            path="/sign-in" 
             element={
-              <ProtectedRoute>
-                <ProfilePage />
-              </ProtectedRoute>
+              <SignedOut>
+                <SignInPage />
+              </SignedOut>
             } 
           />
-          </Route>
-          <Route path="/sign-in" element={<SignInPage />} />
-          <Route path="/sign-up" element={<SignUpPage />} />
+          <Route 
+            path="/sign-up" 
+            element={
+              <SignedOut>
+                <SignUpPage />
+              </SignedOut>
+            } 
+          />
+          <Route 
+            path="*" 
+            element={
+              <div className="container">
+                <h1>404 - Page Not Found</h1>
+              </div>
+            } 
+          />
         </Routes>
       </Router>
     </CartProvider>

@@ -1,14 +1,19 @@
-import { UserProfile } from "@clerk/clerk-react";
+import { UserProfile } from '@clerk/clerk-react';
+import './ProfilePage.css';
 
 const ProfilePage = () => {
-  return (
-    <div className="profile-page">
-      <div className="container">
-        <h1>Your Profile</h1>
-        <UserProfile />
-      </div>
-    </div>
-  );
+    return (
+        <div className="profile-page">
+            <div className="container">
+                <div className="profile-container">
+                    <UserProfile 
+                        routing="path"
+                        path="/profile"
+                    />
+                </div>
+            </div>
+        </div>
+    );
 };
 
 export default ProfilePage;

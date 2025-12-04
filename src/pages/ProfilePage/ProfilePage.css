@@ -1,0 +1,10 @@
+.profile-page {
+    min-height: 80vh;
+    padding: 2rem 0;
+    background: var(--cream-white);
+}
+
+.profile-container {
+    max-width: 800px;
+    margin: 0 auto;
+}

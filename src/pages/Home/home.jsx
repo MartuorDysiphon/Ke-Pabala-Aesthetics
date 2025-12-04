@@ -1,7 +1,7 @@
 // home.jsx
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import ProductModal from '../../components/ProductModal/ProductModal';
+import ProductModal from '../../components/HairModal/HairModal';
 import './home.css';
 
 import Blondie from '../../assets/Home/blondie.jpg';

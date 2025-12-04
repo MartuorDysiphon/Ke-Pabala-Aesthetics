@@ -1,362 +1,671 @@
-/* Iphones.css */
-.iphones-page {
-    min-height: 100vh;
-    background: var(--background);
+/* Iphones.css - MINIMALIST VERSION WITH IP- PREFIX */
+.ip-page {
+    background-color: #fff;
+    padding: 1.5rem 0;
+    min-height: 70vh;
 }
 
-.iphones-hero {
-    padding: var(--spacing-xl) 0;
-    background: linear-gradient(135deg, var(--primary-light) 0%, #ffffff 100%);
-    text-align: center;
-}
-
-.iphones-hero-content h1 {
-    font-size: clamp(2.5rem, 5vw, 3.5rem);
-    margin-bottom: var(--spacing-sm);
-    line-height: 1.2;
-    color: var(--text);
-}
-
-.iphones-hero-content p {
-    font-size: 1.1rem;
-    color: var(--text-light);
-    max-width: 600px;
+.ip-container {
+    max-width: 1200px;
     margin: 0 auto;
-    line-height: 1.6;
+    padding: 0 1rem;
 }
 
-.iphones-products {
-    padding: var(--spacing-lg) 0;
-}
-
-.iphones-filter-bar {
+/* SINGLE LINE SUBHEADER */
+.ip-subheader {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: var(--spacing-lg);
-    padding-bottom: var(--spacing-sm);
-    border-bottom: 1px solid var(--accent-light);
+    background: #fff;
+    border-radius: 8px;
+    padding: 0.4rem 0.75rem;
+    margin-bottom: 1rem;
+    height: 42px;
+    min-height: 42px;
 }
 
-.iphones-stats {
-    color: var(--text-light);
-    font-size: 0.9rem;
+/* Left: Filter Buttons */
+.ip-filter-buttons {
+    display: flex;
+    gap: 0.4rem;
+    align-items: center;
+    flex: 1;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }
 
-.iphones-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: var(--spacing-md);
+.ip-filter-buttons::-webkit-scrollbar {
+    display: none;
 }
 
-.iphone-card {
-    background: white;
-    border-radius: var(--border-radius);
-    overflow: hidden;
-    box-shadow: var(--shadow);
-    transition: var(--transition);
-    position: relative;
+.ip-filter-btn {
+    padding: 0.3rem 0.9rem;
+    border: 1px solid #e0e0e0;
+    background: #fff;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #666;
     cursor: pointer;
-    height: fit-content;
-}
-
-.iphone-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-}
-
-.iphone-card-image {
-    background-color: #f5f5f5;
-    position: relative;
-    overflow: hidden;
-    height: 350px;
-}
-
-.iphone-card-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: var(--transition);
-}
-
-.iphone-card:hover .iphone-card-image img {
-    transform: scale(1.05);
-}
-
-.iphone-add-to-cart-btn {
-    position: absolute;
-    top: 0.75rem;
-    right: 0.75rem;
-    background: var(--accent);
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+    height: 28px;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
+}
+
+.ip-filter-btn:hover {
+    border-color: #ccc;
+    background: #f0f0f0;
+    color: #444;
+}
+
+.ip-filter-btn.ip-active {
+    background: #1a1a1a;
+    border-color: #1a1a1a;
+    color: #fff;
+    font-weight: 600;
+}
+
+/* Right: Sort Dropdown */
+.ip-sort-wrapper {
+    flex-shrink: 0;
+    margin-left: 0.75rem;
+}
+
+.ip-sort {
+    padding: 0.3rem 0.75rem;
+    padding-right: 1.75rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    background: #fff;
+    font-size: 0.8rem;
+    color: #666;
     cursor: pointer;
-    transition: var(--transition);
-    opacity: 1;
-    transform: translateY(0);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    z-index: 2;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='%23666' d='M5 7L2 3h6z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.6rem center;
+    background-size: 10px;
+    height: 28px;
+    min-width: 120px;
 }
 
-.iphone-add-to-cart-btn:hover {
-    background: var(--accent-dark);
-    transform: scale(1.1);
+.ip-sort:focus {
+    outline: none;
+    border-color: #999;
 }
 
-.iphone-card-info {
-    padding: var(--spacing-sm);
+/* Results Info */
+.ip-results-info {
+    margin-bottom: 1.5rem;
     text-align: center;
 }
 
-.iphone-card-title {
-    font-weight: 600;
-    margin-bottom: 0.4rem;
-    font-size: 1.1rem;
-    line-height: 1.3;
-    color: var(--text);
-}
-
-.iphone-card-storage {
-    color: var(--text-light);
+.ip-results-count {
     font-size: 0.85rem;
+    color: #666;
+    padding: 0.25rem 0.75rem;
+    background: #f8f8f8;
+    border-radius: 12px;
+}
+
+/* Minimal Product Grid - EXACTLY LIKE HAIR PAGE */
+.ip-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+    padding: 0;
+}
+
+.ip-card {
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.ip-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* ENHANCED Product Image - EXACT WIDTH AS PRODUCT DIV */
+.ip-image {
+    position: relative;
+    background: #f8f8f8;
+    width: 100%; /* Full width of parent */
+    height: 200px;
+    overflow: hidden;
+    flex-shrink: 0; /* Prevent image from shrinking */
+}
+
+.ip-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Changed from contain to cover for consistency with hair */
+    transition: transform 0.3s ease;
+    display: block;
+}
+
+/* Click-to-Zoom Feature */
+.ip-clickable {
+    cursor: pointer;
+}
+
+.ip-clickable:hover img {
+    transform: scale(1.05);
+}
+
+.ip-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.ip-clickable:hover .ip-overlay {
+    background: rgba(0, 0, 0, 0.1);
+    opacity: 1;
+}
+
+.ip-zoom {
+    font-size: 1.5rem;
+    color: rgba(255, 255, 255, 0.9);
+    background: rgba(0, 0, 0, 0.5);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: scale(0.8);
+    transition: transform 0.3s ease;
+    pointer-events: none;
+}
+
+.ip-clickable:hover .ip-zoom {
+    transform: scale(1);
+}
+
+/* Product Type Badges */
+.ip-type {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    z-index: 2;
+}
+
+.ip-tag {
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.ip-tag.ip-available {
+    background: #1a1a1a;
+    color: #fff;
+}
+
+.ip-tag.ip-low-stock {
+    background: #f59e0b;
+    color: #1a1a1a;
+}
+
+.ip-featured {
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
+    z-index: 2;
+}
+
+.ip-featured span {
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.65rem;
+    font-weight: 600;
+    background: #ffd700;
+    color: #1a1a1a;
+}
+
+/* Product Details - Fills remaining space */
+.ip-details {
+    padding: 1rem;
+    flex: 1; /* Takes remaining space */
+    display: flex;
+    flex-direction: column;
+}
+
+.ip-name {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0 0 0.5rem 0;
+    line-height: 1.3;
+    flex-shrink: 0;
+}
+
+.ip-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 0.5rem;
+    font-size: 0.85rem;
+    flex-shrink: 0;
 }
 
-.iphone-card-price {
-    color: var(--accent);
-    font-weight: 700;
-    font-size: 1.2rem;
+.ip-storage {
+    color: #666;
+    font-weight: 500;
 }
 
-/* iPhone-specific modal adjustments */
-.iphone-modal .options-section {
-    display: none; /* Hide color/size options for iPhones */
+.ip-condition {
+    color: #888;
+    font-size: 0.8rem;
+    font-weight: 500;
 }
 
+.ip-price-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto; /* Pushes to bottom */
+    flex-shrink: 0;
+}
+
+.ip-price {
+    color: #1a1a1a;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+/* Product Action */
+.ip-cart-btn {
+    padding: 0.4rem 0.8rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: #1a1a1a;
+    color: #fff;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.ip-cart-btn:hover {
+    background: #333;
+}
+
+/* Empty State */
+.ip-empty {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: #888;
+}
+
+.ip-empty h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #555;
+}
+
+.ip-empty p {
+    font-size: 0.9rem;
+}
+
+/* FULL SCREEN IMAGE MODAL */
+.ip-image-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.95);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    animation: ip-fadeIn 0.2s ease;
+}
+
+@keyframes ip-fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.ip-image-content {
+    position: relative;
+    width: 90%;
+    max-width: 1000px;
+    max-height: 90vh;
+    background: #000;
+    border-radius: 12px;
+    overflow: hidden;
+    animation: ip-slideUp 0.3s ease;
+}
+
+@keyframes ip-slideUp {
+    from { 
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to { 
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.ip-close-modal {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: white;
+    font-size: 2rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease;
+}
+
+.ip-close-modal:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.ip-fullscreen-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: calc(90vh - 80px);
+    padding: 2rem;
+}
+
+.ip-fullscreen-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 4px;
+}
+
+.ip-image-info {
+    padding: 1rem;
+    background: #111;
+    border-top: 1px solid #333;
+}
+
+.ip-image-info h3 {
+    color: white;
+    font-size: 1rem;
+    font-weight: 500;
+    text-align: center;
+    margin: 0;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
-    .iphones-filter-bar {
-        flex-direction: column;
-        gap: var(--spacing-sm);
-        text-align: center;
+    .ip-page {
+        padding: 1rem 0;
     }
-
-    .iphones-grid {
+    
+    .ip-title {
+        font-size: 1.5rem;
+    }
+    
+    .ip-subheader {
+        padding: 0.35rem 0.6rem;
+        height: 38px;
+    }
+    
+    .ip-filter-btn {
+        padding: 0.25rem 0.7rem;
+        font-size: 0.75rem;
+        height: 26px;
+    }
+    
+    .ip-sort {
+        padding: 0.25rem 0.6rem;
+        padding-right: 1.5rem;
+        font-size: 0.75rem;
+        height: 26px;
+        min-width: 110px;
+        background-position: right 0.5rem center;
+    }
+    
+    .ip-grid {
         grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
     }
-
-    .iphone-card-image {
-        height: 250px;
+    
+    .ip-image {
+        height: 160px;
     }
-
-    .iphone-add-to-cart-btn {
-        width: 36px;
-        height: 36px;
+    
+    .ip-results-count {
+        font-size: 0.8rem;
+    }
+    
+    .ip-fullscreen-container {
+        height: calc(90vh - 60px);
+        padding: 1rem;
+    }
+    
+    .ip-close-modal {
         top: 0.5rem;
         right: 0.5rem;
+        font-size: 1.5rem;
+        width: 30px;
+        height: 30px;
     }
 }
 
 @media (max-width: 480px) {
-    .iphones-hero {
-        padding: var(--spacing-lg) 0;
+    .ip-container {
+        padding: 0 0.75rem;
     }
-
-    .iphones-grid {
+    
+    .ip-subheader {
+        height: 36px;
+        padding: 0.3rem 0.5rem;
+    }
+    
+    .ip-filter-buttons {
+        gap: 0.3rem;
+    }
+    
+    .ip-filter-btn {
+        padding: 0.2rem 0.6rem;
+        font-size: 0.7rem;
+        height: 24px;
+    }
+    
+    .ip-sort {
+        min-width: 100px;
+        font-size: 0.7rem;
+        padding: 0.2rem 0.5rem;
+        padding-right: 1.25rem;
+    }
+    
+    .ip-grid {
         grid-template-columns: 1fr;
-        gap: var(--spacing-md);
+        gap: 1rem;
     }
-
-    .iphone-card-image {
+    
+    .ip-image {
         height: 200px;
     }
-
-    .iphone-card-title {
-        font-size: 1rem;
-    }
-
-    .iphone-card-price {
-        font-size: 1.1rem;
-    }
-
-    .iphone-add-to-cart-btn {
-        width: 32px;
-        height: 32px;
-        top: 0.4rem;
-        right: 0.4rem;
-    }
-
-    .iphone-add-to-cart-btn i {
+    
+    .ip-name {
         font-size: 0.9rem;
     }
-}
-
-/* Add to iphone.css */
-
-/* iPhone Mini Series (12/13 Mini) */
-@media (width: 360px) and (height: 780px) {
-    .iphones-hero {
-        padding: var(--spacing-sm) 0;
+    
+    .ip-meta {
+        font-size: 0.8rem;
     }
     
-    .iphones-hero-content h1 {
-        font-size: 1.5rem;
-        margin-bottom: 0.5rem;
-    }
-    
-    .iphones-hero-content p {
-        font-size: 0.85rem;
-        max-width: 320px;
-    }
-    
-    .iphones-products {
-        padding: var(--spacing-md) 0;
-    }
-    
-    .iphones-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 0.5rem;
-    }
-    
-    .iphone-card-image {
-        height: 120px;
-    }
-    
-    .iphone-card-info {
+    .ip-cart-btn {
+        font-size: 0.8rem;
         padding: 0.5rem;
     }
     
-    .iphone-card-title {
-        font-size: 0.8rem;
-    }
-    
-    .iphone-card-storage {
-        font-size: 0.75rem;
-    }
-    
-    .iphone-card-price {
-        font-size: 0.85rem;
+    .ip-image-content {
+        width: 95%;
     }
 }
 
-/* iPhone Standard (11 Pro, 15/15 Pro) */
-@media (width: 390px) and (height: 844px) {
-    .iphones-hero {
-        padding: var(--spacing-md) 0;
+/* Extra Small Devices */
+@media (max-width: 360px) {
+    .ip-subheader {
+        height: 34px;
     }
     
-    .iphones-hero-content h1 {
-        font-size: 1.6rem;
+    .ip-filter-btn {
+        padding: 0.15rem 0.5rem;
+        font-size: 0.65rem;
+        height: 22px;
     }
     
-    .iphones-hero-content p {
-        font-size: 0.9rem;
-        max-width: 350px;
+    .ip-sort {
+        min-width: 90px;
+        font-size: 0.65rem;
+        padding: 0.15rem 0.4rem;
+        padding-right: 1rem;
     }
     
-    .iphones-grid {
-        grid-template-columns: repeat(2, 1fr);
+    .ip-grid {
         gap: 0.75rem;
     }
-    
-    .iphone-card-image {
-        height: 140px;
-    }
-    
-    .iphone-card-title {
-        font-size: 0.85rem;
-    }
 }
 
-/* iPhone Plus/Max Group 1 */
-@media (width: 414px) and (height: 896px), 
-       (width: 428px) and (height: 926px) {
-    .iphones-hero-content h1 {
-        font-size: 1.7rem;
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+    .ip-page {
+        background: #1a1a1a;
     }
     
-    .iphones-hero-content p {
-        font-size: 0.9rem;
+    .ip-title {
+        color: #fff;
     }
     
-    .iphones-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1rem;
+    .ip-subheader {
+        background: #2a2a2a;
+        border-color: #333;
     }
     
-    .iphone-card-image {
-        height: 160px;
-    }
-}
-
-/* iPhone Plus/Max Group 2 */
-@media (width: 430px) and (height: 932px) {
-    .iphones-hero-content h1 {
-        font-size: 1.8rem;
+    .ip-filter-btn {
+        background: #333;
+        border-color: #444;
+        color: #ccc;
     }
     
-    .iphones-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1rem;
+    .ip-filter-btn:hover {
+        background: #3a3a3a;
+        border-color: #555;
+        color: #fff;
     }
     
-    .iphone-card-image {
-        height: 180px;
-    }
-}
-
-/* Universal small-screen scaling for iPhones */
-@media (max-width: 430px) {
-    .iphones-filter-bar {
-        margin-bottom: var(--spacing-md);
-        padding-bottom: 0.5rem;
+    .ip-filter-btn.ip-active {
+        background: #fff;
+        border-color: #fff;
+        color: #1a1a1a;
     }
     
-    .section-title {
-        font-size: 1.2rem;
+    .ip-sort {
+        background: #2a2a2a;
+        border-color: #444;
+        color: #ccc;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='%23ccc' d='M5 7L2 3h6z'/%3E%3C/svg%3E");
     }
     
-    .iphones-stats {
-        font-size: 0.8rem;
+    .ip-results-count {
+        color: #aaa;
+        background: #2a2a2a;
     }
     
-    .iphone-add-to-cart-btn {
-        width: 36px;
-        height: 36px;
-        top: 0.4rem;
-        right: 0.4rem;
+    .ip-card {
+        background: #2a2a2a;
+        border-color: #333;
     }
     
-    /* Ensure 2-column grid stays consistent */
-    .iphones-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-/* Optimize existing media queries */
-@media (max-width: 768px) {
-    .iphones-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: var(--spacing-sm);
+    .ip-image {
+        background: #333;
     }
     
-    .iphone-card-image {
-        height: 180px;
-    }
-}
-
-@media (max-width: 480px) {
-    .iphones-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 0.75rem;
+    .ip-name {
+        color: #fff;
     }
     
-    .iphone-card-image {
-        height: 140px;
+    .ip-storage {
+        color: #aaa;
+    }
+    
+    .ip-condition {
+        color: #888;
+    }
+    
+    .ip-color-name {
+        color: #aaa;
+    }
+    
+    .ip-price {
+        color: #fff;
+    }
+    
+    .ip-cart-btn {
+        background: #fff;
+        color: #1a1a1a;
+    }
+    
+    .ip-cart-btn:hover {
+        background: #e0e0e0;
+    }
+    
+    .ip-tag.ip-available {
+        background: #fff;
+        color: #1a1a1a;
+    }
+    
+    .ip-tag.ip-low-stock {
+        background: #fbbf24;
+        color: #1a1a1a;
+    }
+    
+    .ip-featured span {
+        background: #ffd700;
+        color: #1a1a1a;
+    }
+    
+    .ip-empty h3 {
+        color: #ccc;
+    }
+    
+    .ip-empty {
+        color: #888;
     }
 }

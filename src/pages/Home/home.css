@@ -1,7 +1,7 @@
 /* home.css */
 .hero {
     padding: var(--spacing-lg) 0;
-    background: linear-gradient(135deg, var(--primary) 0%, #ffffff 100%);
+    background: #fff;
 }
 
 .hero-container {
@@ -127,7 +127,7 @@
 }
 
 .Home__product-img {
-    background-color: #f5f5f5;
+    background-color: #ffffff;
     position: relative;
     overflow: hidden;
 }
