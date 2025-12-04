@@ -79,12 +79,6 @@ const Jeans = () => {
 
     const categories = [
         { value: 'all', label: 'All Styles' },
-        { value: 'Slim Fit', label: 'Slim Fit' },
-        { value: 'Straight Fit', label: 'Straight Fit' },
-        { value: 'Skinny Fit', label: 'Skinny Fit' },
-        { value: 'Relaxed Fit', label: 'Relaxed Fit' },
-        { value: 'Tapered Fit', label: 'Tapered Fit' },
-        { value: 'Baggy Straight', label: 'Baggy Straight' }
     ];
 
     const filteredAndSortedProducts = useMemo(() => {
