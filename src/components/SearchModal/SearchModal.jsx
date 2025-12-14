@@ -30,17 +30,6 @@ const SearchModal = ({ isOpen, onClose, searchResults, searchQuery, onSearch }) 
     };
   }, [isOpen]);
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    if (query.trim()) {
-      // Save to recent searches
-      const updated = [query, ...recentSearches.filter(s => s !== query)].slice(0, 4);
-      setRecentSearches(updated);
-      localStorage.setItem('recentSearches', JSON.stringify(updated));
-    }
-    onSearch(query);
-  };
-
   const handleSuggestionClick = (suggestion) => {
     setQuery(suggestion);
     onSearch(suggestion);
@@ -59,7 +48,7 @@ const SearchModal = ({ isOpen, onClose, searchResults, searchQuery, onSearch }) 
   return (
     <div className="search-modal-overlay" onClick={onClose}>
       <div className="search-modal" onClick={(e) => e.stopPropagation()}>
-        {/* Search Header */}
+        {/* Header */}
         <div className="search-header">
           <div className="search-input-container">
             <i className="fas fa-search search-icon"></i>
@@ -67,8 +56,16 @@ const SearchModal = ({ isOpen, onClose, searchResults, searchQuery, onSearch }) 
               type="text"
               value={query}
               onChange={(e) => {
-                setQuery(e.target.value);
-                onSearch(e.target.value);
+                const value = e.target.value;
+                setQuery(value);
+                onSearch(value);
+                
+                // Save to recent searches when query is not empty
+                if (value.trim()) {
+                  const updated = [value, ...recentSearches.filter(s => s !== value)].slice(0, 4);
+                  setRecentSearches(updated);
+                  localStorage.setItem('recentSearches', JSON.stringify(updated));
+                }
               }}
               placeholder="Search products..."
               className="search-input"
@@ -91,7 +88,7 @@ const SearchModal = ({ isOpen, onClose, searchResults, searchQuery, onSearch }) 
           </button>
         </div>
 
-        {/* Search Results */}
+        {/* Results */}
         <div className="search-results">
           {searchResults.loading ? (
             <div className="loading-state">

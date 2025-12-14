@@ -7,7 +7,6 @@ const JeansModal = ({ product, isOpen, onClose }) => {
     const [quantity, setQuantity] = useState(1);
     const { addToCart } = useCart();
 
-    // Premium jeans size options
     const sizeOptions = [
         { size: '28', label: '28' },
         { size: '29', label: '29' },
@@ -20,7 +19,6 @@ const JeansModal = ({ product, isOpen, onClose }) => {
         { size: '38', label: '38' }
     ];
 
-    // Premium jeans specifications
     const jeansSpecs = {
         "Premium Denim": {
             fabric: '100% Premium Cotton',
@@ -129,7 +127,7 @@ const JeansModal = ({ product, isOpen, onClose }) => {
                         </div>
 
                         <div className="JM-options-section">
-                            {/* Size Selection */}
+                            {/* Size */}
                             <div className="JM-option-group">
                                 <div className="JM-option-label">Size (Waist)</div>
                                 <div className="JM-size-options">
@@ -147,7 +145,6 @@ const JeansModal = ({ product, isOpen, onClose }) => {
                                 </div>
                             </div>
 
-                            {/* Quantity Selection */}
                             <div className="JM-option-group">
                                 <div className="JM-option-label">Quantity</div>
                                 <div className="JM-quantity-selector">

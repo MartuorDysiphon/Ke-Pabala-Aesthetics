@@ -5,7 +5,6 @@ import Jean4 from '../../assets/Jeans/jean4.webp';
 import Jean5 from '../../assets/Jeans/jean5.png';
 import Jean6 from '../../assets/Jeans/jean6.png';
 
-// IPHONE IMAGES
 import Iphone7 from '../../assets/Iphones/iphone 7.jpg';
 import Iphone7Plus from '../../assets/Iphones/iphone 7 plus.jpg';
 import Iphone8 from '../../assets/Iphones/iphone 8.jpg';
@@ -16,7 +15,6 @@ import Iphone11 from '../../assets/Iphones/iphone 11.jpg';
 import Iphone11Pro from '../../assets/Iphones/iphone 11 pro.jpg';
 import Iphone12 from '../../assets/Iphones/iphone 12.jpg';
 
-// HAIR IMAGES
 import Blondie from '../../assets/Hair/blondie.jpg';
 import Curly1 from '../../assets/Hair/curly1.jpg';
 import Curly2 from '../../assets/Hair/curly2.jpg';
@@ -50,9 +48,8 @@ import Straight2 from '../../assets/Hair/straight2.jpg';
 import Straight3 from '../../assets/Hair/straight3.jpg';
 import Straight4 from '../../assets/Hair/straight4.jpg';
 
-// ALL PRODUCTS DATABASE - 51 TOTAL PRODUCTS
+// PRODUCTS DATABASE
 export const allProducts = [
-  // ========== JEANS PRODUCTS (6 items) ==========
   {
     id: 'jeans-1',
     name: "Midnight Riser",
@@ -150,7 +147,6 @@ export const allProducts = [
     color: "Medium Blue"
   },
 
-  // ========== IPHONE PRODUCTS (9 items) ==========
   {
     id: 'iphone-1',
     name: "iPhone 12",
@@ -314,7 +310,6 @@ export const allProducts = [
     color: "Black"
   },
 
-  // ========== HAIR PRODUCTS (36 items) ==========
   {
     id: 'hair-1',
     name: "Sun-Kissed Blondie",
@@ -969,58 +964,56 @@ export const allProducts = [
   }
 ];
 
-// Total: 6 Jeans + 9 iPhones + 36 Hair = 51 Products
 
-// Search function
+// Search 
 export const searchAllProducts = (query) => {
   if (!query || query.trim() === '') return [];
   
   const searchTerm = query.toLowerCase().trim();
   
-  // Score each product based on search relevance
+  // Score
   const scoredProducts = allProducts.map(product => {
     let score = 0;
     
-    // Name match (highest priority)
+    // Name match
     if (product.name.toLowerCase().includes(searchTerm)) {
       score += 100;
-      // Exact match gets bonus
       if (product.name.toLowerCase() === searchTerm) score += 50;
     }
     
-    // Category match
+    // Category
     if (product.category.toLowerCase().includes(searchTerm)) {
       score += 80;
     }
     
-    // Subcategory match
+    // Subcategory
     if (product.subcategory?.toLowerCase().includes(searchTerm)) {
       score += 70;
     }
     
-    // Description match
+    // Description
     if (product.description?.toLowerCase().includes(searchTerm)) {
       score += 40;
     }
     
-    // Tag matches
+    // Tag 
     product.tags?.forEach(tag => {
       if (tag.toLowerCase().includes(searchTerm)) {
         score += 30;
       }
     });
     
-    // Type match (electronics, clothing, beauty)
+    // Type
     if (product.type?.toLowerCase().includes(searchTerm)) {
       score += 20;
     }
     
-    // Page match (jeans, iphones, hair)
+    // Page
     if (product.page?.toLowerCase().includes(searchTerm)) {
       score += 10;
     }
     
-    // Featured products get slight boost
+    // Featured
     if (product.featured) {
       score += 5;
     }
@@ -1028,19 +1021,17 @@ export const searchAllProducts = (query) => {
     return { ...product, score };
   });
   
-  // Filter products with score > 0 and sort by score
+  // Filter
   return scoredProducts
     .filter(product => product.score > 0)
     .sort((a, b) => b.score - a.score)
     .slice(0, 50); // Limit to 50 results
 };
 
-// Get all unique categories
 export const getAllCategories = () => {
   return [...new Set(allProducts.map(p => p.category))];
 };
 
-// Get popular searches
 export const getPopularSearches = () => {
   return [
     "iPhone 12",
@@ -1061,7 +1052,7 @@ export const getPopularSearches = () => {
   ];
 };
 
-// Get featured products
+
 export const getFeaturedProducts = () => {
   return allProducts.filter(product => product.featured);
 };

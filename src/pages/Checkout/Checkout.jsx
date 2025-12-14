@@ -108,6 +108,33 @@ const Checkout = () => {
             };
             setOrderCart(cartSnapshot);
             
+            // Formspree Integration for Order Notification
+            const formspreeResponse = await fetch('https://formspree.io/f/mdkqjwqv', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    _subject: `New Order #${newOrderNumber} - Ke Pabala Aesthetics`,
+                    orderNumber: newOrderNumber,
+                    customerName: `${formData.firstName} ${formData.lastName}`,
+                    customerEmail: formData.email,
+                    customerPhone: formData.phone,
+                    deliveryAddress: `${formData.address}, ${formData.suburb}, ${formData.city}, ${formData.province} ${formData.postalCode}`,
+                    cartItems: cart.items.map(item => `${item.quantity}x ${item.name} (R${item.price})`).join(', '),
+                    deliveryMethod: selectedDelivery?.name,
+                    paymentMethod: formData.paymentMethod,
+                    subtotal: `R${subtotal.toFixed(2)}`,
+                    deliveryCost: `R${deliveryCost.toFixed(2)}`,
+                    total: `R${total.toFixed(2)}`,
+                    _replyto: formData.email
+                }),
+            });
+
+            if (!formspreeResponse.ok) {
+                console.warn('Formspree notification failed. Proceeding with order.');
+            }
+
             // Backend order creation
             if (user) {
                 try {

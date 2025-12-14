@@ -88,11 +88,11 @@ const FAQ = () => {
                         <div className="quick-links">
                             <h3>Quick Help Resources</h3>
                             <div className="links-grid">
-                                <a href="/shippingreturns" className="link-item">
+                                <a href="/shipping" className="link-item">
                                     <i className="fas fa-shipping-fast"></i>
                                     Shipping Info
                                 </a>
-                                <a href="/contactus" className="link-item">
+                                <a href="/contact" className="link-item">
                                     <i className="fas fa-headset"></i>
                                     Contact Support
                                 </a>

@@ -27,21 +27,20 @@ const Navbar = () => {
         setCartItemsCount(getTotalItems());
     }, [getTotalItems]);
 
-    // Debounced search function
+    // search function
     const performSearch = useCallback((query) => {
         if (!query.trim()) {
             setSearchResults({ results: [], loading: false });
             return;
         }
 
-        // Clear previous timeout
+        // timeout
         if (searchTimeoutRef.current) {
             clearTimeout(searchTimeoutRef.current);
         }
 
         setSearchResults(prev => ({ ...prev, loading: true }));
         
-        // Set new timeout for debouncing
         searchTimeoutRef.current = setTimeout(() => {
             try {
                 const results = searchAllProducts(query);
@@ -56,7 +55,7 @@ const Navbar = () => {
                     loading: false
                 });
             }
-        }, 300); // 300ms debounce
+        }, 300); 
     }, []);
 
     const handleSearch = (query) => {
@@ -94,10 +93,9 @@ const Navbar = () => {
         setIsActive(false);
     };
 
-    // Close search when changing pages
     useEffect(() => {
         closeSearchModal();
-        setIsActive(false); // Also close mobile menu
+        setIsActive(false); 
     }, [location.pathname]);
 
     return (
@@ -163,7 +161,7 @@ const Navbar = () => {
                             )}
                         </Link>
                         
-                        {/* Clerk authentication - redirect version */}
+                        {/* Clerk*/}
                         {isSignedIn ? (
                             <UserButton 
                                 appearance={{
@@ -192,7 +190,7 @@ const Navbar = () => {
                 </div>
             </nav>
 
-            {/* Overlay for mobile menu */}
+            {/* mobile menu */}
             <div 
                 className={`nav-overlay ${isActive ? 'active' : ''}`}
                 onClick={handleOverlayClick}

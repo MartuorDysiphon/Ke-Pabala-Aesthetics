@@ -8,7 +8,6 @@ const ProductModal = ({ product, isOpen, onClose }) => {
     const [quantity, setQuantity] = useState(1);
     const { addToCart } = useCart();
 
-    // Color options - standard colors R0, custom colors R100
     const colorOptions = [
         { name: 'Natural Black', color: '#1a1a1a', standard: true },
         { name: 'Off Black', color: '#3c3c3e', standard: false },
@@ -21,7 +20,6 @@ const ProductModal = ({ product, isOpen, onClose }) => {
         { name: 'Rose Gold', color: '#b76e79', standard: false }
     ];
 
-    // Length presets
     const lengthPresets = [
         { length: '16 inches', desc: 'Shoulder Length' },
         { length: '20 inches', desc: 'Mid Back' },
@@ -29,7 +27,6 @@ const ProductModal = ({ product, isOpen, onClose }) => {
         { length: '28 inches', desc: 'Hip Length' },
     ];
 
-    // Wig specifications by type
     const wigSpecs = {
         'Human Hair Wig': {
             material: '100% Human Hair',
@@ -57,7 +54,6 @@ const ProductModal = ({ product, isOpen, onClose }) => {
         }
     };
 
-    // Determine wig type from product name
     const getWigType = () => {
         const name = product.name.toLowerCase();
         if (name.includes('human hair')) return 'Human Hair Wig';
@@ -112,7 +108,7 @@ const ProductModal = ({ product, isOpen, onClose }) => {
                 </button>
 
                 <div className="hr-modal-body">
-                    {/* Left Column - Product Image */}
+                    {/* Left Product img */}
                     <div className="hr-modal-image">
                         <img 
                             src={product.image} 
@@ -122,14 +118,13 @@ const ProductModal = ({ product, isOpen, onClose }) => {
                         <div className="hr-type-badge">{wigType}</div>
                     </div>
 
-                    {/* Right Column - Product Info */}
+                    {/* Right Product Info */}
                     <div className="hr-modal-info">
                         <div className="hr-modal-header">
                             <h1>{product.name}</h1>
                             <p>Premium Hair Collection</p>
                         </div>
 
-                        {/* Specifications Grid */}
                         <div className="hr-modal-specs">
                             <div className="hr-spec-item">
                                 <span className="hr-spec-label">Material</span>
@@ -149,7 +144,6 @@ const ProductModal = ({ product, isOpen, onClose }) => {
                             </div>
                         </div>
 
-                        {/* Price Section */}
                         <div className="hr-modal-price-section">
                             <div className="hr-base-price">R{product.price}</div>
                             {selectedColor && (
@@ -159,9 +153,8 @@ const ProductModal = ({ product, isOpen, onClose }) => {
                             )}
                         </div>
 
-                        {/* Options Section */}
                         <div className="hr-modal-options-section">
-                            {/* Color Selection */}
+                            {/* Color */}
                             <div className="hr-option-group">
                                 <div className="hr-option-label">Color</div>
                                 <div className="hr-color-options">
@@ -194,7 +187,7 @@ const ProductModal = ({ product, isOpen, onClose }) => {
                                 </div>
                             </div>
 
-                            {/* Length Selection */}
+                            {/* Length */}
                             <div className="hr-option-group">
                                 <div className="hr-option-label">Length</div>
                                 <div className="hr-length-options">
@@ -224,7 +217,7 @@ const ProductModal = ({ product, isOpen, onClose }) => {
                                 )}
                             </div>
 
-                            {/* Quantity Selection */}
+                            {/* Quantity */}
                             <div className="hr-option-group">
                                 <div className="hr-option-label">Quantity</div>
                                 <div className="hr-quantity-selector">
@@ -258,7 +251,7 @@ const ProductModal = ({ product, isOpen, onClose }) => {
                             Add to Cart • R{calculateTotalPrice().toFixed(2)}
                         </button>
 
-                        {/* Guarantee Badges */}
+                        {/* Guarantee */}
                         <div className="hr-guarantee-info">
                             <span className="hr-guarantee-badge">✓ 30-Day Returns</span>
                             <span className="hr-guarantee-badge">✓ Free Adjustments</span>

@@ -35,8 +35,8 @@ const Footer = () => {
                     </nav>
                     <nav className="footer__nav">
                         <span className="footer__nav-heading">Support</span>
-                        <a href="/contactus">Contact</a>
-                        <a href="/shippingreturns">Shipping</a>
+                        <a href="/contact">Contact</a>
+                        <a href="/shipping">Shipping</a>
                         <a href="/faq">FAQ</a>
                     </nav>
                 </div>
@@ -44,13 +44,19 @@ const Footer = () => {
                 <div className="footer__subscribe">
                     <span className="footer__nav-heading">Stay Updated</span>
                     <p>Receive exclusive offers and styling insights.</p>
-                    <form className="subscribe__form">
+                    <form 
+                        action="https://formspree.io/f/xwpgzrza" 
+                        method="POST"
+                        className="subscribe__form"
+                    >
                         <input
                             type="email"
+                            name="email"
                             placeholder="Your email"
                             aria-label="Email for newsletter"
                             required
                         />
+                        <input type="text" name="_gotcha" style={{display: 'none'}} />
                         <button type="submit" aria-label="Subscribe">
                             <i className="fas fa-arrow-right"></i>
                         </button>

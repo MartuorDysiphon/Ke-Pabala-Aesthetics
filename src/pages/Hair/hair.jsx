@@ -122,7 +122,7 @@ const Hair = () => {
             default:
                 return filtered;
         }
-    }, [selectedCategory, sortBy, hairProducts]); // Added hairProducts to dependencies
+    }, [selectedCategory, sortBy, hairProducts]); 
 
     const handleProductClick = (product) => {
         if (!product.comingSoon) {
@@ -154,7 +154,7 @@ const Hair = () => {
                     <h1 className="section-title">Hair Collection</h1>
                 </div>
 
-                {/* COMPACT SINGLE LINE SUBHEADER */}
+                {/* SUBHEADER */}
                 <div className="compact-subheader">
                     {/* LEFT: Filter Buttons */}
                     <div className="filter-buttons">

@@ -1,7 +1,6 @@
 /* Support Pages - Minimalist Black & White */
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
 
-/* Base Structure */
 .support-page {
     padding: 2rem 1rem;
     background: #fff;
@@ -13,7 +12,6 @@
     margin: 0 auto;
 }
 
-/* Header */
 .support-header {
     text-align: center;
     margin-bottom: 3rem;
@@ -36,7 +34,6 @@
     line-height: 1.5;
 }
 
-/* Content Grid */
 .support-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -49,7 +46,6 @@
     }
 }
 
-/* Cards */
 .support-card {
     background: #fff;
     border: 1px solid #e8e8e8;
@@ -137,7 +133,6 @@
     transform: translateY(-1px);
 }
 
-/* Contact Info */
 .info-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -629,7 +624,7 @@
     }
 }
 
-/* Dark Mode Support */
+/* Dark Mode */
 @media (prefers-color-scheme: dark) {
     .support-page {
         background: #1a1a1a;

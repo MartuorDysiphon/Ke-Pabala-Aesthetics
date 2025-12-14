@@ -16,11 +16,6 @@ const ContactUs = () => {
         }));
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log('Contact form submitted:', formData);
-    };
-
     return (
         <div className="support-page">
             <div className="support-container">
@@ -36,7 +31,13 @@ const ContactUs = () => {
                             Send us a Message
                         </h2>
                         
-                        <form className="contact-form" onSubmit={handleSubmit}>
+                        <form 
+                            className="contact-form" 
+                            action="https://formspree.io/f/mrbndyno" 
+                            method="POST"
+                        >
+                            <input type="hidden" name="_subject" value="New Contact Form Submission - Ke Pabala Aesthetics" />
+                            
                             <div className="form-group">
                                 <label className="form-label">Full Name</label>
                                 <input
@@ -93,6 +94,8 @@ const ContactUs = () => {
                                     required
                                 ></textarea>
                             </div>
+                            
+                            <input type="text" name="_gotcha" style={{display: 'none'}} />
                             
                             <button type="submit" className="submit-btn">
                                 Send Message

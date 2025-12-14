@@ -9,7 +9,6 @@ const IphoneModal = ({ product, isOpen, onClose }) => {
     const [quantity, setQuantity] = useState(1);
     const { addToCart } = useCart();
 
-    // Certified Apple storage options for each iPhone model
     const appleStorageOptions = {
         "iPhone 12": [
             { storage: '64GB', price: 0 },
@@ -51,7 +50,6 @@ const IphoneModal = ({ product, isOpen, onClose }) => {
         ]
     };
 
-    // Certified Apple color options for each iPhone model
     const appleColorOptions = {
         "iPhone 12": ['Black', 'White', 'Green', 'Blue', 'Purple', 'Red'],
         "iPhone 11 Pro": ['Midnight Green', 'Space Gray', 'Silver', 'Gold'],
@@ -121,7 +119,7 @@ const IphoneModal = ({ product, isOpen, onClose }) => {
         }
     };
 
-    // Condition options and pricing
+    // conditions
     const conditionOptions = [
         { name: 'New', price: 500, description: 'Brand new, sealed in box' },
         { name: 'Fair', price: 0, description: 'Standard refurbished condition' },
@@ -166,7 +164,7 @@ const IphoneModal = ({ product, isOpen, onClose }) => {
 
         setSelectedStorage('');
         setSelectedColor('');
-        setSelectedCondition('Fair'); // Reset to default
+        setSelectedCondition('Fair'); 
         setQuantity(1);
         onClose();
         alert('Added to cart!');
@@ -252,7 +250,7 @@ const IphoneModal = ({ product, isOpen, onClose }) => {
                         </div>
 
                         <div className="iphone-modal-options-section">
-                            {/* Condition Selection */}
+                            {/* Condition */}
                             <div className="option-group">
                                 <div className="option-label">Condition</div>
                                 <div className="condition-options">
@@ -276,7 +274,7 @@ const IphoneModal = ({ product, isOpen, onClose }) => {
                                 </div>
                             </div>
 
-                            {/* Storage Selection */}
+                            {/* Storage */}
                             <div className="option-group">
                                 <div className="option-label">Storage</div>
                                 <div className="storage-options">
@@ -297,7 +295,6 @@ const IphoneModal = ({ product, isOpen, onClose }) => {
                                 </div>
                             </div>
 
-                            {/* Color Selection - Circles Only, No Text */}
                             <div className="option-group">
                                 <div className="option-label">Color</div>
                                 <div className="color-options">
@@ -320,7 +317,6 @@ const IphoneModal = ({ product, isOpen, onClose }) => {
                                 </div>
                             </div>
 
-                            {/* Quantity Selection */}
                             <div className="option-group">
                                 <div className="option-label">Quantity</div>
                                 <div className="quantity-selector">
