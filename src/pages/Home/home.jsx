@@ -4,7 +4,7 @@ import ProductModal from '../../components/HairModal/HairModal';
 import IphoneModal from '../../components/IphoneModal/IphoneModal';
 import './home.css';
 
-import HeroIMG from '../../assets/Logo/IMG.jpg';
+import HeroIMG from '../../assets/Logo/hero.png';
 
 // Hair product images
 import Blondie from '../../assets/Hair/blondie.jpg';

@@ -108,9 +108,7 @@ const ContactUs = () => {
                                 </div>
                                 <div className="info-content">
                                     <h3>Business Hours</h3>
-                                    <p>Mon-Fri: 8:00 AM - 6:00 PM</p>
-                                    <p>Sat: 9:00 AM - 4:00 PM</p>
-                                    <p>Sun: Closed</p>
+                                    <p>Mon-Sun: 8:00 AM - 5:00 PM</p>
                                 </div>
                             </div>
                             
@@ -140,7 +138,7 @@ const ContactUs = () => {
                                 </div>
                                 <div className="info-content">
                                     <h3>Address</h3>
-                                    <p>123 Fashion District<br />Johannesburg, 2000</p>
+                                    <p>KPA, Vanderbijlpark, 1900</p>
                                 </div>
                             </div>
                         </div>

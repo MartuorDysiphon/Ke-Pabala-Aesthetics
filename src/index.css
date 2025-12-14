@@ -30,7 +30,7 @@
 }
 
 body {
-  background-color: var(--primary);
+  background-color: #fff;
   color: var(--text);
   line-height: 1.6;
 }
