@@ -78,7 +78,7 @@ const Jeans = () => {
     ];
 
     const categories = [
-        { value: 'all', label: 'All Styles' },
+        { value: 'all', label: 'All Styles' }
     ];
 
     const filteredAndSortedProducts = useMemo(() => {

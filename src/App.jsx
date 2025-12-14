@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { SignedIn, SignedOut } from '@clerk/clerk-react';
+import { SignedOut } from '@clerk/clerk-react';
 import Layout from './components/layout';
 import Home from './pages/Home/home';
 import Hair from './pages/Hair/hair';
@@ -13,7 +13,6 @@ import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 
 import ContactUs from './components/footer/support/ContactUs';
 import FAQ from './components/footer/support/FAQ';
-import PaymentMethods from './components/footer/support/PaymentMethods';
 import ShippingReturns from './components/footer/support/ShippingReturns';
 
 import ProfilePage from './pages/ProfilePage/ProfilePage';
@@ -34,7 +33,6 @@ function App() {
             <Route path="checkout" element={<Checkout />} />
             <Route path="contactus" element={<ContactUs />} />
             <Route path="faq" element={<FAQ />} />
-            <Route path="paymentmethods" element={<PaymentMethods />} />
             <Route path="shippingreturns" element={<ShippingReturns />} />
             <Route 
               path="/profile" 

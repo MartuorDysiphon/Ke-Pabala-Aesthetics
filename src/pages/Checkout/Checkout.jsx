@@ -1,4 +1,3 @@
-// Checkout.jsx - Complete Updated Version
 import React, { useState } from 'react';
 import { useCart } from '../../context/CartContext';
 import { useUser } from '@clerk/clerk-react';
@@ -42,10 +41,10 @@ const Checkout = () => {
     ];
 
     const paymentMethods = [
-        { id: 'bank-transfer', name: 'Bank Transfer', icon: 'university' },
-        { id: 'capitec', name: 'Capitec to Capitec', icon: 'mobile-alt' },
-        { id: 'payshap', name: 'PayShap', icon: 'bolt' },
-        { id: 'layby', name: 'Layby', icon: 'calendar-plus' }
+        { id: 'bank-transfer', name: 'Bank', icon: 'university', color: '#1d1d1f' },
+        { id: 'capitec', name: 'Capitec', icon: 'mobile-alt', color: '#007AFF' },
+        { id: 'payshap', name: 'PayShap', icon: 'bolt', color: '#FF9500' },
+        { id: 'layby', name: 'Layby', icon: 'calendar-plus', color: '#34C759' }
     ];
 
     const generateOrderNumber = () => {
@@ -90,7 +89,7 @@ const Checkout = () => {
             return;
         }
 
-        // Phone validation (South African format)
+        // Phone validation
         const phoneRegex = /^(\+27|0)[1-9][0-9]{8}$/;
         const cleanedPhone = formData.phone.replace(/\s/g, '');
         if (!phoneRegex.test(cleanedPhone)) {
@@ -103,21 +102,18 @@ const Checkout = () => {
             const newOrderNumber = generateOrderNumber();
             setOrderNumber(newOrderNumber);
             
-            // Store cart data before clearing
             const cartSnapshot = {
                 items: [...cart.items],
                 total: getTotalPrice()
             };
             setOrderCart(cartSnapshot);
             
-            // Create order in backend if user is logged in
+            // Backend order creation
             if (user) {
                 try {
-                    const orderResponse = await fetch(`${API_BASE}/orders/${user.id}`, {
+                    await fetch(`${API_BASE}/orders/${user.id}`, {
                         method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
+                        headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
                             items: cart.items,
                             customerInfo: formData,
@@ -128,27 +124,14 @@ const Checkout = () => {
                             total: total
                         })
                     });
-
-                    if (!orderResponse.ok) {
-                        const errorData = await orderResponse.json();
-                        throw new Error(errorData.error || 'Failed to create order');
-                    }
-
-                    console.log('Order created successfully in backend');
                 } catch (backendError) {
                     console.error('Backend order creation failed:', backendError);
-                    // Continue with frontend order process even if backend fails
                 }
-            } else {
-                console.log('User not logged in, order saved locally only');
             }
             
-            // Simulate payment processing
             await new Promise(resolve => setTimeout(resolve, 2000));
             
-            // Clear cart after successful order
             clearCart();
-            
             setOrderComplete(true);
             setShowReceipt(true);
             
@@ -181,30 +164,30 @@ const Checkout = () => {
 
     if (orderComplete) {
         return (
-            <div className="checkout-success">
-                <div className="success-container">
-                    <div className="success-icon">
+            <div className="Checkout__success">
+                <div className="Checkout__success-container">
+                    <div className="Checkout__success-icon">
                         <i className="fas fa-check-circle"></i>
                     </div>
-                    <h1>Order Confirmed</h1>
-                    <p className="order-number">#{orderNumber}</p>
+                    <h1 className="Checkout__success-title">Order Confirmed</h1>
+                    <p className="Checkout__order-number">#{orderNumber}</p>
                     
-                    <div className="success-details">
-                        <div className="detail-item">
+                    <div className="Checkout__success-grid">
+                        <div className="Checkout__success-card">
                             <i className="fas fa-envelope"></i>
                             <div>
                                 <h4>Order Confirmed</h4>
-                                <p>Order #<strong>{orderNumber}</strong> has been placed</p>
+                                <p>Order #{orderNumber}</p>
                             </div>
                         </div>
-                        <div className="detail-item">
+                        <div className="Checkout__success-card">
                             <i className="fas fa-truck"></i>
                             <div>
                                 <h4>Delivery</h4>
-                                <p><strong>{selectedDelivery?.name}</strong> - {selectedDelivery?.time}</p>
+                                <p>{selectedDelivery?.name} · {selectedDelivery?.time}</p>
                             </div>
                         </div>
-                        <div className="detail-item">
+                        <div className="Checkout__success-card">
                             <i className="fas fa-credit-card"></i>
                             <div>
                                 <h4>Payment</h4>
@@ -213,19 +196,18 @@ const Checkout = () => {
                         </div>
                     </div>
 
-                    <div className="success-actions">
+                    <div className="Checkout__success-actions">
                         <button 
-                            className="btn btn-accent" 
+                            className="Checkout__btn Checkout__btn-accent" 
                             onClick={() => setShowReceipt(true)}
                         >
                             <i className="fas fa-receipt"></i>
                             View Receipt
                         </button>
                         <button 
-                            className="btn btn-secondary" 
+                            className="Checkout__btn Checkout__btn-secondary" 
                             onClick={() => window.location.href = '/'}
                         >
-                            <i className="fas fa-shopping-bag"></i>
                             Continue Shopping
                         </button>
                     </div>
@@ -235,418 +217,351 @@ const Checkout = () => {
     }
 
     return (
-        <div className="checkout">
-            <div className="checkout-container">
-                <header className="checkout-header">
-                    <h1 className="checkout-title">Complete Your Order</h1>
+        <div className="Checkout">
+            <div className="Checkout__container">
+                <header className="Checkout__header">
+                    <h1 className="Checkout__title">Complete Order</h1>
                 </header>
                 
-                <div className="checkout-content">
-                    <form className="checkout-form" onSubmit={handleSubmit}>
-                        {/* Personal Information */}
-                        <section className="form-section">
-                            <h2 className="section-title">
-                                <i className="fas fa-user"></i>
-                                Personal Info
-                            </h2>
-                            <div className="form-grid">
-                                <div className="form-group">
-                                    <label>First Name *</label>
-                                    <input
-                                        type="text"
-                                        name="firstName"
-                                        value={formData.firstName}
-                                        onChange={handleInputChange}
-                                        className="form-input"
-                                        placeholder="First name"
-                                        required
-                                        disabled={isSubmitting}
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <label>Last Name *</label>
-                                    <input
-                                        type="text"
-                                        name="lastName"
-                                        value={formData.lastName}
-                                        onChange={handleInputChange}
-                                        className="form-input"
-                                        placeholder="Last name"
-                                        required
-                                        disabled={isSubmitting}
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <label>Email *</label>
-                                    <input
-                                        type="email"
-                                        name="email"
-                                        value={formData.email}
-                                        onChange={handleInputChange}
-                                        className="form-input"
-                                        placeholder="your@email.com"
-                                        required
-                                        disabled={isSubmitting}
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <label>Phone *</label>
-                                    <input
-                                        type="tel"
-                                        name="phone"
-                                        value={formData.phone}
-                                        onChange={handleInputChange}
-                                        className="form-input"
-                                        placeholder="071 234 5678"
-                                        required
-                                        disabled={isSubmitting}
-                                    />
-                                </div>
-                            </div>
-                        </section>
-                        
-                        {/* Delivery Address */}
-                        <section className="form-section">
-                            <h2 className="section-title">
-                                <i className="fas fa-map-marker-alt"></i>
-                                Delivery Address
-                            </h2>
-                            <div className="form-grid">
-                                <div className="form-group full-width">
-                                    <label>Street Address *</label>
-                                    <input
-                                        type="text"
-                                        name="address"
-                                        value={formData.address}
-                                        onChange={handleInputChange}
-                                        className="form-input"
-                                        placeholder="123 Main Street"
-                                        required
-                                        disabled={isSubmitting}
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <label>Suburb *</label>
-                                    <input
-                                        type="text"
-                                        name="suburb"
-                                        value={formData.suburb}
-                                        onChange={handleInputChange}
-                                        className="form-input"
-                                        placeholder="Suburb"
-                                        required
-                                        disabled={isSubmitting}
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <label>City *</label>
-                                    <input
-                                        type="text"
-                                        name="city"
-                                        value={formData.city}
-                                        onChange={handleInputChange}
-                                        className="form-input"
-                                        placeholder="City"
-                                        required
-                                        disabled={isSubmitting}
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <label>Province *</label>
-                                    <select
-                                        name="province"
-                                        value={formData.province}
-                                        onChange={handleInputChange}
-                                        className="form-select"
-                                        required
-                                        disabled={isSubmitting}
-                                    >
-                                        <option value="">Select Province</option>
-                                        {provinces.map(province => (
-                                            <option key={province} value={province}>
-                                                {province}
-                                            </option>
-                                        ))}
-                                    </select>
-                                </div>
-                                <div className="form-group">
-                                    <label>Postal Code *</label>
-                                    <input
-                                        type="text"
-                                        name="postalCode"
-                                        value={formData.postalCode}
-                                        onChange={handleInputChange}
-                                        className="form-input"
-                                        placeholder="Postal code"
-                                        required
-                                        disabled={isSubmitting}
-                                    />
-                                </div>
-                            </div>
-                        </section>
-                        
-                        {/* Delivery Method */}
-                        <section className="form-section">
-                            <h2 className="section-title">
-                                <i className="fas fa-truck"></i>
-                                Delivery Method
-                            </h2>
-                            <div className="delivery-options">
-                                {deliveryOptions.map(option => (
-                                    <label 
-                                        key={option.id} 
-                                        className={`delivery-option ${formData.deliveryMethod === option.id ? 'selected' : ''}`}
-                                    >
+                <div className="Checkout__content">
+                    <div className="Checkout__main">
+                        <form className="Checkout__form" onSubmit={handleSubmit}>
+                            {/* Personal Info */}
+                            <section className="Checkout__section">
+                                <h3 className="Checkout__section-title">Personal Information</h3>
+                                <div className="Checkout__form-grid">
+                                    <div className="Checkout__form-group">
                                         <input
-                                            type="radio"
-                                            name="deliveryMethod"
-                                            value={option.id}
-                                            checked={formData.deliveryMethod === option.id}
+                                            type="text"
+                                            name="firstName"
+                                            value={formData.firstName}
                                             onChange={handleInputChange}
-                                            className="delivery-radio"
+                                            className="Checkout__input"
+                                            placeholder="First name"
+                                            required
                                             disabled={isSubmitting}
                                         />
-                                        <div className="delivery-info">
-                                            <div className="delivery-name">{option.name}</div>
-                                            <div className="delivery-desc">{option.time} • R{option.cost}</div>
-                                        </div>
-                                    </label>
-                                ))}
-                            </div>
-                        </section>
-                        
-                        {/* Payment Method */}
-                        <section className="form-section">
-                            <h2 className="section-title">
-                                <i className="fas fa-credit-card"></i>
-                                Payment Method
-                            </h2>
-                            <div className="payment-options">
-                                {paymentMethods.map(method => (
-                                    <label 
-                                        key={method.id}
-                                        className={`payment-option ${formData.paymentMethod === method.id ? 'selected' : ''}`}
-                                    >
+                                    </div>
+                                    <div className="Checkout__form-group">
                                         <input
-                                            type="radio"
-                                            name="paymentMethod"
-                                            value={method.id}
-                                            checked={formData.paymentMethod === method.id}
+                                            type="text"
+                                            name="lastName"
+                                            value={formData.lastName}
                                             onChange={handleInputChange}
-                                            className="payment-radio"
+                                            className="Checkout__input"
+                                            placeholder="Last name"
+                                            required
                                             disabled={isSubmitting}
                                         />
-                                        <i className={`fas fa-${method.icon} payment-icon`}></i>
-                                        <div className="payment-name">{method.name}</div>
-                                    </label>
-                                ))}
-                            </div>
+                                    </div>
+                                    <div className="Checkout__form-group">
+                                        <input
+                                            type="email"
+                                            name="email"
+                                            value={formData.email}
+                                            onChange={handleInputChange}
+                                            className="Checkout__input"
+                                            placeholder="your@email.com"
+                                            required
+                                            disabled={isSubmitting}
+                                        />
+                                    </div>
+                                    <div className="Checkout__form-group">
+                                        <input
+                                            type="tel"
+                                            name="phone"
+                                            value={formData.phone}
+                                            onChange={handleInputChange}
+                                            className="Checkout__input"
+                                            placeholder="071 234 5678"
+                                            required
+                                            disabled={isSubmitting}
+                                        />
+                                    </div>
+                                </div>
+                            </section>
                             
-                            {/* Payment Details */}
-                            <div className="payment-details">
-                                {formData.paymentMethod === 'bank-transfer' && (
-                                    <div className="bank-info">
-                                        <p className="bank-info-title">Bank Transfer Details</p>
-                                        <div className="bank-details">
-                                            <div className="bank-row">
+                            {/* Address */}
+                            <section className="Checkout__section">
+                                <h3 className="Checkout__section-title">Delivery Address</h3>
+                                <div className="Checkout__form-grid">
+                                    <div className="Checkout__form-group Checkout__form-group-full">
+                                        <input
+                                            type="text"
+                                            name="address"
+                                            value={formData.address}
+                                            onChange={handleInputChange}
+                                            className="Checkout__input"
+                                            placeholder="Street address"
+                                            required
+                                            disabled={isSubmitting}
+                                        />
+                                    </div>
+                                    <div className="Checkout__form-group">
+                                        <input
+                                            type="text"
+                                            name="suburb"
+                                            value={formData.suburb}
+                                            onChange={handleInputChange}
+                                            className="Checkout__input"
+                                            placeholder="Suburb"
+                                            required
+                                            disabled={isSubmitting}
+                                        />
+                                    </div>
+                                    <div className="Checkout__form-group">
+                                        <input
+                                            type="text"
+                                            name="city"
+                                            value={formData.city}
+                                            onChange={handleInputChange}
+                                            className="Checkout__input"
+                                            placeholder="City"
+                                            required
+                                            disabled={isSubmitting}
+                                        />
+                                    </div>
+                                    <div className="Checkout__form-group">
+                                        <select
+                                            name="province"
+                                            value={formData.province}
+                                            onChange={handleInputChange}
+                                            className="Checkout__select"
+                                            required
+                                            disabled={isSubmitting}
+                                        >
+                                            <option value="">Province</option>
+                                            {provinces.map(province => (
+                                                <option key={province} value={province}>
+                                                    {province}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                    <div className="Checkout__form-group">
+                                        <input
+                                            type="text"
+                                            name="postalCode"
+                                            value={formData.postalCode}
+                                            onChange={handleInputChange}
+                                            className="Checkout__input"
+                                            placeholder="Postal code"
+                                            required
+                                            disabled={isSubmitting}
+                                        />
+                                    </div>
+                                </div>
+                            </section>
+                            
+                            {/* Delivery */}
+                            <section className="Checkout__section">
+                                <h3 className="Checkout__section-title">Delivery Method</h3>
+                                <div className="Checkout__delivery-grid">
+                                    {deliveryOptions.map(option => (
+                                        <label 
+                                            key={option.id} 
+                                            className={`Checkout__delivery-option ${formData.deliveryMethod === option.id ? 'Checkout__delivery-option-selected' : ''}`}
+                                        >
+                                            <input
+                                                type="radio"
+                                                name="deliveryMethod"
+                                                value={option.id}
+                                                checked={formData.deliveryMethod === option.id}
+                                                onChange={handleInputChange}
+                                                className="Checkout__delivery-radio"
+                                                disabled={isSubmitting}
+                                            />
+                                            <div className="Checkout__delivery-info">
+                                                <div className="Checkout__delivery-name">{option.name}</div>
+                                                <div className="Checkout__delivery-desc">{option.time}</div>
+                                            </div>
+                                            <div className="Checkout__delivery-price">R{option.cost}</div>
+                                        </label>
+                                    ))}
+                                </div>
+                            </section>
+                            
+                            {/* Payment */}
+                            <section className="Checkout__section">
+                                <h3 className="Checkout__section-title">Payment Method</h3>
+                                <div className="Checkout__payment-grid">
+                                    {paymentMethods.map(method => (
+                                        <label 
+                                            key={method.id}
+                                            className={`Checkout__payment-option ${formData.paymentMethod === method.id ? 'Checkout__payment-option-selected' : ''}`}
+                                            style={{ '--payment-color': method.color }}
+                                        >
+                                            <input
+                                                type="radio"
+                                                name="paymentMethod"
+                                                value={method.id}
+                                                checked={formData.paymentMethod === method.id}
+                                                onChange={handleInputChange}
+                                                className="Checkout__payment-radio"
+                                                disabled={isSubmitting}
+                                            />
+                                            <i className={`fas fa-${method.icon} Checkout__payment-icon`}></i>
+                                            <div className="Checkout__payment-name">{method.name}</div>
+                                        </label>
+                                    ))}
+                                </div>
+                                
+                                {/* Payment Details */}
+                                <div className="Checkout__payment-details">
+                                    {formData.paymentMethod === 'bank-transfer' && (
+                                        <div className="Checkout__bank-info">
+                                            <div className="Checkout__bank-row">
                                                 <span>Bank:</span>
                                                 <span>Capitec</span>
                                             </div>
-                                            <div className="bank-row">
-                                                <span>Account Holder:</span>
-                                                <span>NJ Ntabanyane</span>
-                                            </div>
-                                            <div className="bank-row">
+                                            <div className="Checkout__bank-row">
                                                 <span>Account Number:</span>
-                                                <span className="account-number">1764824367</span>
+                                                <span className="Checkout__account-number">1764824367</span>
                                             </div>
-                                            <div className="bank-row">
-                                                <span>Branch Code:</span>
-                                                <span>470010</span>
+                                            <div className="Checkout__bank-row">
+                                                <span>Reference:</span>
+                                                <span className="Checkout__reference">Order number</span>
                                             </div>
                                         </div>
-                                        <p className="bank-note">
-                                            <i className="fas fa-hashtag"></i>
-                                            Use order number as reference
-                                        </p>
-                                    </div>
-                                )}
-                                
-                                {formData.paymentMethod === 'capitec' && (
-                                    <div className="bank-info">
-                                        <p className="bank-info-title">Capitec to Capitec</p>
-                                        <div className="bank-details">
-                                            <div className="bank-row">
+                                    )}
+                                    
+                                    {formData.paymentMethod === 'capitec' && (
+                                        <div className="Checkout__bank-info">
+                                            <div className="Checkout__bank-row">
                                                 <span>Phone Number:</span>
-                                                <span className="account-number">0712345678</span>
+                                                <span className="Checkout__account-number">0712345678</span>
                                             </div>
-                                            <div className="bank-row">
+                                            <div className="Checkout__bank-row">
                                                 <span>Account Holder:</span>
                                                 <span>NJ Ntabanyane</span>
                                             </div>
                                         </div>
-                                        <p className="bank-note">
-                                            <i className="fas fa-mobile-alt"></i>
-                                            Instant transfer via Capitec app
-                                        </p>
-                                    </div>
-                                )}
-                                
-                                {formData.paymentMethod === 'payshap' && (
-                                    <div className="bank-info">
-                                        <p className="bank-info-title">PayShap Details</p>
-                                        <div className="bank-details">
-                                            <div className="bank-row">
+                                    )}
+                                    
+                                    {formData.paymentMethod === 'payshap' && (
+                                        <div className="Checkout__bank-info">
+                                            <div className="Checkout__bank-row">
                                                 <span>PayShap ID:</span>
-                                                <span className="account-number">0712345678</span>
+                                                <span className="Checkout__account-number">0712345678</span>
                                             </div>
-                                            <div className="bank-row">
+                                            <div className="Checkout__bank-row">
                                                 <span>Account Holder:</span>
                                                 <span>NJ Ntabanyane</span>
                                             </div>
                                         </div>
-                                        <p className="bank-note">
-                                            <i className="fas fa-bolt"></i>
-                                            Instant payment processing
-                                        </p>
-                                    </div>
-                                )}
-                                
-                                {formData.paymentMethod === 'layby' && (
-                                    <div className="bank-info">
-                                        <p className="bank-info-title">Layby Agreement</p>
-                                        <div className="bank-details">
-                                            <div className="bank-row">
-                                                <span>Deposit Required:</span>
+                                    )}
+                                    
+                                    {formData.paymentMethod === 'layby' && (
+                                        <div className="Checkout__bank-info">
+                                            <div className="Checkout__bank-row">
+                                                <span>Deposit:</span>
                                                 <span>R{(total * 0.2).toFixed(2)}</span>
                                             </div>
-                                            <div className="bank-row">
-                                                <span>Payment Period:</span>
-                                                <span>3 Months</span>
-                                            </div>
-                                            <div className="bank-row">
-                                                <span>Monthly Payments:</span>
+                                            <div className="Checkout__bank-row">
+                                                <span>3 Monthly:</span>
                                                 <span>R{((total * 0.8) / 3).toFixed(2)}</span>
                                             </div>
+                                            <div className="Checkout__bank-note">
+                                                We'll contact you to set up payment schedule
+                                            </div>
                                         </div>
-                                        <div className="layby-rules">
-                                            <p><strong>Layby Rules:</strong></p>
-                                            <ul>
-                                                <li>20% deposit required to start</li>
-                                                <li>3-month payment period</li>
-                                                <li>Items reserved until final payment</li>
-                                                <li>No interest charges</li>
-                                                <li>Cancellation fee may apply</li>
-                                            </ul>
-                                        </div>
-                                        <p className="bank-note">
-                                            <i className="fas fa-info-circle"></i>
-                                            We'll contact you to set up payment schedule
-                                        </p>
-                                    </div>
+                                    )}
+                                </div>
+                            </section>
+                            
+                            <button 
+                                type="submit" 
+                                className="Checkout__submit-btn"
+                                disabled={isSubmitting || cart.items.length === 0}
+                            >
+                                {isSubmitting ? (
+                                    <>
+                                        <i className="fas fa-spinner fa-spin"></i>
+                                        Processing...
+                                    </>
+                                ) : (
+                                    <>
+                                        <i className="fas fa-lock"></i>
+                                        Complete Order · R{total.toFixed(2)}
+                                    </>
                                 )}
-                            </div>
-                        </section>
-                        
-                        <button 
-                            type="submit" 
-                            className="btn btn-accent place-order-btn"
-                            disabled={isSubmitting || cart.items.length === 0}
-                        >
-                            {isSubmitting ? (
-                                <>
-                                    <i className="fas fa-spinner fa-spin"></i>
-                                    Processing...
-                                </>
-                            ) : (
-                                <>
-                                    <i className="fas fa-lock"></i>
-                                    Complete Order - R{total.toFixed(2)}
-                                </>
-                            )}
-                        </button>
-                    </form>
+                            </button>
+                        </form>
+                    </div>
                     
                     {/* Order Summary */}
-                    <aside className="checkout-summary">
-                        <h3 className="summary-title">Order Summary</h3>
-                        
-                        <div className="order-header">
-                            <div className="order-meta">
-                                <span className="item-count">{cart.items.length} items</span>
-                                <span className="order-total">R{getTotalPrice().toFixed(2)}</span>
+                    <aside className="Checkout__sidebar">
+                        <div className="Checkout__summary">
+                            <h3 className="Checkout__summary-title">Order Summary</h3>
+                            
+                            <div className="Checkout__cart-items">
+                                {cart.items.length === 0 ? (
+                                    <div className="Checkout__empty-cart">
+                                        <i className="fas fa-shopping-bag"></i>
+                                        <p>Your cart is empty</p>
+                                    </div>
+                                ) : (
+                                    cart.items.map((item, index) => (
+                                        <div key={index} className="Checkout__cart-item">
+                                            <div className="Checkout__item-image">
+                                                <img 
+                                                    src={item.image} 
+                                                    alt={item.name}
+                                                    onError={(e) => {
+                                                        e.target.style.display = 'none';
+                                                        if (e.target.nextSibling) {
+                                                            e.target.nextSibling.style.display = 'flex';
+                                                        }
+                                                    }}
+                                                />
+                                                <div className="Checkout__image-placeholder">
+                                                    <i className="fas fa-image"></i>
+                                                </div>
+                                                <span className="Checkout__item-quantity">{item.quantity}</span>
+                                            </div>
+                                            <div className="Checkout__item-details">
+                                                <div className="Checkout__item-name">{item.name}</div>
+                                                <div className="Checkout__item-variants">
+                                                    {item.color && <span>{item.color}</span>}
+                                                    {item.size && <span>{item.size}</span>}
+                                                    {item.customColor && <span className="Checkout__custom-badge">Custom</span>}
+                                                </div>
+                                            </div>
+                                            <div className="Checkout__item-price">
+                                                R{((parseFloat(item.price) + (item.customColor ? 100 : 0)) * item.quantity).toFixed(2)}
+                                            </div>
+                                        </div>
+                                    ))
+                                )}
                             </div>
-                        </div>
-
-                        <div className="cart-items">
-                            {cart.items.length === 0 ? (
-                                <div className="empty-cart-message">
-                                    <i className="fas fa-shopping-bag"></i>
-                                    <p>Your cart is empty</p>
-                                </div>
-                            ) : (
-                                cart.items.map((item, index) => (
-                                    <div key={index} className="cart-item">
-                                        <div className="item-image-container">
-                                            <img 
-                                                src={item.image} 
-                                                alt={item.name}
-                                                className="item-image"
-                                                onError={(e) => {
-                                                    e.target.style.display = 'none';
-                                                    const placeholder = e.target.nextSibling;
-                                                    if (placeholder) {
-                                                        placeholder.style.display = 'flex';
-                                                    }
-                                                }}
-                                            />
-                                            <div className="image-placeholder">
-                                                <i className="fas fa-image"></i>
-                                            </div>
-                                            <span className="item-quantity-badge">{item.quantity}</span>
+                            
+                            {cart.items.length > 0 && (
+                                <>
+                                    <div className="Checkout__totals">
+                                        <div className="Checkout__total-row">
+                                            <span>Subtotal</span>
+                                            <span>R{subtotal.toFixed(2)}</span>
                                         </div>
-                                        <div className="item-details">
-                                            <div className="item-name">{item.name}</div>
-                                            <div className="item-variants">
-                                                {item.color && <span className="variant">{item.color}</span>}
-                                                {item.size && <span className="variant">{item.size}</span>}
-                                                {item.customColor && <span className="variant custom">Custom</span>}
-                                            </div>
+                                        <div className="Checkout__total-row">
+                                            <span>Delivery</span>
+                                            <span>R{deliveryCost.toFixed(2)}</span>
                                         </div>
-                                        <div className="item-price">
-                                            R{((parseFloat(item.price) + (item.customColor ? 100 : 0)) * item.quantity).toFixed(2)}
+                                        <div className="Checkout__total-row Checkout__total-final">
+                                            <span>Total</span>
+                                            <span>R{total.toFixed(2)}</span>
                                         </div>
                                     </div>
-                                ))
+                                    
+                                    <div className="Checkout__delivery-info">
+                                        <div className="Checkout__delivery-badge">
+                                            <i className="fas fa-shipping-fast"></i>
+                                            {selectedDelivery?.name}
+                                        </div>
+                                        <p className="Checkout__delivery-time">{selectedDelivery?.time}</p>
+                                    </div>
+                                </>
                             )}
                         </div>
-                        
-                        {cart.items.length > 0 && (
-                            <>
-                                <div className="summary-totals">
-                                    <div className="total-row">
-                                        <span>Subtotal</span>
-                                        <span>R{subtotal.toFixed(2)}</span>
-                                    </div>
-                                    <div className="total-row">
-                                        <span>Delivery</span>
-                                        <span>R{deliveryCost.toFixed(2)}</span>
-                                    </div>
-                                    <div className="total-row final">
-                                        <span>Total</span>
-                                        <span>R{total.toFixed(2)}</span>
-                                    </div>
-                                </div>
-                                
-                                <div className="delivery-estimate">
-                                    <div className="delivery-badge">
-                                        <i className="fas fa-shipping-fast"></i>
-                                        {selectedDelivery?.name}
-                                    </div>
-                                    <p className="delivery-time">{selectedDelivery?.time}</p>
-                                </div>
-                            </>
-                        )}
                     </aside>
                 </div>
             </div>

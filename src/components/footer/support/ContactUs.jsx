@@ -9,163 +9,146 @@ const ContactUs = () => {
         message: ''
     });
 
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
+    const handleChange = (e) => {
         setFormData(prev => ({
             ...prev,
-            [name]: value
+            [e.target.name]: e.target.value
         }));
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Handle form submission
         console.log('Contact form submitted:', formData);
     };
 
     return (
-        <div className="content-page">
-            <div className="container">
-                <div className="page-header">
-                    <h1 className="section-title">Contact Us</h1>
-                    <p className="page-subtitle">Get in touch with Ke Pabala Aesthetics</p>
+        <div className="support-page">
+            <div className="support-container">
+                <div className="support-header">
+                    <h1 className="support-title">Contact Us</h1>
+                    <p className="support-subtitle">Get in touch with Ke Pabala Aesthetics</p>
                 </div>
 
-                <div className="content-grid">
-                    <div className="content-main">
-                        <div className="content-card">
-                            <h2 className="content-title">
-                                <i className="fas fa-envelope"></i>
-                                Send us a Message
-                            </h2>
+                <div className="support-grid">
+                    <div className="support-card">
+                        <h2 className="faq-category-title">
+                            <i className="fas fa-envelope"></i>
+                            Send us a Message
+                        </h2>
+                        
+                        <form className="contact-form" onSubmit={handleSubmit}>
+                            <div className="form-group">
+                                <label className="form-label">Full Name</label>
+                                <input
+                                    type="text"
+                                    name="name"
+                                    value={formData.name}
+                                    onChange={handleChange}
+                                    className="form-input"
+                                    placeholder="Your full name"
+                                    required
+                                />
+                            </div>
                             
-                            <form className="contact-form" onSubmit={handleSubmit}>
-                                <div className="form-grid">
-                                    <div className="form-group">
-                                        <label>Full Name *</label>
-                                        <input
-                                            type="text"
-                                            name="name"
-                                            value={formData.name}
-                                            onChange={handleInputChange}
-                                            className="form-input"
-                                            placeholder="Your full name"
-                                            required
-                                        />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Email Address *</label>
-                                        <input
-                                            type="email"
-                                            name="email"
-                                            value={formData.email}
-                                            onChange={handleInputChange}
-                                            className="form-input"
-                                            placeholder="your@email.com"
-                                            required
-                                        />
-                                    </div>
-                                    <div className="form-group full-width">
-                                        <label>Subject *</label>
-                                        <select
-                                            name="subject"
-                                            value={formData.subject}
-                                            onChange={handleInputChange}
-                                            className="form-select"
-                                            required
-                                        >
-                                            <option value="">Select a subject</option>
-                                            <option value="product-inquiry">Product Inquiry</option>
-                                            <option value="order-support">Order Support</option>
-                                            <option value="shipping-query">Shipping Query</option>
-                                            <option value="returns">Returns & Exchanges</option>
-                                            <option value="wholesale">Wholesale Inquiry</option>
-                                            <option value="other">Other</option>
-                                        </select>
-                                    </div>
-                                    <div className="form-group full-width">
-                                        <label>Message *</label>
-                                        <textarea
-                                            name="message"
-                                            value={formData.message}
-                                            onChange={handleInputChange}
-                                            className="form-input"
-                                            placeholder="Please describe your inquiry in detail..."
-                                            rows="6"
-                                            required
-                                        ></textarea>
-                                    </div>
-                                </div>
-                                
-                                <button type="submit" className="btn btn-accent">
-                                    <i className="fas fa-paper-plane"></i>
-                                    Send Message
-                                </button>
-                            </form>
-                        </div>
+                            <div className="form-group">
+                                <label className="form-label">Email Address</label>
+                                <input
+                                    type="email"
+                                    name="email"
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                    className="form-input"
+                                    placeholder="your@email.com"
+                                    required
+                                />
+                            </div>
+                            
+                            <div className="form-group">
+                                <label className="form-label">Subject</label>
+                                <select
+                                    name="subject"
+                                    value={formData.subject}
+                                    onChange={handleChange}
+                                    className="form-select"
+                                    required
+                                >
+                                    <option value="">Select a subject</option>
+                                    <option value="product-inquiry">Product Inquiry</option>
+                                    <option value="order-support">Order Support</option>
+                                    <option value="shipping-query">Shipping Query</option>
+                                    <option value="returns">Returns & Exchanges</option>
+                                    <option value="wholesale">Wholesale Inquiry</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            
+                            <div className="form-group">
+                                <label className="form-label">Message</label>
+                                <textarea
+                                    name="message"
+                                    value={formData.message}
+                                    onChange={handleChange}
+                                    className="form-textarea"
+                                    placeholder="Please describe your inquiry in detail..."
+                                    required
+                                ></textarea>
+                            </div>
+                            
+                            <button type="submit" className="submit-btn">
+                                Send Message
+                            </button>
+                        </form>
                     </div>
 
-                    <div className="content-sidebar">
-                        <div className="info-card">
-                            <h3 className="info-title">
-                                <i className="fas fa-clock"></i>
-                                Business Hours
-                            </h3>
-                            <div className="info-content">
-                                <div className="info-row">
-                                    <span>Monday - Friday</span>
-                                    <span>8:00 AM - 6:00 PM</span>
+                    <div className="support-card">
+                        <div className="info-grid">
+                            <div className="info-item">
+                                <div className="info-icon">
+                                    <i className="fas fa-clock"></i>
                                 </div>
-                                <div className="info-row">
-                                    <span>Saturday</span>
-                                    <span>9:00 AM - 4:00 PM</span>
-                                </div>
-                                <div className="info-row">
-                                    <span>Sunday</span>
-                                    <span>Closed</span>
+                                <div className="info-content">
+                                    <h3>Business Hours</h3>
+                                    <p>Mon-Fri: 8:00 AM - 6:00 PM</p>
+                                    <p>Sat: 9:00 AM - 4:00 PM</p>
+                                    <p>Sun: Closed</p>
                                 </div>
                             </div>
-                        </div>
-
-                        <div className="info-card">
-                            <h3 className="info-title">
-                                <i className="fas fa-phone"></i>
-                                Contact Info
-                            </h3>
-                            <div className="info-content">
-                                <div className="contact-item">
+                            
+                            <div className="info-item">
+                                <div className="info-icon">
                                     <i className="fas fa-envelope"></i>
-                                    <div>
-                                        <strong>Email</strong>
-                                        <p>info@kepabala.co.za</p>
-                                    </div>
                                 </div>
-                                <div className="contact-item">
+                                <div className="info-content">
+                                    <h3>Email</h3>
+                                    <p>pabalaaesthetics@gmail.com</p>
+                                </div>
+                            </div>
+                            
+                            <div className="info-item">
+                                <div className="info-icon">
                                     <i className="fas fa-phone"></i>
-                                    <div>
-                                        <strong>Phone</strong>
-                                        <p>071 234 5678</p>
-                                    </div>
                                 </div>
-                                <div className="contact-item">
+                                <div className="info-content">
+                                    <h3>Phone</h3>
+                                    <p>071 234 5678</p>
+                                </div>
+                            </div>
+                            
+                            <div className="info-item">
+                                <div className="info-icon">
                                     <i className="fas fa-map-marker-alt"></i>
-                                    <div>
-                                        <strong>Address</strong>
-                                        <p>123 Fashion District<br />Johannesburg, 2000</p>
-                                    </div>
+                                </div>
+                                <div className="info-content">
+                                    <h3>Address</h3>
+                                    <p>123 Fashion District<br />Johannesburg, 2000</p>
                                 </div>
                             </div>
                         </div>
 
-                        <div className="info-card">
-                            <h3 className="info-title">
-                                <i className="fas fa-comments"></i>
-                                Quick Responses
-                            </h3>
-                            <div className="info-content">
-                                <p>We typically respond to all inquiries within 24 hours during business days.</p>
-                                <p>For urgent order issues, please include your order number in the message.</p>
-                            </div>
+                        <div className="support-cta" style={{ background: '#f9f9f9', color: '#000', marginTop: '2rem' }}>
+                            <h4>Quick Responses</h4>
+                            <p>We typically respond to all inquiries within 24 hours during business days.</p>
+                            <p>For urgent order issues, please include your order number in the message.</p>
                         </div>
                     </div>
                 </div>

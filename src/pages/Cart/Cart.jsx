@@ -1,16 +1,76 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../../context/CartContext';
 import './Cart.css';
 
 const Cart = () => {
     const { cart, removeFromCart, updateQuantity, clearCart, getTotalPrice } = useCart();
+    const [isProcessing, setIsProcessing] = useState(false);
 
     const handleQuantityChange = (item, newQuantity) => {
-        if (newQuantity < 1) {
+        if (isProcessing) return;
+        
+        setIsProcessing(true);
+        
+        // Ensure quantity is a valid number
+        const validatedQuantity = parseInt(newQuantity);
+        
+        if (isNaN(validatedQuantity) || validatedQuantity < 1) {
+            // Remove item if quantity is invalid or less than 1
             removeFromCart(item.id, item.selectedColor, item.selectedLength);
         } else {
-            updateQuantity(item.id, item.selectedColor, item.selectedLength, newQuantity);
+            // Update quantity
+            updateQuantity(item.id, item.selectedColor, item.selectedLength, validatedQuantity);
+        }
+        
+        // Reset processing state after a short delay
+        setTimeout(() => setIsProcessing(false), 100);
+    };
+
+    const handleDirectInput = (item, e) => {
+        if (isProcessing) return;
+        
+        const value = e.target.value;
+        
+        // Only allow numbers
+        if (/^\d*$/.test(value)) {
+            const newQuantity = parseInt(value) || 0;
+            
+            if (newQuantity === 0) {
+                // Remove item immediately if quantity is 0
+                removeFromCart(item.id, item.selectedColor, item.selectedLength);
+            } else {
+                // Update quantity
+                updateQuantity(item.id, item.selectedColor, item.selectedLength, newQuantity);
+            }
+        }
+    };
+
+    const handleBlur = (item, e) => {
+        if (isProcessing) return;
+        
+        const value = e.target.value;
+        if (value === '' || value === '0') {
+            // Remove item if input is empty or 0 on blur
+            removeFromCart(item.id, item.selectedColor, item.selectedLength);
+        }
+    };
+
+    const handleRemoveItem = (item) => {
+        if (isProcessing) return;
+        
+        setIsProcessing(true);
+        removeFromCart(item.id, item.selectedColor, item.selectedLength);
+        setTimeout(() => setIsProcessing(false), 100);
+    };
+
+    const handleClearCartWithConfirmation = () => {
+        if (cart.items.length === 0 || isProcessing) return;
+        
+        if (window.confirm('Are you sure you want to clear all items from your cart?')) {
+            setIsProcessing(true);
+            clearCart();
+            setTimeout(() => setIsProcessing(false), 100);
         }
     };
 
@@ -36,7 +96,11 @@ const Cart = () => {
             <div className="container">
                 <div className="cart-header">
                     <h1 className="cart-title">Shopping Cart</h1>
-                    <button className="cart-clear-btn" onClick={clearCart}>
+                    <button 
+                        className="cart-clear-btn" 
+                        onClick={handleClearCartWithConfirmation}
+                        disabled={isProcessing}
+                    >
                         Clear All
                     </button>
                 </div>
@@ -68,13 +132,29 @@ const Cart = () => {
                                         <button
                                             className="quantity-btn"
                                             onClick={() => handleQuantityChange(item, item.quantity - 1)}
+                                            disabled={isProcessing}
                                         >
                                             −
                                         </button>
-                                        <span className="quantity-display">{item.quantity}</span>
+                                        <input
+                                            type="text"
+                                            className="quantity-display"
+                                            value={item.quantity}
+                                            onChange={(e) => handleDirectInput(item, e)}
+                                            onBlur={(e) => handleBlur(item, e)}
+                                            disabled={isProcessing}
+                                            style={{
+                                                textAlign: 'center',
+                                                border: 'none',
+                                                background: 'transparent',
+                                                width: '30px',
+                                                outline: 'none'
+                                            }}
+                                        />
                                         <button
                                             className="quantity-btn"
                                             onClick={() => handleQuantityChange(item, item.quantity + 1)}
+                                            disabled={isProcessing}
                                         >
                                             +
                                         </button>
@@ -82,7 +162,8 @@ const Cart = () => {
                                     
                                     <button
                                         className="remove-btn"
-                                        onClick={() => removeFromCart(item.id, item.selectedColor, item.selectedLength)}
+                                        onClick={() => handleRemoveItem(item)}
+                                        disabled={isProcessing}
                                     >
                                         <i className="fas fa-times"></i>
                                     </button>
