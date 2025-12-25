@@ -16,8 +16,8 @@ import Iphone12 from '../../assets/Iphones/iphone 12.jpg';
 import IphoneXR from '../../assets/Iphones/iphone xr.jpg';
 
 // Jean product images - Updated to new products
-import Jean2 from '../../assets/Jeans/jean (2).jpeg'; // Zara Misty Blue Skirt
-import Jean5 from '../../assets/Jeans/jean (4).jpeg'; // Zara Denim Jacket
+import Jean2 from '../../assets/Jeans/jean (4).jpeg'; // Zara Misty Blue Skirt
+import Jean5 from '../../assets/Jeans/jean (5).jpeg'; // Zara Denim Jacket
 
 const Home = () => {
     const [selectedProduct, setSelectedProduct] = useState(null);
