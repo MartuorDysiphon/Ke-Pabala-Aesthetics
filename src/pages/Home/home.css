@@ -408,7 +408,7 @@
     }
 }
 
-/* Responsive Design - Phones */
+/* Responsive Design - Phones (MODIFIED FOR INLINE BUTTONS) */
 @media (max-width: 600px) {
     .Home__hero-title {
         font-size: 32px;
@@ -419,15 +419,20 @@
         margin-bottom: 32px;
     }
     
+    /* KEY CHANGE: Keep buttons inline and scale them */
     .Home__hero-buttons {
-        flex-direction: column;
-        gap: 12px;
+        flex-direction: row; /* Keep buttons in a horizontal line */
+        flex-wrap: wrap; /* Allow wrapping only if absolutely necessary */
+        justify-content: center;
+        gap: 10px; /* Slightly reduce gap */
     }
     
     .Home__hr-btn {
-        width: 100%;
-        max-width: 300px;
-        margin: 0 auto;
+        padding: 10px 18px; /* Scaled-down padding */
+        font-size: 13px; /* Scaled-down font */
+        width: auto; /* Override any full-width rule */
+        max-width: none; /* Remove max-width constraint */
+        flex-shrink: 1; /* Allow buttons to shrink proportionally */
     }
     
     .Home__hero-image {
@@ -464,7 +469,7 @@
     }
 }
 
-/* Responsive Design - Small Phones */
+/* Responsive Design - Small Phones (MODIFIED FOR INLINE BUTTONS) */
 @media (max-width: 480px) {
     .Home__container {
         padding: 0 16px;
@@ -476,6 +481,17 @@
     
     .Home__hero-description {
         font-size: 14px;
+    }
+    
+    /* Further scale buttons for very small screens */
+    .Home__hero-buttons {
+        gap: 8px;
+    }
+    
+    .Home__hr-btn {
+        padding: 8px 14px;
+        font-size: 12px;
+        border-radius: 8px;
     }
     
     .Home__hero-image {
@@ -537,6 +553,16 @@
     
     .Home__hero-description {
         font-size: 13px;
+    }
+    
+    /* Final scaling for the smallest screens */
+    .Home__hero-buttons {
+        gap: 6px;
+    }
+    
+    .Home__hr-btn {
+        padding: 7px 12px;
+        font-size: 11px;
     }
     
     .Home__hero-image {

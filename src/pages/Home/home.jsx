@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import ProductModal from '../../components/HairModal/HairModal';
 import IphoneModal from '../../components/IphoneModal/IphoneModal';
+import JeansModal from '../../components/JeansModal/JeansModal'; // Added JeansModal import
 import './home.css';
 
 import HeroIMG from '../../assets/Logo/hero.png';
@@ -14,15 +15,16 @@ import Straight1 from '../../assets/Hair/straight1.jpg';
 import Iphone12 from '../../assets/Iphones/iphone 12.jpg';
 import IphoneXR from '../../assets/Iphones/iphone xr.jpg';
 
-// Jean product images
-import Jean5 from '../../assets/Jeans/jean5.png';
-import Jean2 from '../../assets/Jeans/jean2.avif';
+// Jean product images - Updated to new products
+import Jean2 from '../../assets/Jeans/jean (2).jpeg'; // Zara Misty Blue Skirt
+import Jean5 from '../../assets/Jeans/jean (4).jpeg'; // Zara Denim Jacket
 
 const Home = () => {
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [selectedIphone, setSelectedIphone] = useState(null);
     const [isHairModalOpen, setIsHairModalOpen] = useState(false);
     const [isIphoneModalOpen, setIsIphoneModalOpen] = useState(false);
+    const [isJeansModalOpen, setIsJeansModalOpen] = useState(false); // Added Jeans modal state
 
     const featuredProducts = [
         // Hair Products
@@ -74,24 +76,28 @@ const Home = () => {
             color: "Coral",
             status: "Low Stock"
         },
-        // Jean Products
+        // Jeans Products - UPDATED
         {
             id: 5,
-            name: "Urban Classic",
-            price: 759.99,
+            name: "Zara Misty Blue Skirt",
+            price: 399.99,
             image: Jean2,
-            category: "Straight Fit",
+            category: "Denim Skirt",
             type: "jean",
-            description: "Vintage blue with authentic distressing"
+            subcategory: "A-Line",
+            description: "A relaxed A-line denim skirt in a soft misty blue wash, featuring a midi length and side slits for effortless movement.",
+            featured: true
         },
         {
             id: 6,
-            name: "Executive Denim",
-            price: 949.99,
+            name: "Zara Denim Jacket",
+            price: 449.99,
             image: Jean5,
-            category: "Tapered Fit",
+            category: "Denim Jacket",
             type: "jean",
-            description: "Dark indigo for professional styling"
+            subcategory: "Oversized",
+            description: "An oversized washed denim jacket with a relaxed fit, raw hem details, and a versatile medium wash for layered styling.",
+            featured: true
         }
     ];
 
@@ -99,6 +105,9 @@ const Home = () => {
         if (product.type === 'iphone') {
             setSelectedIphone(product);
             setIsIphoneModalOpen(true);
+        } else if (product.type === 'jean') {
+            setSelectedProduct(product);
+            setIsJeansModalOpen(true); // Use Jeans modal for jeans products
         } else {
             setSelectedProduct(product);
             setIsHairModalOpen(true);
@@ -108,6 +117,7 @@ const Home = () => {
     const closeProductModal = () => {
         setIsHairModalOpen(false);
         setIsIphoneModalOpen(false);
+        setIsJeansModalOpen(false); // Close jeans modal too
         setSelectedProduct(null);
         setSelectedIphone(null);
     };
@@ -147,10 +157,10 @@ const Home = () => {
                                 <div className="Home__featured-image">
                                     <img src={product.image} alt={product.name} />
                                     <div className="Home__featured-category">{product.category}</div>
-                                    {product.type === 'iphone' && product.featured && (
+                                    {product.featured && (
                                         <div className="Home__featured-badge">Featured</div>
                                     )}
-                                    {product.type === 'iphone' && product.status === 'Low Stock' && (
+                                    {product.status === 'Low Stock' && (
                                         <div className="Home__lowstock-badge">Low Stock</div>
                                     )}
                                 </div>
@@ -185,10 +195,18 @@ const Home = () => {
             </section>
 
             {/* Modals */}
-            {selectedProduct && (
+            {selectedProduct && selectedProduct.type === 'hair' && (
                 <ProductModal
                     product={selectedProduct}
                     isOpen={isHairModalOpen}
+                    onClose={closeProductModal}
+                />
+            )}
+            
+            {selectedProduct && selectedProduct.type === 'jean' && (
+                <JeansModal
+                    product={selectedProduct}
+                    isOpen={isJeansModalOpen}
                     onClose={closeProductModal}
                 />
             )}

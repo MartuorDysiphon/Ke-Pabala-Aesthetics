@@ -1,9 +1,8 @@
-import Jean1 from '../../assets/Jeans/jean1.avif';
-import Jean2 from '../../assets/Jeans/jean2.avif';
-import Jean3 from '../../assets/Jeans/jean3.png';
-import Jean4 from '../../assets/Jeans/jean4.webp';
-import Jean5 from '../../assets/Jeans/jean5.png';
-import Jean6 from '../../assets/Jeans/jean6.png';
+import Jean1 from '../../assets/Jeans/jean (1).jpeg';
+import Jean2 from '../../assets/Jeans/jean (4).jpeg';
+import Jean3 from '../../assets/Jeans/jean (3).jpeg';
+import Jean4 from '../../assets/Jeans/jean (2).jpeg';
+import Jean5 from '../../assets/Jeans/jean (5).jpeg';
 
 import Iphone7 from '../../assets/Iphones/iphone 7.jpg';
 import Iphone7Plus from '../../assets/Iphones/iphone 7 plus.jpg';
@@ -50,103 +49,89 @@ import Straight4 from '../../assets/Hair/straight4.jpg';
 
 // PRODUCTS DATABASE
 export const allProducts = [
+  // ========== NEW JEANS PRODUCTS ==========
   {
     id: 'jeans-1',
-    name: "Midnight Riser",
-    price: 899.99,
+    name: "H&M Ashwood Jeans",
+    price: 299.99,
     image: Jean1,
     category: "Jeans",
     subcategory: "Slim Fit",
-    description: "Premium dark wash denim jeans with comfortable stretch fabric. Perfect for both casual and semi-formal occasions.",
+    description: "Stonewashed slim-fit jeans with a modern ash grey finish, offering a clean, tailored silhouette for everyday sophistication.",
     url: "/jeans",
     page: "jeans",
     type: "clothing",
-    tags: ["denim", "slim fit", "dark wash", "stretch", "premium", "casual", "jeans"],
+    tags: ["hm", "ashwood", "slim fit", "grey", "stonewashed", "modern", "tailored", "jeans", "casual"],
     featured: true,
     status: "In Stock",
-    color: "Dark Blue"
+    color: "Ash Grey"
   },
   {
     id: 'jeans-2',
-    name: "Urban Classic",
-    price: 759.99,
+    name: "Zara Misty Blue Skirt",
+    price: 399.99,
     image: Jean2,
     category: "Jeans",
-    subcategory: "Straight Fit",
-    description: "Vintage blue jeans with authentic distressing details. Classic straight fit for everyday comfort.",
+    subcategory: "A-Line",
+    description: "A relaxed A-line denim skirt in a soft misty blue wash, featuring a midi length and side slits for effortless movement.",
     url: "/jeans",
     page: "jeans",
     type: "clothing",
-    tags: ["denim", "straight fit", "vintage", "distressed", "blue", "casual", "jeans"],
-    featured: false,
+    tags: ["zara", "denim skirt", "misty blue", "a-line", "midi", "side slits", "casual", "skirt", "denim"],
+    featured: true,
     status: "In Stock",
-    color: "Light Blue"
+    color: "Misty Blue"
   },
   {
     id: 'jeans-3',
-    name: "Shadow Slim",
-    price: 829.99,
+    name: "Grey Threads Jean",
+    price: 289.99,
     image: Jean3,
     category: "Jeans",
-    subcategory: "Skinny Fit",
-    description: "Black denim jeans with superior flexibility and modern skinny fit. Sleek and stylish.",
+    subcategory: "Straight Fit",
+    description: "Classic straight-leg jeans in a deep ocean blue, designed with a mid-rise waist and durable construction for timeless style.",
     url: "/jeans",
     page: "jeans",
     type: "clothing",
-    tags: ["black", "skinny fit", "stretch", "modern", "sleek", "flexible", "jeans"],
-    featured: false,
+    tags: ["Grey Threads", "straight fit", "deep blue", "classic", "mid-rise", "durable", "timeless", "jeans"],
+    featured: true,
     status: "In Stock",
-    color: "Black"
+    color: "Gray"
   },
   {
     id: 'jeans-4',
-    name: "Vintage Fade",
-    price: 689.99,
+    name: "Trueblue Skinny Jean",
+    price: 299.99,
     image: Jean4,
     category: "Jeans",
-    subcategory: "Relaxed Fit",
-    description: "Light wash relaxed fit jeans with classic comfort. Perfect for a casual day out.",
+    subcategory: "Skinny Fit",
+    description: "High-stretch skinny jeans in a rich true blue indigo, providing a second-skin fit with exceptional comfort and shape retention.",
     url: "/jeans",
     page: "jeans",
     type: "clothing",
-    tags: ["light wash", "relaxed fit", "comfort", "vintage", "casual", "classic", "jeans"],
-    featured: false,
+    tags: ["trueblue", "skinny fit", "indigo", "high-stretch", "comfort", "second-skin", "jeans", "flexible"],
+    featured: true,
     status: "In Stock",
-    color: "Faded Blue"
+    color: "True Blue"
   },
   {
     id: 'jeans-5',
-    name: "Executive Denim",
-    price: 949.99,
+    name: "Zara Denim Jacket",
+    price: 449.99,
     image: Jean5,
     category: "Jeans",
-    subcategory: "Tapered Fit",
-    description: "Dark indigo tapered fit jeans for professional styling. Sharp look for business casual.",
+    subcategory: "Oversized",
+    description: "An oversized washed denim jacket with a relaxed fit, raw hem details, and a versatile medium wash for layered styling.",
     url: "/jeans",
     page: "jeans",
     type: "clothing",
-    tags: ["dark indigo", "tapered fit", "professional", "business casual", "sharp", "premium", "jeans"],
+    tags: ["zara", "denim jacket", "oversized", "relaxed fit", "raw hem", "medium wash", "jacket", "layering", "denim"],
     featured: true,
     status: "In Stock",
-    color: "Dark Indigo"
-  },
-  {
-    id: 'jeans-6',
-    name: "Raw Edge",
-    price: 779.99,
-    image: Jean6,
-    category: "Jeans",
-    subcategory: "Baggy Straight",
-    description: "Unfinished hem jeans with modern baggy straight cut. Trendy streetwear style.",
-    url: "/jeans",
-    page: "jeans",
-    type: "clothing",
-    tags: ["raw edge", "baggy", "straight", "modern", "streetwear", "trendy", "jeans"],
-    featured: false,
-    status: "In Stock",
-    color: "Medium Blue"
+    color: "Medium Wash"
   },
 
+  // ========== IPHONES ==========
   {
     id: 'iphone-1',
     name: "iPhone 12",
@@ -310,6 +295,7 @@ export const allProducts = [
     color: "Black"
   },
 
+  // ========== HAIR ==========
   {
     id: 'hair-1',
     name: "Sun-Kissed Blondie",
@@ -964,7 +950,6 @@ export const allProducts = [
   }
 ];
 
-
 // Search 
 export const searchAllProducts = (query) => {
   if (!query || query.trim() === '') return [];
@@ -1038,20 +1023,19 @@ export const getPopularSearches = () => {
     "Jeans",
     "Human Hair",
     "Curly Hair",
-    "Premium Denim",
-    "iPhone 11",
+    "Zara Denim Jacket",
+    "H&M Ashwood Jeans",
     "Blonde Hair",
     "Donor Hair",
-    "Straight Hair",
-    "Dark Wash",
-    "iPhone X",
+    "Trueblue Skinny Jean",
+    "Oceanline Jean",
+    "iPhone 11",
     "SDD Hair",
     "Glueless Wig",
-    "Slim Fit Jeans",
+    "Zara Misty Blue Skirt",
     "Virgin Hair"
   ];
 };
-
 
 export const getFeaturedProducts = () => {
   return allProducts.filter(product => product.featured);

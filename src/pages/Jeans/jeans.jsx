@@ -3,12 +3,11 @@ import React, { useState, useMemo } from 'react';
 import JeansModal from '../../components/JeansModal/JeansModal';
 import './jeans.css';
 
-import Jean1 from '../../assets/Jeans/jean1.avif';
-import Jean2 from '../../assets/Jeans/jean2.avif';
-import Jean3 from '../../assets/Jeans/jean3.png';
-import Jean4 from '../../assets/Jeans/jean4.webp';
-import Jean5 from '../../assets/Jeans/jean5.png';
-import Jean6 from '../../assets/Jeans/jean6.png';
+import Jean1 from '../../assets/Jeans/jean (1).jpeg';
+import Jean2 from '../../assets/Jeans/jean (4).jpeg';
+import Jean3 from '../../assets/Jeans/jean (3).jpeg';
+import Jean4 from '../../assets/Jeans/jean (2).jpeg';
+import Jean5 from '../../assets/Jeans/jean (5).jpeg';
 
 const Jeans = () => {
     const [selectedProduct, setSelectedProduct] = useState(null);
@@ -21,52 +20,48 @@ const Jeans = () => {
     const jeansProducts = useMemo(() => [
         {
             id: 1,
-            name: "Midnight Riser",
-            price: 899.99,
+            name: "H&M Ashwood Jeans",
+            price: 299.99,
             image: Jean1,
             category: "Slim Fit",
-            description: "Premium dark wash with comfortable stretch",
+            description: "Stonewashed slim-fit jeans with a modern ash grey finish, offering a clean, tailored silhouette for everyday sophistication.",
             featured: true
         },
         {
             id: 2,
-            name: "Urban Classic",
-            price: 759.99,
+            name: "Zara Misty Blue Skirt",
+            price: 399.99,
             image: Jean2,
-            category: "Straight Fit",
-            description: "Vintage blue with authentic distressing"
+            category: "A-Line",
+            description: "A relaxed A-line denim skirt in a soft misty blue wash, featuring a midi length and side slits for effortless movement.",
+            featured: true
         },
         {
             id: 3,
-            name: "Shadow Slim",
-            price: 829.99,
+            name: "Grey Threads Jean",
+            price: 289.99,
             image: Jean3,
-            category: "Skinny Fit",
-            description: "Black denim with superior flexibility"
+            category: "Straight Fit",
+            description: "Classic straight-leg jeans in a deep ocean blue, designed with a mid-rise waist and durable construction for timeless style.",
+            featured: true
         },
         {
             id: 4,
-            name: "Vintage Fade",
-            price: 689.99,
+            name: "Trueblue Skinny Jean",
+            price: 299.99,
             image: Jean4,
-            category: "Relaxed Fit",
-            description: "Light wash with classic comfort"
+            category: "Skinny Fit",
+            description: "High-stretch skinny jeans in a rich true blue indigo, providing a second-skin fit with exceptional comfort and shape retention.",
+            featured: true
         },
         {
             id: 5,
-            name: "Executive Denim",
-            price: 949.99,
+            name: "Zara Denim Jacket",
+            price: 449.99,
             image: Jean5,
-            category: "Tapered Fit",
-            description: "Dark indigo for professional styling"
-        },
-        {
-            id: 6,
-            name: "Raw Edge",
-            price: 779.99,
-            image: Jean6,
-            category: "Baggy Straight",
-            description: "Unfinished hem with modern cut"
+            category: "Oversized",
+            description: "An oversized washed denim jacket with a relaxed fit, raw hem details, and a versatile medium wash for layered styling.",
+            featured: true
         }
     ], []);
 
@@ -77,9 +72,11 @@ const Jeans = () => {
         { value: 'name-desc', label: 'Name: Z to A' }
     ];
 
-    const categories = [
-        { value: 'all', label: 'All Styles' }
-    ];
+    // Extract unique categories for filter buttons
+    const uniqueCategories = useMemo(() => {
+        const categories = jeansProducts.map(product => product.category);
+        return ['all', ...new Set(categories)];
+    }, [jeansProducts]);
 
     const filteredAndSortedProducts = useMemo(() => {
         let filtered = [...jeansProducts];
@@ -134,13 +131,13 @@ const Jeans = () => {
                 <div className="JN-subheader">
                     {/* LEFT: Filter Buttons */}
                     <div className="JN-filter-buttons">
-                        {categories.map(category => (
+                        {uniqueCategories.map(category => (
                             <button
-                                key={category.value}
-                                className={`JN-filter-btn ${selectedCategory === category.value ? 'active' : ''}`}
-                                onClick={() => setSelectedCategory(category.value)}
+                                key={category}
+                                className={`JN-filter-btn ${selectedCategory === category ? 'active' : ''}`}
+                                onClick={() => setSelectedCategory(category)}
                             >
-                                {category.label}
+                                {category === 'all' ? 'All Styles' : category}
                             </button>
                         ))}
                     </div>
@@ -163,7 +160,7 @@ const Jeans = () => {
 
                 {/* Results */}
                 <div className="JN-results-info">
-                    <span className="JN-results-count">{filteredAndSortedProducts.length} jeans</span>
+                    <span className="JN-results-count">{filteredAndSortedProducts.length} items</span>
                 </div>
 
                 {/* Product Grid */}
@@ -242,7 +239,7 @@ const Jeans = () => {
                 {/* Empty State */}
                 {filteredAndSortedProducts.length === 0 && (
                     <div className="JN-empty">
-                        <h3>No jeans found</h3>
+                        <h3>No items found</h3>
                         <p>Try selecting a different category</p>
                     </div>
                 )}
