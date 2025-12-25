@@ -33,7 +33,7 @@ const ContactUs = () => {
                         
                         <form 
                             className="contact-form" 
-                            action="https://formspree.io/f/mrbndyno" 
+                            action="https://formspree.io/f/mjgbnvav" 
                             method="POST"
                         >
                             <input type="hidden" name="_subject" value="New Contact Form Submission - Ke Pabala Aesthetics" />

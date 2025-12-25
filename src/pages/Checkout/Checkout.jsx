@@ -109,7 +109,7 @@ const Checkout = () => {
             setOrderCart(cartSnapshot);
             
             // Formspree Integration for Order Notification
-            const formspreeResponse = await fetch('https://formspree.io/f/mdkqjwqv', {
+            const formspreeResponse = await fetch('https://formspree.io/f/xaqwrypq', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

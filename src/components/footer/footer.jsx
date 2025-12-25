@@ -45,7 +45,7 @@ const Footer = () => {
                     <span className="footer__nav-heading">Stay Updated</span>
                     <p>Receive exclusive offers and styling insights.</p>
                     <form 
-                        action="https://formspree.io/f/xwpgzrza" 
+                        action="https://formspree.io/f/xdanqowk" 
                         method="POST"
                         className="subscribe__form"
                     >
