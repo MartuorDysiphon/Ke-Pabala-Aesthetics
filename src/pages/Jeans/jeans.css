@@ -1,172 +1,151 @@
-/* Jeans.css - Styled Like Hair & iPhone Collections with JN Prefix */
-.JN-page {
-    background-color: #fff;
+/* Jeans.css - Compact & Responsive */
+.jeans-page {
+    background: #fff;
+    min-height: 100vh;
     padding: 1.5rem 0;
-    min-height: 70vh;
 }
 
-.JN-container {
-    max-width: 1200px;
+.jeans-container {
+    max-width: 1400px;
     margin: 0 auto;
     padding: 0 1rem;
 }
 
-/* Minimal Header */
-.JN-header {
+/* Header - Compact */
+.jeans-header {
     text-align: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
 }
 
-.JN-title {
+.jeans-title {
     font-size: 1.8rem;
-    font-weight: 600;
+    font-weight: 700;
     color: #1a1a1a;
     margin-bottom: 0.25rem;
 }
 
-.JN-subtitle {
+.jeans-subtitle {
     font-size: 0.9rem;
     color: #666;
-    font-weight: 400;
-    margin: 0;
+    margin-bottom: 1.5rem;
 }
 
-/* SINGLE LINE SUBHEADER */
-.JN-subheader {
+/* Sort Control */
+.jeans-sort-control {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #fff;
-    border-radius: 8px;
-    padding: 0.4rem 0.75rem;
-    margin-bottom: 1rem;
-    height: 42px;
-    min-height: 42px;
-}
-
-/* LEFT: Filter Buttons */
-.JN-filter-buttons {
-    display: flex;
-    gap: 0.4rem;
-    align-items: center;
-    flex: 1;
-}
-
-.JN-filter-btn {
-    padding: 0.3rem 0.9rem;
-    border: 1px solid #e0e0e0;
-    background: #fff;
-    border-radius: 6px;
-    font-size: 0.8rem;
-    font-weight: 500;
-    color: #666;
-    cursor: pointer;
-    transition: all 0.15s ease;
-    white-space: nowrap;
-    height: 28px;
-    display: flex;
-    align-items: center;
     justify-content: center;
 }
 
-.JN-filter-btn:hover {
-    border-color: #ccc;
-    background: #f0f0f0;
-    color: #444;
-}
-
-.JN-filter-btn.active {
-    background: #1a1a1a;
-    border-color: #1a1a1a;
-    color: #fff;
-    font-weight: 600;
-}
-
-/* RIGHT: Sort Dropdown */
-.JN-sort-wrapper {
-    flex-shrink: 0;
-    margin-left: 0.75rem;
-}
-
-.JN-sort {
-    padding: 0.3rem 0.75rem;
-    padding-right: 1.75rem;
+.jeans-sort-select {
+    padding: 0.5rem 1rem;
+    padding-right: 2.5rem;
     border: 1px solid #e0e0e0;
     border-radius: 6px;
     background: #fff;
-    font-size: 0.8rem;
-    color: #666;
+    font-size: 0.85rem;
+    color: #333;
     cursor: pointer;
     appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='%23666' d='M5 7L2 3h6z'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 8L2 4h8z'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
-    background-position: right 0.6rem center;
-    background-size: 10px;
-    height: 28px;
-    min-width: 120px;
+    background-position: right 0.75rem center;
+    background-size: 12px;
+    transition: all 0.2s ease;
+    min-width: 160px;
 }
 
-.JN-sort:focus {
+.jeans-sort-select:focus {
     outline: none;
-    border-color: #999;
+    border-color: #1a1a1a;
 }
 
-/* Results Info */
-.JN-results-info {
-    margin-bottom: 1.5rem;
-    text-align: center;
-}
+/* ========== PRODUCT GRID ========== */
 
-.JN-results-count {
-    font-size: 0.85rem;
-    color: #666;
-    padding: 0.25rem 0.75rem;
-    background: #f8f8f8;
-    border-radius: 12px;
-}
-
-/* Minimal Product Grid - EXACTLY LIKE HAIR & IPHONE PAGES */
-.JN-grid {
+/* Base: 2 columns for all phones (under 768px) */
+.jeans-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
     padding: 0;
 }
 
-.JN-card {
+/* Card - Compact */
+.jeans-card {
     background: #fff;
-    border: 1px solid #eee;
     border-radius: 8px;
     overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.JN-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-}
-
-/* Product Image - Clickable */
-.JN-image {
-    position: relative;
-    background: #f8f8f8;
-    height: 200px;
-    overflow: hidden;
     cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
-.JN-image img {
+.jeans-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Image Container - Smaller */
+.jeans-image-container {
+    position: relative;
+    width: 100%;
+    height: 180px; /* Smaller height */
+    overflow: hidden;
+    background: #f8f8f8;
+}
+
+.jeans-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
     transition: transform 0.3s ease;
 }
 
-.JN-clickable:hover img {
-    transform: scale(1.05);
+.jeans-card:hover .jeans-image {
+    transform: scale(1.03);
 }
 
-.JN-overlay {
+/* Badges - Smaller */
+.jeans-badges {
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
+    right: 0.5rem;
+    display: flex;
+    gap: 0.25rem;
+    flex-wrap: wrap;
+    z-index: 2;
+}
+
+.jeans-badge-featured {
+    background: #ffd700;
+    color: #1a1a1a;
+    padding: 0.2rem 0.5rem;
+    border-radius: 10px;
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+}
+
+.jeans-badge-category {
+    background: rgba(26, 26, 26, 0.85);
+    color: #fff;
+    padding: 0.2rem 0.5rem;
+    border-radius: 10px;
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+    backdrop-filter: blur(2px);
+}
+
+/* Image Overlay */
+.jeans-image-overlay {
     position: absolute;
     top: 0;
     left: 0;
@@ -176,136 +155,99 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background 0.3s ease;
+    transition: background 0.2s ease;
     opacity: 0;
 }
 
-.JN-clickable:hover .JN-overlay {
-    background: rgba(0, 0, 0, 0.1);
+.jeans-card:hover .jeans-image-overlay {
+    background: rgba(0, 0, 0, 0.05);
     opacity: 1;
 }
 
-.JN-zoom {
-    font-size: 1.5rem;
-    color: rgba(255, 255, 255, 0.9);
-    background: rgba(0, 0, 0, 0.5);
-    width: 40px;
-    height: 40px;
+.jeans-zoom-icon {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.8);
+    background: rgba(0, 0, 0, 0.4);
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     transform: scale(0.8);
-    transition: transform 0.3s ease;
+    transition: transform 0.2s ease;
 }
 
-.JN-clickable:hover .JN-zoom {
+.jeans-card:hover .jeans-zoom-icon {
     transform: scale(1);
 }
 
-/* Product Type Badges */
-.JN-type {
-    position: absolute;
-    top: 0.5rem;
-    left: 0.5rem;
-    z-index: 2;
+/* Content - Compact */
+.jeans-content {
+    padding: 0.75rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
 }
 
-.JN-tag {
-    padding: 0.2rem 0.5rem;
-    border-radius: 4px;
-    font-size: 0.65rem;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    background: #1a1a1a;
-    color: #fff;
-}
-
-.JN-featured {
-    position: absolute;
-    top: 0.5rem;
-    right: 0.5rem;
-    z-index: 2;
-}
-
-.JN-featured span {
-    padding: 0.2rem 0.5rem;
-    border-radius: 4px;
-    font-size: 0.65rem;
-    font-weight: 600;
-    background: #ffd700;
-    color: #1a1a1a;
-}
-
-/* Product Details */
-.JN-details {
-    padding: 1rem;
-}
-
-.JN-name {
-    font-size: 0.95rem;
+.jeans-product-name {
+    font-size: 0.9rem;
     font-weight: 600;
     color: #1a1a1a;
-    margin: 0 0 0.5rem 0;
+    margin: 0 0 0.4rem 0;
+    line-height: 1.2;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 2.2em;
+}
+
+.jeans-product-description {
+    font-size: 0.75rem;
+    color: #666;
     line-height: 1.3;
+    margin-bottom: 0.75rem;
+    flex-grow: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
-.JN-meta {
+.jeans-product-footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 0.75rem;
-    font-size: 0.85rem;
+    margin-top: auto;
 }
 
-.JN-category {
-    color: #666;
-}
-
-.JN-price {
+.jeans-price {
+    font-size: 1rem;
+    font-weight: 700;
     color: #1a1a1a;
-    font-weight: 600;
 }
 
-/* Product Action */
-.JN-action {
-    width: 100%;
-    padding: 0.6rem;
+.jeans-add-to-cart {
+    padding: 0.4rem 0.75rem;
+    background: #1a1a1a;
+    color: white;
     border: none;
-    border-radius: 6px;
-    font-size: 0.85rem;
-    font-weight: 500;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
     cursor: pointer;
     transition: all 0.2s ease;
-    background: #1a1a1a;
-    color: #fff;
+    white-space: nowrap;
 }
 
-.JN-action:hover {
+.jeans-add-to-cart:hover {
     background: #333;
+    transform: translateY(-1px);
 }
 
-/* Empty State */
-.JN-empty {
-    text-align: center;
-    padding: 3rem 1rem;
-    color: #888;
-}
-
-.JN-empty h3 {
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-    color: #555;
-}
-
-.JN-empty p {
-    font-size: 0.9rem;
-}
-
-/* FULL SCREEN IMAGE MODAL */
-.JN-image-modal {
+/* Fullscreen Modal */
+.jeans-fullscreen-modal {
     position: fixed;
     top: 0;
     left: 0;
@@ -316,29 +258,29 @@
     align-items: center;
     justify-content: center;
     z-index: 10000;
-    animation: JN-fadeIn 0.2s ease;
+    animation: fadeIn 0.2s ease;
 }
 
-@keyframes JN-fadeIn {
+@keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
 }
 
-.JN-image-content {
+.jeans-modal-content {
     position: relative;
-    width: 90%;
-    max-width: 1000px;
+    width: 95%;
+    max-width: 800px;
     max-height: 90vh;
     background: #000;
-    border-radius: 12px;
+    border-radius: 8px;
     overflow: hidden;
-    animation: JN-slideUp 0.3s ease;
+    animation: slideUp 0.2s ease;
 }
 
-@keyframes JN-slideUp {
+@keyframes slideUp {
     from { 
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(10px);
     }
     to { 
         opacity: 1;
@@ -346,16 +288,16 @@
     }
 }
 
-.JN-close-modal {
+.jeans-modal-close {
     position: absolute;
-    top: 1rem;
-    right: 1rem;
+    top: 0.5rem;
+    right: 0.5rem;
     background: rgba(255, 255, 255, 0.1);
     border: none;
     color: white;
-    font-size: 2rem;
-    width: 40px;
-    height: 40px;
+    font-size: 1.5rem;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     cursor: pointer;
     z-index: 10;
@@ -365,269 +307,203 @@
     transition: background 0.2s ease;
 }
 
-.JN-close-modal:hover {
+.jeans-modal-close:hover {
     background: rgba(255, 255, 255, 0.2);
 }
 
-.JN-fullscreen-container {
+.jeans-modal-image-container {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: calc(90vh - 80px);
-    padding: 2rem;
+    height: calc(90vh - 60px);
+    padding: 1rem;
 }
 
-.JN-fullscreen-image {
+.jeans-modal-image {
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
-    border-radius: 4px;
+    border-radius: 2px;
 }
 
-.JN-image-info {
-    padding: 1rem;
+.jeans-modal-info {
+    padding: 0.75rem;
     background: #111;
     border-top: 1px solid #333;
+    text-align: center;
 }
 
-.JN-image-info h3 {
+.jeans-modal-info h3 {
     color: white;
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-weight: 500;
-    text-align: center;
     margin: 0;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .JN-page {
-        padding: 1rem 0;
-    }
-    
-    .JN-title {
-        font-size: 1.5rem;
-    }
-    
-    .JN-subheader {
-        padding: 0.35rem 0.6rem;
-        height: 38px;
-    }
-    
-    .JN-filter-btn {
-        padding: 0.25rem 0.7rem;
-        font-size: 0.75rem;
-        height: 26px;
-    }
-    
-    .JN-sort {
-        padding: 0.25rem 0.6rem;
-        padding-right: 1.5rem;
-        font-size: 0.75rem;
-        height: 26px;
-        min-width: 110px;
-        background-position: right 0.5rem center;
-    }
-    
-    .JN-grid {
+/* ========== RESPONSIVE BREAKPOINTS ========== */
+
+/* Small tablets (600px and up) */
+@media (min-width: 600px) {
+    .jeans-grid {
         grid-template-columns: repeat(3, 1fr);
         gap: 1rem;
     }
     
-    .JN-image {
-        height: 160px;
-    }
-    
-    .JN-results-count {
-        font-size: 0.8rem;
-    }
-    
-    .JN-fullscreen-container {
-        height: calc(90vh - 60px);
-        padding: 1rem;
-    }
-    
-    .JN-close-modal {
-        top: 0.5rem;
-        right: 0.5rem;
-        font-size: 1.5rem;
-        width: 30px;
-        height: 30px;
-    }
-}
-
-@media (max-width: 480px) {
-    .JN-container {
-        padding: 0 0.75rem;
-    }
-    
-    .JN-subheader {
-        height: 36px;
-        padding: 0.3rem 0.5rem;
-    }
-    
-    .JN-filter-buttons {
-        gap: 0.3rem;
-    }
-    
-    .JN-filter-btn {
-        padding: 0.2rem 0.6rem;
-        font-size: 0.7rem;
-        height: 24px;
-    }
-    
-    .JN-sort {
-        min-width: 100px;
-        font-size: 0.7rem;
-        padding: 0.2rem 0.5rem;
-        padding-right: 1.25rem;
-    }
-    
-    .JN-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1rem;
-    }
-    
-    .JN-image {
+    .jeans-image-container {
         height: 200px;
     }
     
-    .JN-name {
-        font-size: 0.9rem;
+    .jeans-product-name {
+        font-size: 0.95rem;
     }
     
-    .JN-meta {
-        font-size: 0.8rem;
-    }
-    
-    .JN-action {
-        font-size: 0.8rem;
-        padding: 0.5rem;
-    }
-    
-    .JN-image-content {
-        width: 95%;
+    .jeans-price {
+        font-size: 1.1rem;
     }
 }
 
-/* Extra Small Devices */
+/* Tablets (768px and up) */
+@media (min-width: 768px) {
+    .jeans-container {
+        padding: 0 1.5rem;
+    }
+    
+    .jeans-title {
+        font-size: 2rem;
+    }
+    
+    .jeans-subtitle {
+        font-size: 1rem;
+    }
+    
+    .jeans-sort-select {
+        font-size: 0.9rem;
+        min-width: 180px;
+    }
+}
+
+/* Desktop (1024px and up) */
+@media (min-width: 1024px) {
+    .jeans-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.25rem;
+    }
+    
+    .jeans-image-container {
+        height: 200px;
+    }
+    
+    .jeans-content {
+        padding: 1rem;
+    }
+    
+    .jeans-product-name {
+        font-size: 1rem;
+    }
+    
+    .jeans-product-description {
+        font-size: 0.8rem;
+    }
+    
+    .jeans-add-to-cart {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+    }
+}
+
+/* Large Desktop (1200px and up) - 5 COLUMNS */
+@media (min-width: 1200px) {
+    .jeans-grid {
+        grid-template-columns: repeat(5, 1fr);
+        gap: 1rem;
+    }
+    
+    .jeans-image-container {
+        height: 180px;
+    }
+    
+    .jeans-container {
+        padding: 0 2rem;
+    }
+}
+
+/* Extra Large (1400px and up) */
+@media (min-width: 1400px) {
+    .jeans-grid {
+        gap: 1.25rem;
+    }
+    
+    .jeans-image-container {
+        height: 200px;
+    }
+}
+
+/* Mobile adjustments for very small phones */
 @media (max-width: 360px) {
-    .JN-subheader {
-        height: 34px;
-    }
-    
-    .JN-filter-btn {
-        padding: 0.15rem 0.5rem;
-        font-size: 0.65rem;
-        height: 22px;
-    }
-    
-    .JN-sort {
-        min-width: 90px;
-        font-size: 0.65rem;
-        padding: 0.15rem 0.4rem;
-        padding-right: 1rem;
-    }
-    
-    .JN-grid {
+    .jeans-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 0.75rem;
+    }
+    
+    .jeans-image-container {
+        height: 150px;
+    }
+    
+    .jeans-product-name {
+        font-size: 0.85rem;
+    }
+    
+    .jeans-price {
+        font-size: 0.9rem;
+    }
+    
+    .jeans-add-to-cart {
+        padding: 0.35rem 0.6rem;
+        font-size: 0.7rem;
     }
 }
 
 /* Dark mode */
 @media (prefers-color-scheme: dark) {
-    .JN-page {
+    .jeans-page {
         background: #1a1a1a;
     }
     
-    .JN-title {
+    .jeans-title, .jeans-product-name, .jeans-price {
         color: #fff;
     }
     
-    .JN-subtitle {
+    .jeans-subtitle, .jeans-product-description {
         color: #aaa;
     }
     
-    .JN-subheader {
+    .jeans-card {
         background: #2a2a2a;
-        border-color: #333;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
     
-    .JN-filter-btn {
-        background: #333;
-        border-color: #444;
-        color: #ccc;
-    }
-    
-    .JN-filter-btn:hover {
-        background: #3a3a3a;
-        border-color: #555;
-        color: #fff;
-    }
-    
-    .JN-filter-btn.active {
-        background: #fff;
-        border-color: #fff;
-        color: #1a1a1a;
-    }
-    
-    .JN-sort {
-        background: #2a2a2a;
-        border-color: #444;
-        color: #ccc;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='%23ccc' d='M5 7L2 3h6z'/%3E%3C/svg%3E");
-    }
-    
-    .JN-results-count {
-        color: #aaa;
-        background: #2a2a2a;
-    }
-    
-    .JN-card {
-        background: #2a2a2a;
-        border-color: #333;
-    }
-    
-    .JN-image {
+    .jeans-image-container {
         background: #333;
     }
     
-    .JN-name {
-        color: #fff;
+    .jeans-sort-select {
+        background: #2a2a2a;
+        border-color: #444;
+        color: #ccc;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23ccc' d='M6 8L2 4h8z'/%3E%3C/svg%3E");
     }
     
-    .JN-category {
-        color: #aaa;
-    }
-    
-    .JN-price {
-        color: #fff;
-    }
-    
-    .JN-action {
+    .jeans-add-to-cart {
         background: #fff;
         color: #1a1a1a;
     }
     
-    .JN-action:hover {
+    .jeans-add-to-cart:hover {
         background: #e0e0e0;
     }
     
-    .JN-tag {
-        background: #fff;
+    .jeans-badge-category {
+        background: rgba(255, 255, 255, 0.85);
         color: #1a1a1a;
-    }
-    
-    .JN-featured span {
-        background: #ffd700;
-        color: #1a1a1a;
-    }
-    
-    .JN-empty h3 {
-        color: #ccc;
-    }
-    
-    .JN-empty {
-        color: #888;
     }
 }
