@@ -171,6 +171,7 @@ const Hair = () => {
 
     return (
         <div className="category-page">
+            
             <div className="container">
                 <div className="category-header">
                     <h1 className="section-title">Hair Collection</h1>
@@ -309,6 +310,42 @@ const Hair = () => {
                     </div>
                 )}
             </div>
+
+            {/* SEO: Hidden Semantic Content & Structured Data */}
+<div className="seo-content" style={{ display: 'none' }} aria-hidden="true">
+    <h2>Premium Human Hair & Synthetic Extensions</h2>
+    <p>Buy the highest quality <strong>human hair weave</strong>, <strong>clip-in extensions</strong>, <strong>glueless wigs</strong>, and <strong>premium donor hair</strong> in South Africa. Our collection includes <strong>Straight</strong>, <strong>Curly</strong>, <strong>Double Drawn</strong>, and <strong>SDD hair</strong> in lengths from 12 to 30 inches. Shop affordable <strong>hair extensions online</strong> with next-day delivery in Johannesburg, Pretoria, Cape Town, and Durban.</p>
+    <ul>
+        <li><strong>100% Virgin Human Hair</strong> - Cuticle aligned, unprocessed, double drawn.</li>
+        <li><strong>Glueless Lace Front Wigs</strong> - Easy install, breathable, HD lace.</li>
+        <li><strong>Synthetic Hair Extensions</strong> - Budget-friendly, pre-styled, heat-resistant.</li>
+        <li><strong>Weave & Closure Bundles</strong> - Brazilian, Peruvian, Malaysian hair.</li>
+    </ul>
+</div>
+<script type="application/ld+json">
+{JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "itemListElement": hairProducts.slice(0, 10).map((product, index) => ({
+    "@type": "ListItem",
+    "position": index + 1,
+    "item": {
+      "@type": "Product",
+      "name": product.name,
+      "image": window.location.origin + product.image,
+      "description": `Premium ${product.type} hair extensions in ${product.category} style, ${product.length} long.`,
+      "brand": { "@type": "Brand", "name": "YourBrandName" },
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "ZAR",
+        "price": product.price,
+        "availability": product.comingSoon ? "https://schema.org/PreOrder" : "https://schema.org/InStock",
+        "seller": { "@type": "Organization", "name": "YourBrandName" }
+      }
+    }
+  }))
+})}
+</script>
         </div>
     );
 };

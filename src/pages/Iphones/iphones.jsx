@@ -357,6 +357,43 @@ const Iphones = () => {
                     </div>
                 )}
             </div>
+
+            {/* SEO: Hidden Semantic Content & Structured Data */}
+<div className="seo-content" style={{ display: 'none' }} aria-hidden="true">
+    <h2>Refurbished & Pre-Owned iPhones for Sale South Africa</h2>
+    <p>Buy <strong>cheap pre-owned iPhones</strong>, <strong>refurbished Apple iPhones</strong>, and <strong>second-hand smartphones</strong> in South Africa. Our stock includes <strong>iPhone 12</strong>, <strong>iPhone 11 Pro</strong>, <strong>iPhone XR</strong>, <strong>iPhone X</strong>, <strong>iPhone 8 Plus</strong>, and <strong>iPhone 7</strong>. All devices are tested, certified, and come with a warranty. We offer <strong>free delivery</strong> in Johannesburg, Cape Town, Pretoria, and Durban.</p>
+    <ul>
+        <li><strong>Grade A Refurbished iPhones</strong> - Professionally restored, like-new condition.</li>
+        <li><strong>Battery Health Guarantee</strong> - Minimum 85% battery capacity.</li>
+        <li><strong>Warranty Included</strong> - 12-month warranty on all pre-owned devices.</li>
+        <li><strong>Finance & Trade-In Available</strong> - Upgrade your old phone.</li>
+    </ul>
+</div>
+<script type="application/ld+json">
+{JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "itemListElement": preOwnedIphones.slice(0, 9).map((product, index) => ({
+    "@type": "ListItem",
+    "position": index + 1,
+    "item": {
+      "@type": "Product",
+      "name": product.baseName,
+      "image": window.location.origin + product.image,
+      "description": `Pre-Owned ${product.baseName} in ${product.color}, ${product.condition} condition.`,
+      "brand": { "@type": "Brand", "name": "Apple" },
+      "model": product.baseName,
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "ZAR",
+        "price": product.price,
+        "availability": product.status === "Available" ? "https://schema.org/InStock" : "https://schema.org/LimitedAvailability",
+        "seller": { "@type": "Organization", "name": "YourBrandName" }
+      }
+    }
+  }))
+})}
+</script>
         </div>
     );
 };

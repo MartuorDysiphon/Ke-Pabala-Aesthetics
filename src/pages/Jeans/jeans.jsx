@@ -1,5 +1,5 @@
 // Jeans.jsx - Compact & Responsive
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import JeansModal from '../../components/JeansModal/JeansModal';
 import './jeans.css';
@@ -20,7 +20,7 @@ const Jeans = () => {
     const [searchParams] = useSearchParams();
     const productId = searchParams.get('product');
 
-    const jeansProducts = [
+    const jeansProducts = useMemo(() => [
         {
             id: 1,
             name: "H&M Ashwood Jeans",
@@ -56,7 +56,7 @@ const Jeans = () => {
             image: Jean5,
             description: "Oversized denim jacket with raw hem details."
         }
-    ];
+    ], []); // Empty dependency array ensures this only initializes once
 
     // Auto-open modal based on query parameter
     useEffect(() => {
@@ -69,7 +69,7 @@ const Jeans = () => {
                 setIsModalOpen(true);
             }
         }
-    }, [productId]);
+    }, [productId, jeansProducts]);
 
     const handleProductClick = (product) => {
         setSelectedProduct(product);
@@ -173,6 +173,41 @@ const Jeans = () => {
                         </div>
                     </div>
                 )}
+
+                {/* SEO: Hidden Semantic Content & Structured Data */}
+                <div className="seo-content" style={{ display: 'none' }} aria-hidden="true">
+                    <h2>Trendy Denim Jeans, Jackets & Skirts for Men and Women</h2>
+                    <p>Shop the latest <strong>designer jeans</strong>, <strong>denim jackets</strong>, and <strong>fashion skirts</strong> from brands like <strong>H&M</strong> and <strong>Zara</strong>. Find <strong>skinny fit</strong>, <strong>straight leg</strong>, <strong>boyfriend jeans</strong>, and <strong>oversized denim jackets</strong> in all sizes. Affordable <strong>denim clothing online</strong> with delivery across South Africa.</p>
+                    <ul>
+                        <li><strong>Premium Denim Fabric</strong> - Stretch, comfort, durable washes.</li>
+                        <li><strong>Latest Fashion Trends</strong> - Stonewash, ripped, raw hem, high-waist.</li>
+                        <li><strong>Free Returns & Exchanges</strong> - Hassle-free sizing guarantee.</li>
+                    </ul>
+                </div>
+                <script type="application/ld+json">
+                {JSON.stringify({
+                    "@context": "https://schema.org",
+                    "@type": "ItemList",
+                    "itemListElement": jeansProducts.map((product, index) => ({
+                        "@type": "ListItem",
+                        "position": index + 1,
+                        "item": {
+                            "@type": "Product",
+                            "name": product.name,
+                            "image": window.location.origin + product.image,
+                            "description": product.description,
+                            "brand": { "@type": "Brand", "name": product.name.includes("H&M") ? "H&M" : "Zara" },
+                            "offers": {
+                                "@type": "Offer",
+                                "priceCurrency": "ZAR",
+                                "price": product.price,
+                                "availability": "https://schema.org/InStock",
+                                "seller": { "@type": "Organization", "name": "YourBrandName" }
+                            }
+                        }
+                    }))
+                })}
+                </script>
             </div>
         </div>
     );
