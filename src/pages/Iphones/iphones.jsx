@@ -22,114 +22,141 @@ const Iphones = () => {
     const [selectedImage, setSelectedImage] = useState(null);
     const [isImageModalOpen, setIsImageModalOpen] = useState(false);
 
-    const iphoneProducts = useMemo(() => [
+    const preOwnedIphones = useMemo(() => [
+        // iPhone 7 - Single card, multiple storage options in modal
         {
             id: 1,
-            name: "iPhone 12",
-            price: 7099.99,
-            image: Iphone12,
+            name: "iPhone 7",
+            baseName: "iPhone 7",
+            price: 2500, // Starting price for 32GB Pre-Owned
+            image: Iphone7,
             category: "iPhone",
-            storage: "128GB",
-            series: "12",
-            condition: "New",
-            featured: true,
+            series: "7",
+            condition: "Pre-Owned",
             color: "Black",
-            status: "Available"
+            status: "Available",
+            modelYear: "2016",
+            defaultStorage: "32GB"
         },
+        // iPhone 7 Plus - Single card
         {
             id: 2,
-            name: "iPhone 11 Pro",
-            price: 7099.99,
-            image: Iphone11Pro,
+            name: "iPhone 7 Plus",
+            baseName: "iPhone 7 Plus",
+            price: 3050, // Starting price for 32GB Pre-Owned
+            image: Iphone7Plus,
             category: "iPhone",
-            storage: "64GB",
-            series: "11",
-            condition: "New",
-            color: "Midnight Green",
-            status: "Available"
+            series: "7",
+            condition: "Pre-Owned",
+            color: "Rose Gold",
+            status: "Available",
+            modelYear: "2016",
+            defaultStorage: "32GB"
         },
+        // iPhone 8 - Single card
         {
             id: 3,
-            name: "iPhone 11",
-            price: 5500.99,
-            image: Iphone11,
+            name: "iPhone 8",
+            baseName: "iPhone 8",
+            price: 2950, // 64GB Pre-Owned
+            image: Iphone8,
             category: "iPhone",
-            storage: "64GB/128GB",
-            series: "11",
-            condition: "Good",
-            color: "Purple",
-            status: "Available"
+            series: "8",
+            condition: "Pre-Owned",
+            color: "Space Gray",
+            status: "Available",
+            modelYear: "2017",
+            defaultStorage: "64GB"
         },
+        // iPhone 8 Plus - Single card
         {
             id: 4,
-            name: "iPhone XR",
-            price: 4999.99,
-            image: IphoneXR,
+            name: "iPhone 8 Plus",
+            baseName: "iPhone 8 Plus",
+            price: 3600, // 64GB Pre-Owned
+            image: Iphone8Plus,
             category: "iPhone",
-            storage: "128GB",
-            series: "XR",
-            condition: "New",
-            color: "Coral",
-            status: "Low Stock"
+            series: "8",
+            condition: "Pre-Owned",
+            color: "Gold",
+            status: "Available",
+            modelYear: "2017",
+            defaultStorage: "64GB"
         },
+        // iPhone X - Single card
         {
             id: 5,
             name: "iPhone X",
-            price: 4299.99,
+            baseName: "iPhone X",
+            price: 3900, // 64GB Pre-Owned
             image: IphoneX,
             category: "iPhone",
-            storage: "64GB",
             series: "X",
-            condition: "New",
+            condition: "Pre-Owned",
             color: "Silver",
-            status: "Available"
+            status: "Available",
+            modelYear: "2017",
+            defaultStorage: "64GB"
         },
+        // iPhone XR - Single card
         {
             id: 6,
-            name: "iPhone 8 Plus",
-            price: 3999.99,
-            image: Iphone8Plus,
+            name: "iPhone XR",
+            baseName: "iPhone XR",
+            price: 4100, // Starting price for 64GB Pre-Owned
+            image: IphoneXR,
             category: "iPhone",
-            storage: "64GB",
-            series: "8",
-            condition: "New",
-            color: "Gold",
-            status: "Available"
+            series: "XR",
+            condition: "Pre-Owned",
+            color: "Coral",
+            status: "Available",
+            modelYear: "2018",
+            defaultStorage: "64GB"
         },
+        // iPhone 11 - Single card
         {
             id: 7,
-            name: "iPhone 8",
-            price: 3799.99,
-            image: Iphone8,
+            name: "iPhone 11",
+            baseName: "iPhone 11",
+            price: 5100, // Starting price for 64GB Pre-Owned
+            image: Iphone11,
             category: "iPhone",
-            storage: "64GB/256GB",
-            series: "8",
-            condition: "Fair",
-            color: "Space Gray",
-            status: "Low Stock"
+            series: "11",
+            condition: "Pre-Owned",
+            color: "Purple",
+            status: "Available",
+            modelYear: "2019",
+            defaultStorage: "64GB"
         },
+        // iPhone 11 Pro - Single card
         {
             id: 8,
-            name: "iPhone 7 Plus",
-            price: 3399.99,
-            image: Iphone7Plus,
+            name: "iPhone 11 Pro",
+            baseName: "iPhone 11 Pro",
+            price: 6400, // 64GB Pre-Owned
+            image: Iphone11Pro,
             category: "iPhone",
-            storage: "128GB",
-            series: "7",
-            condition: "Fair",
-            color: "Rose Gold",
-            status: "Available"
+            series: "11",
+            condition: "Pre-Owned",
+            color: "Midnight Green",
+            status: "Low Stock",
+            modelYear: "2019",
+            defaultStorage: "64GB"
         },
+        // iPhone 12 - Single card
         {
             id: 9,
-            name: "iPhone 7",
-            price: 2999.99,
-            image: Iphone7,
+            name: "iPhone 12",
+            baseName: "iPhone 12",
+            price: 6800, // Starting price for 64GB Pre-Owned
+            image: Iphone12,
             category: "iPhone",
-            storage: "32GB",
-            series: "7",
-            condition: "New",
-            status: "Available"
+            series: "12",
+            condition: "Pre-Owned",
+            color: "Black",
+            status: "Available",
+            modelYear: "2020",
+            defaultStorage: "64GB"
         }
     ], []);
 
@@ -151,7 +178,7 @@ const Iphones = () => {
     ];
 
     const filteredAndSortedProducts = useMemo(() => {
-        let filtered = [...iphoneProducts];
+        let filtered = [...preOwnedIphones];
         
         if (selectedSeries !== 'all') {
             filtered = filtered.filter(product => product.series === selectedSeries);
@@ -163,12 +190,12 @@ const Iphones = () => {
             case 'price-high':
                 return filtered.sort((a, b) => b.price - a.price);
             case 'name-asc':
-                return filtered.sort((a, b) => a.name.localeCompare(b.name));
+                return filtered.sort((a, b) => a.baseName.localeCompare(b.baseName));
             case 'newest':
             default:
-                return filtered.sort((a, b) => b.id - a.id);
+                return filtered.sort((a, b) => b.modelYear - a.modelYear || a.baseName.localeCompare(b.baseName));
         }
-    }, [iphoneProducts, selectedSeries, sortBy]);
+    }, [preOwnedIphones, selectedSeries, sortBy]);
 
     const handleProductClick = (product) => {
         setSelectedProduct(product);
@@ -195,7 +222,8 @@ const Iphones = () => {
         <div className="ip-page">
             <div className="ip-container">
                 <div className="category-header">
-                    <h1 className="section-title">iPhone Collection</h1>
+                    <h1 className="section-title">Pre-Owned iPhone Collection</h1>
+                    <p className="section-subtitle">Click any iPhone to customize storage and condition</p>
                 </div>
 
                 {/* COMPACT SINGLE LINE SUBHEADER */}
@@ -231,10 +259,10 @@ const Iphones = () => {
 
                 {/* Results */}
                 <div className="ip-results-info">
-                    <span className="ip-results-count">{filteredAndSortedProducts.length} iPhones</span>
+                    <span className="ip-results-count">{filteredAndSortedProducts.length} iPhone Models</span>
                 </div>
 
-                {/* Product Grid */}
+                {/* Product Grid - Now showing 9 unique iPhone models */}
                 <div className="ip-grid">
                     {filteredAndSortedProducts.map(iphone => (
                         <div 
@@ -245,34 +273,24 @@ const Iphones = () => {
                                 className="ip-image ip-clickable"
                                 onClick={(e) => handleImageClick(iphone.image, iphone.name, e)}
                             >
-                                <img src={iphone.image} alt={iphone.name} />
-                                <div className="ip-type">
-                                    <span className={`ip-tag ${iphone.status === 'Low Stock' ? 'ip-low-stock' : 'ip-available'}`}>
-                                        {iphone.status}
-                                    </span>
-                                </div>
-                                {iphone.featured && (
-                                    <div className="ip-featured">
-                                        <span>Featured</span>
-                                    </div>
-                                )}
+                                <img src={iphone.image} alt={iphone.baseName} />
                                 <div className="ip-overlay">
                                     <span className="ip-zoom">🔍</span>
                                 </div>
                             </div>
                             <div className="ip-details">
-                                <h3 className="ip-name">{iphone.name}</h3>
+                                <h3 className="ip-name">{iphone.baseName}</h3>
                                 <div className="ip-meta">
-                                    <span className="ip-storage">{iphone.storage}</span>
-                                    <span className="ip-condition">{iphone.condition}</span>
+                                    <span className="ip-storage">Starting at R{iphone.price.toFixed(2)}</span>
+                                    <span className="ip-condition">{iphone.defaultStorage} • {iphone.condition}</span>
                                 </div>
                                 <div className="ip-price-row">
-                                    <span className="ip-price">R{iphone.price.toFixed(2)}</span>
+                                    <span className="ip-price">From R{iphone.price.toFixed(2)}</span>
                                     <button 
                                         className="ip-cart-btn"
                                         onClick={() => handleProductClick(iphone)}
                                     >
-                                        Add to Cart
+                                        <i className="fas fa-shopping-cart"></i> Buy
                                     </button>
                                 </div>
                             </div>

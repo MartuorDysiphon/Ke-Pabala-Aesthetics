@@ -1,107 +1,112 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useCart } from '../../context/CartContext';
 import './IphoneModal.css';
 
 const IphoneModal = ({ product, isOpen, onClose }) => {
+    const [selectedCondition, setSelectedCondition] = useState('Pre-Owned');
     const [selectedStorage, setSelectedStorage] = useState('');
     const [selectedColor, setSelectedColor] = useState('');
-    const [selectedCondition, setSelectedCondition] = useState('Fair'); // Default to Fair
-    const [quantity, setQuantity] = useState(1);
     const { addToCart } = useCart();
 
-    const appleStorageOptions = {
-        "iPhone 12": [
-            { storage: '64GB', price: 0 },
-            { storage: '128GB', price: 300 },
-            { storage: '256GB', price: 800 }
-        ],
-        "iPhone 11 Pro": [
-            { storage: '64GB', price: 0 },
-            { storage: '256GB', price: 800 },
-            { storage: '512GB', price: 1500 }
-        ],
-        "iPhone 11": [
-            { storage: '64GB', price: 0 },
-            { storage: '128GB', price: 300 }
-        ],
-        "iPhone XR": [
-            { storage: '64GB', price: 0 },
-            { storage: '128GB', price: 300 }
-        ],
-        "iPhone X": [
-            { storage: '64GB', price: 0 },
-            { storage: '256GB', price: 800 }
-        ],
-        "iPhone 8 Plus": [
-            { storage: '64GB', price: 0 },
-            { storage: '256GB', price: 800 }
-        ],
-        "iPhone 8": [
-            { storage: '64GB', price: 0 },
-            { storage: '256GB', price: 800 }
-        ],
-        "iPhone 7 Plus": [
-            { storage: '32GB', price: 0 },
-            { storage: '128GB', price: 500 }
-        ],
-        "iPhone 7": [
-            { storage: '32GB', price: 0 },
-            { storage: '128GB', price: 500 }
-        ]
+    // Complete pricing structure based on your list
+    const iphonePricing = {
+        "iPhone 7": {
+            "Pre-Owned": [
+                { storage: '32GB', price: 2500 }
+            ],
+            "New": [
+                { storage: '32GB', price: 3000 }
+            ]
+        },
+        "iPhone 7 Plus": {
+            "Pre-Owned": [
+                { storage: '32GB', price: 3050 },
+                { storage: '128GB', price: 3200 }
+            ],
+            "New": [
+                { storage: '128GB', price: 3400 }
+            ]
+        },
+        "iPhone 8": {
+            "Pre-Owned": [
+                { storage: '64GB', price: 2950 }
+            ],
+            "New": [
+                { storage: '64GB', price: 3400 }
+            ]
+        },
+        "iPhone 8 Plus": {
+            "Pre-Owned": [
+                { storage: '64GB', price: 3600 }
+            ],
+            "New": [
+                { storage: '64GB', price: 4000 }
+            ]
+        },
+        "iPhone X": {
+            "Pre-Owned": [
+                { storage: '64GB', price: 3900 }
+            ],
+            "New": [
+                { storage: '64GB', price: 4300 }
+            ]
+        },
+        "iPhone XR": {
+            "Pre-Owned": [
+                { storage: '64GB', price: 4100 },
+                { storage: '128GB', price: 4500 }
+            ],
+            "New": [
+                { storage: '64GB', price: 4500 },
+                { storage: '128GB', price: 5000 }
+            ]
+        },
+        "iPhone 11": {
+            "Pre-Owned": [
+                { storage: '64GB', price: 5100 },
+                { storage: '128GB', price: 5550 }
+            ],
+            "New": [
+                { storage: '64GB', price: 5500 },
+                { storage: '128GB', price: 6150 }
+            ]
+        },
+        "iPhone 11 Pro": {
+            "Pre-Owned": [
+                { storage: '64GB', price: 6400 }
+            ],
+            "New": [
+                { storage: '64GB', price: 7400 }
+            ]
+        },
+        "iPhone 12": {
+            "Pre-Owned": [
+                { storage: '64GB', price: 6800 },
+                { storage: '128GB', price: 7000 }
+            ],
+            "New": [
+                { storage: '64GB', price: 6800 },
+                { storage: '128GB', price: 7100 }
+            ]
+        }
     };
 
     const appleColorOptions = {
-        "iPhone 12": ['Black', 'White', 'Green', 'Blue', 'Purple', 'Red'],
-        "iPhone 11 Pro": ['Midnight Green', 'Space Gray', 'Silver', 'Gold'],
-        "iPhone 11": ['Black', 'Green', 'Yellow', 'Purple', 'Red', 'White'],
-        "iPhone XR": ['Black', 'White', 'Blue', 'Yellow', 'Coral', 'Red'],
-        "iPhone X": ['Space Gray', 'Silver'],
-        "iPhone 8 Plus": ['Space Gray', 'Silver', 'Gold', 'Red'],
-        "iPhone 8": ['Space Gray', 'Silver', 'Gold', 'Red'],
+        "iPhone 7": ['Black', 'Silver', 'Gold', 'Rose Gold', 'Red', 'Jet Black'],
         "iPhone 7 Plus": ['Black', 'Silver', 'Gold', 'Rose Gold', 'Red', 'Jet Black'],
-        "iPhone 7": ['Black', 'Silver', 'Gold', 'Rose Gold', 'Red', 'Jet Black']
+        "iPhone 8": ['Space Gray', 'Silver', 'Gold', 'Red'],
+        "iPhone 8 Plus": ['Space Gray', 'Silver', 'Gold', 'Red'],
+        "iPhone X": ['Space Gray', 'Silver'],
+        "iPhone XR": ['Black', 'White', 'Blue', 'Yellow', 'Coral', 'Red'],
+        "iPhone 11": ['Black', 'Green', 'Yellow', 'Purple', 'Red', 'White'],
+        "iPhone 11 Pro": ['Midnight Green', 'Space Gray', 'Silver', 'Gold'],
+        "iPhone 12": ['Black', 'White', 'Green', 'Blue', 'Purple', 'Red']
     };
 
     const iphoneSpecs = {
-        "iPhone 12": {
-            display: '6.1" Super Retina XDR',
-            chip: 'A14 Bionic',
-            camera: 'Dual 12MP',
-            battery: 'Up to 17h'
-        },
-        "iPhone 11 Pro": {
-            display: '5.8" Super Retina XDR',
-            chip: 'A13 Bionic',
-            camera: 'Triple 12MP',
-            battery: 'Up to 18h'
-        },
-        "iPhone 11": {
-            display: '6.1" Liquid Retina HD',
-            chip: 'A13 Bionic',
-            camera: 'Dual 12MP',
-            battery: 'Up to 17h'
-        },
-        "iPhone XR": {
-            display: '6.1" Liquid Retina HD',
-            chip: 'A12 Bionic',
-            camera: '12MP',
-            battery: 'Up to 16h'
-        },
-        "iPhone X": {
-            display: '5.8" Super Retina HD',
-            chip: 'A11 Bionic',
-            camera: 'Dual 12MP',
-            battery: 'Up to 13h'
-        },
-        "iPhone 8 Plus": {
-            display: '5.5" Retina HD',
-            chip: 'A11 Bionic',
-            camera: 'Dual 12MP',
-            battery: 'Up to 14h'
-        },
-        "iPhone 8": {
+        "iPhone 7": {
             display: '4.7" Retina HD',
-            chip: 'A11 Bionic',
+            chip: 'A10 Fusion',
             camera: '12MP',
             battery: 'Up to 13h'
         },
@@ -111,33 +116,73 @@ const IphoneModal = ({ product, isOpen, onClose }) => {
             camera: 'Dual 12MP',
             battery: 'Up to 14h'
         },
-        "iPhone 7": {
+        "iPhone 8": {
             display: '4.7" Retina HD',
-            chip: 'A10 Fusion',
+            chip: 'A11 Bionic',
             camera: '12MP',
             battery: 'Up to 13h'
+        },
+        "iPhone 8 Plus": {
+            display: '5.5" Retina HD',
+            chip: 'A11 Bionic',
+            camera: 'Dual 12MP',
+            battery: 'Up to 14h'
+        },
+        "iPhone X": {
+            display: '5.8" Super Retina HD',
+            chip: 'A11 Bionic',
+            camera: 'Dual 12MP',
+            battery: 'Up to 13h'
+        },
+        "iPhone XR": {
+            display: '6.1" Liquid Retina HD',
+            chip: 'A12 Bionic',
+            camera: '12MP',
+            battery: 'Up to 16h'
+        },
+        "iPhone 11": {
+            display: '6.1" Liquid Retina HD',
+            chip: 'A13 Bionic',
+            camera: 'Dual 12MP',
+            battery: 'Up to 17h'
+        },
+        "iPhone 11 Pro": {
+            display: '5.8" Super Retina XDR',
+            chip: 'A13 Bionic',
+            camera: 'Triple 12MP',
+            battery: 'Up to 18h'
+        },
+        "iPhone 12": {
+            display: '6.1" Super Retina XDR',
+            chip: 'A14 Bionic',
+            camera: 'Dual 12MP',
+            battery: 'Up to 17h'
         }
     };
 
-    // conditions
-    const conditionOptions = [
-        { name: 'New', price: 500, description: 'Brand new, sealed in box' },
-        { name: 'Fair', price: 0, description: 'Standard refurbished condition' },
-        { name: 'Eco-Friendly', price: -200, description: 'Eco-friendly packaging, minor signs of use' }
-    ];
+    const baseModel = product.baseName;
+    const conditionOptions = ['Pre-Owned', 'New'];
+    const availableStorageOptions = iphonePricing[baseModel]?.[selectedCondition] || [];
+    const colorOptions = appleColorOptions[baseModel] || ['Space Gray', 'Silver'];
+    const specs = iphoneSpecs[baseModel] || iphoneSpecs["iPhone 12"];
 
-    const storageOptions = appleStorageOptions[product.name] || [{ storage: '64GB', price: 0 }];
-    const colorOptions = appleColorOptions[product.name] || ['Space Gray', 'Silver'];
-    const specs = iphoneSpecs[product.name] || iphoneSpecs["iPhone 12"];
+    // Initialize selections
+    useEffect(() => {
+        if (availableStorageOptions.length > 0 && !selectedStorage) {
+            setSelectedStorage(availableStorageOptions[0].storage);
+        }
+    }, [selectedCondition, availableStorageOptions]);
 
-    const getStoragePrice = () => {
-        const option = storageOptions.find(opt => opt.storage === selectedStorage);
-        return option ? option.price : 0;
-    };
+    useEffect(() => {
+        if (colorOptions.length > 0 && !selectedColor) {
+            setSelectedColor(colorOptions[0]);
+        }
+    }, [colorOptions]);
 
-    const getConditionPrice = () => {
-        const option = conditionOptions.find(opt => opt.name === selectedCondition);
-        return option ? option.price : 0;
+    const getCurrentPrice = () => {
+        if (!selectedStorage) return 0;
+        const storageOption = availableStorageOptions.find(opt => opt.storage === selectedStorage);
+        return storageOption ? storageOption.price : 0;
     };
 
     const handleAddToCart = () => {
@@ -146,8 +191,8 @@ const IphoneModal = ({ product, isOpen, onClose }) => {
             return;
         }
 
-        const finalProductName = `${product.name} ${selectedStorage} ${selectedColor} (${selectedCondition})`;
-        const totalPrice = parseFloat(product.price) + getStoragePrice() + getConditionPrice();
+        const finalProductName = `${baseModel} ${selectedStorage} ${selectedColor} (${selectedCondition})`;
+        const totalPrice = getCurrentPrice();
         
         addToCart(
             {
@@ -157,24 +202,13 @@ const IphoneModal = ({ product, isOpen, onClose }) => {
                 selectedColor: selectedColor,
                 selectedStorage: selectedStorage,
                 selectedCondition: selectedCondition,
-                conditionPriceAdjustment: getConditionPrice()
+                baseModel: baseModel
             },
-            quantity
+            1 // Always add 1 quantity
         );
 
-        setSelectedStorage('');
-        setSelectedColor('');
-        setSelectedCondition('Fair'); 
-        setQuantity(1);
         onClose();
         alert('Added to cart!');
-    };
-
-    const calculateTotalPrice = () => {
-        const basePrice = parseFloat(product.price);
-        const storagePrice = getStoragePrice();
-        const conditionPrice = getConditionPrice();
-        return (basePrice + storagePrice + conditionPrice) * quantity;
     };
 
     const getColorHex = (colorName) => {
@@ -197,6 +231,12 @@ const IphoneModal = ({ product, isOpen, onClose }) => {
         return colorMap[colorName] || '#8E8E93';
     };
 
+    const getConditionDescription = (condition) => {
+        return condition === 'Pre-Owned' 
+            ? 'Certified refurbished, excellent condition' 
+            : 'Brand new, sealed in original box';
+    };
+
     if (!isOpen) return null;
 
     return (
@@ -210,15 +250,15 @@ const IphoneModal = ({ product, isOpen, onClose }) => {
                     <div className="iphone-modal-image">
                         <img 
                             src={product.image} 
-                            alt={product.name}
+                            alt={baseModel}
                             className="iphone-modal-img"
                         />
                     </div>
 
                     <div className="iphone-modal-info">
                         <div className="iphone-modal-header">
-                            <h1>{product.name}</h1>
-                            <p>Apple Certified Refurbished</p>
+                            <h1>{baseModel}</h1>
+                            <p>Apple Certified Devices</p>
                         </div>
 
                         <div className="iphone-modal-specs">
@@ -241,12 +281,10 @@ const IphoneModal = ({ product, isOpen, onClose }) => {
                         </div>
 
                         <div className="iphone-modal-price-section">
-                            <div className="base-price">R{product.price}</div>
-                            {(selectedStorage || selectedCondition !== 'Fair') && (
-                                <div className="total-price">
-                                    Total: <span>R{calculateTotalPrice().toFixed(2)}</span>
-                                </div>
-                            )}
+                            <div className="base-price">R{getCurrentPrice().toFixed(2)}</div>
+                            <div className="total-price">
+                                Total: <span>R{getCurrentPrice().toFixed(2)}</span>
+                            </div>
                         </div>
 
                         <div className="iphone-modal-options-section">
@@ -254,23 +292,25 @@ const IphoneModal = ({ product, isOpen, onClose }) => {
                             <div className="option-group">
                                 <div className="option-label">Condition</div>
                                 <div className="condition-options">
-                                    {conditionOptions.map((condition, index) => (
-                                        <button
-                                            key={index}
-                                            className={`condition-option ${
-                                                selectedCondition === condition.name ? 'selected' : ''
-                                            }`}
-                                            onClick={() => setSelectedCondition(condition.name)}
-                                            title={condition.description}
-                                        >
-                                            {condition.name}
-                                            {condition.price !== 0 && (
-                                                <span className={`price-badge ${condition.price > 0 ? 'positive' : 'negative'}`}>
-                                                    {condition.price > 0 ? '+' : ''}R{condition.price}
-                                                </span>
-                                            )}
-                                        </button>
-                                    ))}
+                                    {conditionOptions.map((condition, index) => {
+                                        if (iphonePricing[baseModel]?.[condition]?.length === 0) return null;
+                                        
+                                        return (
+                                            <button
+                                                key={index}
+                                                className={`condition-option ${
+                                                    selectedCondition === condition ? 'selected' : ''
+                                                }`}
+                                                onClick={() => {
+                                                    setSelectedCondition(condition);
+                                                    setSelectedStorage('');
+                                                }}
+                                                title={getConditionDescription(condition)}
+                                            >
+                                                {condition}
+                                            </button>
+                                        );
+                                    })}
                                 </div>
                             </div>
 
@@ -278,7 +318,7 @@ const IphoneModal = ({ product, isOpen, onClose }) => {
                             <div className="option-group">
                                 <div className="option-label">Storage</div>
                                 <div className="storage-options">
-                                    {storageOptions.map((option, index) => (
+                                    {availableStorageOptions.map((option, index) => (
                                         <button
                                             key={index}
                                             className={`storage-option ${
@@ -287,14 +327,12 @@ const IphoneModal = ({ product, isOpen, onClose }) => {
                                             onClick={() => setSelectedStorage(option.storage)}
                                         >
                                             {option.storage}
-                                            {option.price > 0 && (
-                                                <span className="price-badge">+R{option.price}</span>
-                                            )}
                                         </button>
                                     ))}
                                 </div>
                             </div>
 
+                            {/* Color */}
                             <div className="option-group">
                                 <div className="option-label">Color</div>
                                 <div className="color-options">
@@ -316,27 +354,6 @@ const IphoneModal = ({ product, isOpen, onClose }) => {
                                     ))}
                                 </div>
                             </div>
-
-                            <div className="option-group">
-                                <div className="option-label">Quantity</div>
-                                <div className="quantity-selector">
-                                    <button 
-                                        className="qty-btn minus"
-                                        onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                                        aria-label="Decrease quantity"
-                                    >
-                                        −
-                                    </button>
-                                    <span className="qty-value">{quantity}</span>
-                                    <button 
-                                        className="qty-btn plus"
-                                        onClick={() => setQuantity(quantity + 1)}
-                                        aria-label="Increase quantity"
-                                    >
-                                        +
-                                    </button>
-                                </div>
-                            </div>
                         </div>
 
                         <button 
@@ -346,7 +363,7 @@ const IphoneModal = ({ product, isOpen, onClose }) => {
                             onClick={handleAddToCart}
                             disabled={!selectedStorage || !selectedColor}
                         >
-                            Add to Cart • R{calculateTotalPrice().toFixed(2)}
+                            Add to Cart • R{getCurrentPrice().toFixed(2)}
                         </button>
 
                         <div className="warranty-info">
