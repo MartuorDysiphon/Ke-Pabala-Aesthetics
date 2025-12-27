@@ -1,5 +1,6 @@
 // Iphones.jsx
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import IphoneModal from '../../components/IphoneModal/IphoneModal';
 import './iphone.css';
 
@@ -21,6 +22,10 @@ const Iphones = () => {
     const [selectedSeries, setSelectedSeries] = useState('all');
     const [selectedImage, setSelectedImage] = useState(null);
     const [isImageModalOpen, setIsImageModalOpen] = useState(false);
+    
+    // Get query parameters
+    const [searchParams] = useSearchParams();
+    const productId = searchParams.get('product');
 
     const preOwnedIphones = useMemo(() => [
         // iPhone 7 - Single card, multiple storage options in modal
@@ -160,6 +165,19 @@ const Iphones = () => {
         }
     ], []);
 
+    // Auto-open modal based on query parameter
+    useEffect(() => {
+        if (productId) {
+            // Extract numeric ID from "iphone-1", "iphone-2", etc.
+            const numericId = parseInt(productId.replace('iphone-', ''));
+            const product = preOwnedIphones.find(p => p.id === numericId);
+            if (product) {
+                setSelectedProduct(product);
+                setIsModalOpen(true);
+            }
+        }
+    }, [productId, preOwnedIphones]);
+
     const sortOptions = [
         { value: 'newest', label: 'Newest First' },
         { value: 'price-low', label: 'Price: Low to High' },
@@ -211,6 +229,10 @@ const Iphones = () => {
     const closeModal = () => {
         setIsModalOpen(false);
         setSelectedProduct(null);
+        // Remove query parameter when closing modal
+        if (productId) {
+            window.history.replaceState({}, '', '/iphones');
+        }
     };
 
     const closeImageModal = () => {
@@ -222,8 +244,7 @@ const Iphones = () => {
         <div className="ip-page">
             <div className="ip-container">
                 <div className="category-header">
-                    <h1 className="section-title">Pre-Owned iPhone Collection</h1>
-                    <p className="section-subtitle">Click any iPhone to customize storage and condition</p>
+                    <h1 className="section-title">iPhone Collection</h1>
                 </div>
 
                 {/* COMPACT SINGLE LINE SUBHEADER */}
@@ -285,7 +306,7 @@ const Iphones = () => {
                                     <span className="ip-condition">{iphone.defaultStorage} • {iphone.condition}</span>
                                 </div>
                                 <div className="ip-price-row">
-                                    <span className="ip-price">From R{iphone.price.toFixed(2)}</span>
+                                    <span className="ip-price"> R{iphone.price.toFixed(2)}</span>
                                     <button 
                                         className="ip-cart-btn"
                                         onClick={() => handleProductClick(iphone)}

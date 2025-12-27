@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useCart } from '../../context/CartContext';
-import { useUser } from '@clerk/clerk-react';
+import { useUser, useAuth } from '@clerk/clerk-react';
 import ReceiptSlip from './ReceiptSlip/ReceiptSlip';
 import './Checkout.css';
 
@@ -8,7 +9,10 @@ const API_BASE = process.env.REACT_APP_API_URL || 'https://pabala-aesthetics.onr
 
 const Checkout = () => {
     const { cart, getTotalPrice, clearCart } = useCart();
-    const { user } = useUser();
+    const { isSignedIn, user } = useUser();
+    const { userId } = useAuth();
+    const navigate = useNavigate();
+    
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
@@ -28,6 +32,35 @@ const Checkout = () => {
     const [orderNumber, setOrderNumber] = useState('');
     const [showReceipt, setShowReceipt] = useState(false);
     const [orderCart, setOrderCart] = useState(null);
+    const [showLoginPrompt, setShowLoginPrompt] = useState(false);
+
+    // Pre-fill user data from Clerk when signed in
+    useEffect(() => {
+        if (isSignedIn && user) {
+            const fullName = user.fullName || '';
+            const names = fullName.split(' ');
+            const firstName = names[0] || '';
+            const lastName = names.length > 1 ? names.slice(1).join(' ') : '';
+            
+            const primaryEmail = user.primaryEmailAddress?.emailAddress || '';
+            const phoneNumber = user.primaryPhoneNumber?.phoneNumber || '';
+            
+            setFormData(prev => ({
+                ...prev,
+                firstName: firstName || prev.firstName,
+                lastName: lastName || prev.lastName,
+                email: primaryEmail || prev.email,
+                phone: phoneNumber || prev.phone
+            }));
+        }
+    }, [isSignedIn, user]);
+
+    // Redirect if not signed in and cart has items
+    useEffect(() => {
+        if (!isSignedIn && cart.items.length > 0) {
+            setShowLoginPrompt(true);
+        }
+    }, [isSignedIn, cart.items.length]);
 
     const provinces = [
         'Eastern Cape', 'Free State', 'Gauteng', 'KwaZulu-Natal', 
@@ -63,6 +96,13 @@ const Checkout = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        
+        // Check authentication
+        if (!isSignedIn) {
+            setShowLoginPrompt(true);
+            return;
+        }
+
         setIsSubmitting(true);
 
         // Validation
@@ -135,25 +175,25 @@ const Checkout = () => {
                 console.warn('Formspree notification failed. Proceeding with order.');
             }
 
-            // Backend order creation
-            if (user) {
-                try {
-                    await fetch(`${API_BASE}/orders/${user.id}`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            items: cart.items,
-                            customerInfo: formData,
-                            deliveryMethod: selectedDelivery,
-                            paymentMethod: formData.paymentMethod,
-                            subtotal: subtotal,
-                            deliveryCost: deliveryCost,
-                            total: total
-                        })
-                    });
-                } catch (backendError) {
-                    console.error('Backend order creation failed:', backendError);
-                }
+            // Backend order creation with user ID
+            try {
+                await fetch(`${API_BASE}/orders/${userId}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        items: cart.items,
+                        customerInfo: formData,
+                        deliveryMethod: selectedDelivery,
+                        paymentMethod: formData.paymentMethod,
+                        subtotal: subtotal,
+                        deliveryCost: deliveryCost,
+                        total: total,
+                        userId: userId,
+                        userEmail: formData.email
+                    })
+                });
+            } catch (backendError) {
+                console.error('Backend order creation failed:', backendError);
             }
             
             await new Promise(resolve => setTimeout(resolve, 2000));
@@ -174,6 +214,39 @@ const Checkout = () => {
     const subtotal = getTotalPrice();
     const deliveryCost = selectedDelivery ? selectedDelivery.cost : 0;
     const total = subtotal + deliveryCost;
+
+    // Show login prompt if not authenticated
+    if (showLoginPrompt) {
+        return (
+            <div className="Checkout__login-prompt">
+                <div className="Checkout__login-container">
+                    <div className="Checkout__login-icon">
+                        <i className="fas fa-user-lock"></i>
+                    </div>
+                    <h2 className="Checkout__login-title">Sign In Required</h2>
+                    <p className="Checkout__login-message">
+                        Please sign in to complete your checkout. Your cart items have been saved.
+                    </p>
+                    <div className="Checkout__login-actions">
+                        <button 
+                            className="Checkout__btn Checkout__btn-accent"
+                            onClick={() => navigate('/sign-in?redirect_url=/checkout')}
+                        >
+                            <i className="fas fa-sign-in-alt"></i>
+                            Sign In
+                        </button>
+                        <button 
+                            className="Checkout__btn Checkout__btn-secondary"
+                            onClick={() => navigate('/')}
+                        >
+                            <i className="fas fa-home"></i>
+                            Return Home
+                        </button>
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
     if (orderComplete && showReceipt) {
         return (
@@ -248,6 +321,12 @@ const Checkout = () => {
             <div className="Checkout__container">
                 <header className="Checkout__header">
                     <h1 className="Checkout__title">Complete Order</h1>
+                    {isSignedIn && (
+                        <div className="Checkout__user-info">
+                            <i className="fas fa-user-check"></i>
+                            <span>Signed in as {user?.fullName || user?.primaryEmailAddress?.emailAddress}</span>
+                        </div>
+                    )}
                 </header>
                 
                 <div className="Checkout__content">
@@ -255,7 +334,10 @@ const Checkout = () => {
                         <form className="Checkout__form" onSubmit={handleSubmit}>
                             {/* Personal Info */}
                             <section className="Checkout__section">
-                                <h3 className="Checkout__section-title">Personal Information</h3>
+                                <h3 className="Checkout__section-title">
+                                    Personal Information
+                                    {isSignedIn && <span className="Checkout__auto-filled">Auto-filled from your account</span>}
+                                </h3>
                                 <div className="Checkout__form-grid">
                                     <div className="Checkout__form-group">
                                         <input
@@ -499,7 +581,7 @@ const Checkout = () => {
                             <button 
                                 type="submit" 
                                 className="Checkout__submit-btn"
-                                disabled={isSubmitting || cart.items.length === 0}
+                                disabled={isSubmitting || cart.items.length === 0 || !isSignedIn}
                             >
                                 {isSubmitting ? (
                                     <>
@@ -509,7 +591,7 @@ const Checkout = () => {
                                 ) : (
                                     <>
                                         <i className="fas fa-lock"></i>
-                                        Complete Order · R{total.toFixed(2)}
+                                        {isSignedIn ? `Complete Order · R${total.toFixed(2)}` : 'Sign In Required'}
                                     </>
                                 )}
                             </button>

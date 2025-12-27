@@ -1,4 +1,5 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import ProductModal from '../../components/HairModal/HairModal';
 import './hair.css';
 
@@ -42,6 +43,10 @@ const Hair = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);
     const [isImageModalOpen, setIsImageModalOpen] = useState(false);
+    
+    // Get query parameters
+    const [searchParams] = useSearchParams();
+    const productId = searchParams.get('product');
 
     // Remove unused hairCategories array and use inline object
     const hairProducts = useMemo(() => [
@@ -83,6 +88,19 @@ const Hair = () => {
         { id: 36, name: "Synth-Pixie Lite", price: 199.99, image: Pixie1, category: "Synthetic", type: "synthetic", length: "12-14 inches", comingSoon: true }
     ], []);
 
+    // Auto-open modal based on query parameter
+    useEffect(() => {
+        if (productId) {
+            // Extract numeric ID from "hair-1", "hair-2", etc.
+            const numericId = parseInt(productId.replace('hair-', ''));
+            const product = hairProducts.find(p => p.id === numericId);
+            if (product) {
+                setSelectedProduct(product);
+                setIsModalOpen(true);
+            }
+        }
+    }, [productId, hairProducts]);
+
     const sortOptions = [
         { value: 'name-asc', label: 'A to Z' },
         { value: 'name-desc', label: 'Z to A' },
@@ -122,7 +140,7 @@ const Hair = () => {
             default:
                 return filtered;
         }
-    }, [selectedCategory, sortBy, hairProducts]); 
+    }, [selectedCategory, sortBy, hairProducts]);
 
     const handleProductClick = (product) => {
         if (!product.comingSoon) {
@@ -140,6 +158,10 @@ const Hair = () => {
     const closeModal = () => {
         setIsModalOpen(false);
         setSelectedProduct(null);
+        // Remove query parameter when closing modal
+        if (productId) {
+            window.history.replaceState({}, '', '/hair');
+        }
     };
 
     const closeImageModal = () => {

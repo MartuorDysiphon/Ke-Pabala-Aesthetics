@@ -4,7 +4,6 @@ import './JeansModal.css';
 
 const JeansModal = ({ product, isOpen, onClose }) => {
     const [selectedSize, setSelectedSize] = useState('');
-    const [quantity, setQuantity] = useState(1);
     const { addToCart } = useCart();
 
     const sizeOptions = [
@@ -62,18 +61,16 @@ const JeansModal = ({ product, isOpen, onClose }) => {
                 displayName: finalProductName,
                 selectedSize: selectedSize
             },
-            quantity
+            1 // Set to fixed quantity of 1
         );
 
         setSelectedSize('');
-        setQuantity(1);
         onClose();
         alert('Added to cart!');
     };
 
     const calculateTotalPrice = () => {
-        const basePrice = parseFloat(product.price);
-        return basePrice * quantity;
+        return parseFloat(product.price); // Removed quantity multiplier
     };
 
     if (!isOpen) return null;
@@ -142,27 +139,6 @@ const JeansModal = ({ product, isOpen, onClose }) => {
                                             {option.label}
                                         </button>
                                     ))}
-                                </div>
-                            </div>
-
-                            <div className="JM-option-group">
-                                <div className="JM-option-label">Quantity</div>
-                                <div className="JM-quantity-selector">
-                                    <button 
-                                        className="JM-qty-btn JM-minus"
-                                        onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                                        aria-label="Decrease quantity"
-                                    >
-                                        −
-                                    </button>
-                                    <span className="JM-qty-value">{quantity}</span>
-                                    <button 
-                                        className="JM-qty-btn JM-plus"
-                                        onClick={() => setQuantity(quantity + 1)}
-                                        aria-label="Increase quantity"
-                                    >
-                                        +
-                                    </button>
                                 </div>
                             </div>
                         </div>

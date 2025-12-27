@@ -47,9 +47,9 @@ import Straight2 from '../../assets/Hair/straight2.jpg';
 import Straight3 from '../../assets/Hair/straight3.jpg';
 import Straight4 from '../../assets/Hair/straight4.jpg';
 
-// PRODUCTS DATABASE
+// PRODUCTS DATABASE - WITH DIRECT PRODUCT URLS
 export const allProducts = [
-  // ========== NEW JEANS PRODUCTS ==========
+  // ========== JEANS PRODUCTS ==========
   {
     id: 'jeans-1',
     name: "H&M Ashwood Jeans",
@@ -57,11 +57,11 @@ export const allProducts = [
     image: Jean1,
     category: "Jeans",
     subcategory: "Slim Fit",
-    description: "Stonewashed slim-fit jeans with a modern ash grey finish, offering a clean, tailored silhouette for everyday sophistication.",
-    url: "/jeans",
+    description: "Stonewashed slim-fit jeans with a modern ash grey finish.",
+    url: "/jeans?product=jeans-1", // Direct product URL
     page: "jeans",
     type: "clothing",
-    tags: ["hm", "ashwood", "slim fit", "grey", "stonewashed", "modern", "tailored", "jeans", "casual"],
+    tags: ["hm", "ashwood", "slim fit", "grey", "jeans"],
     featured: true,
     status: "In Stock",
     color: "Ash Grey"
@@ -73,30 +73,30 @@ export const allProducts = [
     image: Jean2,
     category: "Jeans",
     subcategory: "A-Line",
-    description: "A relaxed A-line denim skirt in a soft misty blue wash, featuring a midi length and side slits for effortless movement.",
-    url: "/jeans",
+    description: "A-line denim skirt in a soft misty blue wash.",
+    url: "/jeans?product=jeans-2", // Direct product URL
     page: "jeans",
     type: "clothing",
-    tags: ["zara", "denim skirt", "misty blue", "a-line", "midi", "side slits", "casual", "skirt", "denim"],
-    featured: true,
+    tags: ["zara", "denim skirt", "misty blue", "skirt"],
+    featured: false,
     status: "In Stock",
     color: "Misty Blue"
   },
   {
     id: 'jeans-3',
-    name: "Grey Threads Jean",
+    name: "Oceanline Jean",
     price: 289.99,
     image: Jean3,
     category: "Jeans",
     subcategory: "Straight Fit",
-    description: "Classic straight-leg jeans in a deep ocean blue, designed with a mid-rise waist and durable construction for timeless style.",
-    url: "/jeans",
+    description: "Classic straight-leg jeans in deep ocean blue.",
+    url: "/jeans?product=jeans-3", // Direct product URL
     page: "jeans",
     type: "clothing",
-    tags: ["Grey Threads", "straight fit", "deep blue", "classic", "mid-rise", "durable", "timeless", "jeans"],
-    featured: true,
+    tags: ["oceanline", "straight fit", "blue", "jeans"],
+    featured: false,
     status: "In Stock",
-    color: "Gray"
+    color: "Deep Blue"
   },
   {
     id: 'jeans-4',
@@ -105,12 +105,12 @@ export const allProducts = [
     image: Jean4,
     category: "Jeans",
     subcategory: "Skinny Fit",
-    description: "High-stretch skinny jeans in a rich true blue indigo, providing a second-skin fit with exceptional comfort and shape retention.",
-    url: "/jeans",
+    description: "High-stretch skinny jeans in true blue indigo.",
+    url: "/jeans?product=jeans-4", // Direct product URL
     page: "jeans",
     type: "clothing",
-    tags: ["trueblue", "skinny fit", "indigo", "high-stretch", "comfort", "second-skin", "jeans", "flexible"],
-    featured: true,
+    tags: ["trueblue", "skinny", "indigo", "jeans"],
+    featured: false,
     status: "In Stock",
     color: "True Blue"
   },
@@ -120,12 +120,12 @@ export const allProducts = [
     price: 449.99,
     image: Jean5,
     category: "Jeans",
-    subcategory: "Oversized",
-    description: "An oversized washed denim jacket with a relaxed fit, raw hem details, and a versatile medium wash for layered styling.",
-    url: "/jeans",
+    subcategory: "Jacket",
+    description: "Oversized denim jacket with raw hem details.",
+    url: "/jeans?product=jeans-5", // Direct product URL
     page: "jeans",
     type: "clothing",
-    tags: ["zara", "denim jacket", "oversized", "relaxed fit", "raw hem", "medium wash", "jacket", "layering", "denim"],
+    tags: ["zara", "denim jacket", "jacket"],
     featured: true,
     status: "In Stock",
     color: "Medium Wash"
@@ -134,165 +134,183 @@ export const allProducts = [
   // ========== IPHONES ==========
   {
     id: 'iphone-1',
-    name: "iPhone 12",
-    price: 8999.99,
-    image: Iphone12,
+    name: "iPhone 7",
+    price: 2500.00,
+    image: Iphone7,
     category: "iPhones",
-    subcategory: "iPhone 12 Series",
-    description: "Latest iPhone 12 with advanced camera system, 5G capability, and edge-to-edge OLED display.",
-    url: "/iphones",
+    subcategory: "iPhone 7 Series",
+    description: "iPhone 7 - Pre-Owned model",
+    url: "/iphones?product=iphone-1", // Direct product URL
     page: "iphones",
     type: "electronics",
-    storage: "128GB/256GB",
-    condition: "Refurbished",
-    tags: ["apple", "iphone 12", "5g", "oled", "camera", "smartphone", "refurbished", "iphone"],
-    featured: true,
+    storage: "32GB",
+    condition: "Pre-Owned",
+    tags: ["iphone 7", "pre-owned", "32gb"],
+    featured: false,
     status: "Available",
-    color: "Black"
+    color: "Black",
+    modelYear: "2016",
+    series: "7"
   },
   {
     id: 'iphone-2',
-    name: "iPhone 11 Pro",
-    price: 7399.99,
-    image: Iphone11Pro,
+    name: "iPhone 7 Plus",
+    price: 3050.00,
+    image: Iphone7Plus,
     category: "iPhones",
-    subcategory: "iPhone 11 Series",
-    description: "iPhone 11 Pro with triple camera system, Super Retina XDR display, and premium build.",
-    url: "/iphones",
+    subcategory: "iPhone 7 Series",
+    description: "iPhone 7 Plus - Pre-Owned model",
+    url: "/iphones?product=iphone-2", // Direct product URL
     page: "iphones",
     type: "electronics",
-    storage: "64GB/256GB/512GB",
-    condition: "Excellent",
-    tags: ["iphone 11 pro", "triple camera", "premium", "oled", "pro", "excellent condition", "iphone"],
+    storage: "32GB",
+    condition: "Pre-Owned",
+    tags: ["iphone 7 plus", "pre-owned", "32gb"],
     featured: false,
     status: "Available",
-    color: "Midnight Green"
+    color: "Rose Gold",
+    modelYear: "2016",
+    series: "7"
   },
   {
     id: 'iphone-3',
-    name: "iPhone 11",
-    price: 6399.99,
-    image: Iphone11,
+    name: "iPhone 8",
+    price: 2950.00,
+    image: Iphone8,
     category: "iPhones",
-    subcategory: "iPhone 11 Series",
-    description: "Popular iPhone 11 with dual camera system, Liquid Retina display, and all-day battery.",
-    url: "/iphones",
+    subcategory: "iPhone 8 Series",
+    description: "iPhone 8 - Pre-Owned model",
+    url: "/iphones?product=iphone-3", // Direct product URL
     page: "iphones",
     type: "electronics",
-    storage: "64GB/128GB",
-    condition: "Good",
-    tags: ["iphone 11", "dual camera", "popular", "value", "good condition", "battery", "iphone"],
+    storage: "64GB",
+    condition: "Pre-Owned",
+    tags: ["iphone 8", "pre-owned", "64gb"],
     featured: false,
     status: "Available",
-    color: "Purple"
+    color: "Space Gray",
+    modelYear: "2017",
+    series: "8"
   },
   {
     id: 'iphone-4',
-    name: "iPhone XR",
-    price: 5299.99,
-    image: IphoneXR,
+    name: "iPhone 8 Plus",
+    price: 3600.00,
+    image: Iphone8Plus,
     category: "iPhones",
-    subcategory: "iPhone XR Series",
-    description: "Colorful iPhone XR with great battery life, single camera, and Liquid Retina display.",
-    url: "/iphones",
+    subcategory: "iPhone 8 Series",
+    description: "iPhone 8 Plus - Pre-Owned model",
+    url: "/iphones?product=iphone-4", // Direct product URL
     page: "iphones",
     type: "electronics",
-    storage: "64GB/128GB",
-    condition: "Good",
-    tags: ["iphone xr", "colorful", "battery", "affordable", "single camera", "good condition", "iphone"],
+    storage: "64GB",
+    condition: "Pre-Owned",
+    tags: ["iphone 8 plus", "pre-owned", "64gb"],
     featured: false,
-    status: "Low Stock",
-    color: "Coral"
+    status: "Available",
+    color: "Gold",
+    modelYear: "2017",
+    series: "8"
   },
   {
     id: 'iphone-5',
     name: "iPhone X",
-    price: 4899.99,
+    price: 3900.00,
     image: IphoneX,
     category: "iPhones",
     subcategory: "iPhone X Series",
-    description: "Original edge-to-edge iPhone X with Face ID, dual camera, and Super Retina display.",
-    url: "/iphones",
+    description: "iPhone X - Pre-Owned model",
+    url: "/iphones?product=iphone-5", // Direct product URL
     page: "iphones",
     type: "electronics",
-    storage: "64GB/256GB",
-    condition: "Fair",
-    tags: ["iphone x", "original", "edge-to-edge", "faceid", "dual camera", "fair condition", "iphone"],
+    storage: "64GB",
+    condition: "Pre-Owned",
+    tags: ["iphone x", "pre-owned", "64gb"],
     featured: false,
     status: "Available",
-    color: "Silver"
+    color: "Silver",
+    modelYear: "2017",
+    series: "X"
   },
   {
     id: 'iphone-6',
-    name: "iPhone 8 Plus",
-    price: 4199.99,
-    image: Iphone8Plus,
+    name: "iPhone XR",
+    price: 4100.00,
+    image: IphoneXR,
     category: "iPhones",
-    subcategory: "iPhone 8 Series",
-    description: "Classic iPhone 8 Plus with home button, dual camera, and large Retina HD display.",
-    url: "/iphones",
+    subcategory: "iPhone XR Series",
+    description: "iPhone XR - Pre-Owned model",
+    url: "/iphones?product=iphone-6", // Direct product URL
     page: "iphones",
     type: "electronics",
-    storage: "64GB/256GB",
-    condition: "Good",
-    tags: ["iphone 8 plus", "classic", "home button", "dual camera", "large screen", "good condition", "iphone"],
+    storage: "64GB",
+    condition: "Pre-Owned",
+    tags: ["iphone xr", "pre-owned", "64gb"],
     featured: false,
     status: "Available",
-    color: "Gold"
+    color: "Coral",
+    modelYear: "2018",
+    series: "XR"
   },
   {
     id: 'iphone-7',
-    name: "iPhone 8",
-    price: 3799.99,
-    image: Iphone8,
+    name: "iPhone 11",
+    price: 5100.00,
+    image: Iphone11,
     category: "iPhones",
-    subcategory: "iPhone 8 Series",
-    description: "Compact iPhone 8 with home button, single camera, and Retina HD display.",
-    url: "/iphones",
+    subcategory: "iPhone 11 Series",
+    description: "iPhone 11 - Pre-Owned model",
+    url: "/iphones?product=iphone-7", // Direct product URL
     page: "iphones",
     type: "electronics",
-    storage: "64GB/256GB",
-    condition: "Fair",
-    tags: ["iphone 8", "compact", "home button", "single camera", "affordable", "fair condition", "iphone"],
-    featured: false,
-    status: "Low Stock",
-    color: "Space Gray"
+    storage: "64GB",
+    condition: "Pre-Owned",
+    tags: ["iphone 11", "pre-owned", "64gb"],
+    featured: true,
+    status: "Available",
+    color: "Purple",
+    modelYear: "2019",
+    series: "11"
   },
   {
     id: 'iphone-8',
-    name: "iPhone 7 Plus",
-    price: 3299.99,
-    image: Iphone7Plus,
+    name: "iPhone 11 Pro",
+    price: 6400.00,
+    image: Iphone11Pro,
     category: "iPhones",
-    subcategory: "iPhone 7 Series",
-    description: "Large screen iPhone 7 Plus with dual camera and Retina HD display.",
-    url: "/iphones",
+    subcategory: "iPhone 11 Series",
+    description: "iPhone 11 Pro - Pre-Owned model",
+    url: "/iphones?product=iphone-8", // Direct product URL
     page: "iphones",
     type: "electronics",
-    storage: "32GB/128GB",
-    condition: "Fair",
-    tags: ["iphone 7 plus", "large", "dual camera", "budget", "fair condition", "classic", "iphone"],
-    featured: false,
-    status: "Available",
-    color: "Rose Gold"
+    storage: "64GB",
+    condition: "Pre-Owned",
+    tags: ["iphone 11 pro", "pre-owned", "64gb"],
+    featured: true,
+    status: "Low Stock",
+    color: "Midnight Green",
+    modelYear: "2019",
+    series: "11"
   },
   {
     id: 'iphone-9',
-    name: "iPhone 7",
-    price: 2899.99,
-    image: Iphone7,
+    name: "iPhone 12",
+    price: 6800.00,
+    image: Iphone12,
     category: "iPhones",
-    subcategory: "iPhone 7 Series",
-    description: "Basic iPhone 7 with single camera and Retina HD display. Perfect entry-level iPhone.",
-    url: "/iphones",
+    subcategory: "iPhone 12 Series",
+    description: "iPhone 12 - Pre-Owned model",
+    url: "/iphones?product=iphone-9", // Direct product URL
     page: "iphones",
     type: "electronics",
-    storage: "32GB/128GB",
-    condition: "Fair",
-    tags: ["iphone 7", "basic", "entry-level", "budget", "single camera", "fair condition", "iphone"],
-    featured: false,
+    storage: "64GB",
+    condition: "Pre-Owned",
+    tags: ["iphone 12", "pre-owned", "64gb"],
+    featured: true,
     status: "Available",
-    color: "Black"
+    color: "Black",
+    modelYear: "2020",
+    series: "12"
   },
 
   // ========== HAIR ==========
@@ -303,31 +321,31 @@ export const allProducts = [
     image: Blondie,
     category: "Hair",
     subcategory: "Straight",
-    description: "Premium straight blonde human hair extensions. 100% virgin human hair, double drawn.",
-    url: "/hair",
+    description: "Premium straight blonde human hair extensions.",
+    url: "/hair?product=hair-1", // Direct product URL
     page: "hair",
     type: "beauty",
     length: "24-26 inches",
     hairType: "human",
-    tags: ["blonde", "straight", "human hair", "premium", "double drawn", "virgin hair", "hair"],
+    tags: ["blonde", "straight", "human hair"],
     featured: true,
     status: "In Stock",
     color: "Blonde"
   },
   {
     id: 'hair-2',
-    name: "Boho Curly Bliss",
-    price: 899.99,
+    name: "Boho Curly Waterwave",
+    price: 1199.99,
     image: Curly1,
     category: "Hair",
     subcategory: "Curly/Wavey",
-    description: "Beautiful curly human hair extensions. Natural boho curls, 100% human hair.",
-    url: "/hair",
+    description: "Beautiful curly human hair extensions.",
+    url: "/hair?product=hair-2", // Direct product URL
     page: "hair",
     type: "beauty",
-    length: "20-22 inches",
+    length: "14 inches",
     hairType: "human",
-    tags: ["curly", "boho", "human hair", "natural", "waves", "hair extensions", "hair"],
+    tags: ["curly", "boho", "waterwave", "human hair"],
     featured: false,
     status: "In Stock",
     color: "Brown"
@@ -339,13 +357,13 @@ export const allProducts = [
     image: Curly2,
     category: "Hair",
     subcategory: "Curly/Wavey",
-    description: "Layered curly human hair with volume. Perfect for adding body and texture.",
-    url: "/hair",
+    description: "Layered curly human hair with volume.",
+    url: "/hair?product=hair-3", // Direct product URL
     page: "hair",
     type: "beauty",
     length: "22-24 inches",
     hairType: "human",
-    tags: ["curly", "layered", "volume", "human hair", "texture", "body", "hair"],
+    tags: ["curly", "layered", "volume", "human hair"],
     featured: false,
     status: "In Stock",
     color: "Black"
@@ -357,13 +375,13 @@ export const allProducts = [
     image: Curly3,
     category: "Hair",
     subcategory: "Curly/Wavey",
-    description: "Tight springy ringlets human hair. Defined curls for a bold look.",
-    url: "/hair",
+    description: "Tight springy ringlets human hair.",
+    url: "/hair?product=hair-4", // Direct product URL
     page: "hair",
     type: "beauty",
     length: "18-20 inches",
     hairType: "human",
-    tags: ["ringlets", "springy", "tight curls", "human hair", "defined", "bold", "hair"],
+    tags: ["ringlets", "springy", "human hair"],
     featured: false,
     status: "In Stock",
     color: "Dark Brown"
@@ -375,13 +393,13 @@ export const allProducts = [
     image: Curly4,
     category: "Hair",
     subcategory: "Curly/Wavey",
-    description: "Loose beach wave human hair extensions. Natural looking waves for everyday wear.",
-    url: "/hair",
+    description: "Loose beach wave human hair extensions.",
+    url: "/hair?product=hair-5", // Direct product URL
     page: "hair",
     type: "beauty",
     length: "20-22 inches",
     hairType: "human",
-    tags: ["beach waves", "loose curls", "natural", "human hair", "everyday", "wavy", "hair"],
+    tags: ["beach waves", "loose curls", "human hair"],
     featured: false,
     status: "In Stock",
     color: "Brown"
@@ -393,13 +411,13 @@ export const allProducts = [
     image: Curly5,
     category: "Hair",
     subcategory: "Curly/Wavey",
-    description: "Well-defined curly coils human hair. Perfect for coil styles and twist outs.",
-    url: "/hair",
+    description: "Well-defined curly coils human hair.",
+    url: "/hair?product=hair-6", // Direct product URL
     page: "hair",
     type: "beauty",
     length: "22-24 inches",
     hairType: "human",
-    tags: ["coils", "defined", "curly", "human hair", "twist out", "natural hair", "hair"],
+    tags: ["coils", "defined", "curly", "human hair"],
     featured: false,
     status: "In Stock",
     color: "Black"
@@ -411,13 +429,13 @@ export const allProducts = [
     image: Donor1,
     category: "Hair",
     subcategory: "Donor",
-    description: "Premium donor human hair. 100% virgin human hair, highest quality available.",
-    url: "/hair",
+    description: "Premium donor human hair.",
+    url: "/hair?product=hair-7", // Direct product URL
     page: "hair",
     type: "beauty",
     length: "26-28 inches",
     hairType: "human",
-    tags: ["donor", "premium", "virgin hair", "human hair", "highest quality", "luxury", "hair"],
+    tags: ["donor", "premium", "human hair"],
     featured: true,
     status: "In Stock",
     color: "Black"
@@ -429,13 +447,13 @@ export const allProducts = [
     image: Donor2,
     category: "Hair",
     subcategory: "Donor",
-    description: "Virgin donor human hair. Unprocessed and chemical-free human hair.",
-    url: "/hair",
+    description: "Virgin donor human hair.",
+    url: "/hair?product=hair-8", // Direct product URL
     page: "hair",
     type: "beauty",
     length: "24-26 inches",
     hairType: "human",
-    tags: ["donor", "virgin", "unprocessed", "human hair", "chemical-free", "natural", "hair"],
+    tags: ["donor", "virgin", "human hair"],
     featured: false,
     status: "In Stock",
     color: "Dark Brown"
@@ -447,13 +465,13 @@ export const allProducts = [
     image: Donor3,
     category: "Hair",
     subcategory: "Donor",
-    description: "Luxury donor weave human hair. Extra long length for versatile styling.",
-    url: "/hair",
+    description: "Luxury donor weave human hair.",
+    url: "/hair?product=hair-9", // Direct product URL
     page: "hair",
     type: "beauty",
     length: "28-30 inches",
     hairType: "human",
-    tags: ["donor", "luxury", "weave", "human hair", "extra long", "versatile", "hair"],
+    tags: ["donor", "luxury", "weave", "human hair"],
     featured: true,
     status: "In Stock",
     color: "Black"
@@ -465,13 +483,13 @@ export const allProducts = [
     image: DoubleDrawn1,
     category: "Hair",
     subcategory: "Double Drawn",
-    description: "Double drawn silk human hair. All strands same length for maximum fullness.",
-    url: "/hair",
+    description: "Double drawn silk human hair.",
+    url: "/hair?product=hair-10", // Direct product URL
     page: "hair",
     type: "beauty",
     length: "22-24 inches",
     hairType: "human",
-    tags: ["double drawn", "silk", "human hair", "fullness", "same length", "premium", "hair"],
+    tags: ["double drawn", "silk", "human hair"],
     featured: false,
     status: "In Stock",
     color: "Black"
@@ -483,13 +501,13 @@ export const allProducts = [
     image: DoubleDrawn2,
     category: "Hair",
     subcategory: "Double Drawn",
-    description: "Premium double drawn human hair for maximum volume and fullness.",
-    url: "/hair",
+    description: "Premium double drawn human hair.",
+    url: "/hair?product=hair-11", // Direct product URL
     page: "hair",
     type: "beauty",
     length: "24-26 inches",
     hairType: "human",
-    tags: ["double drawn", "premium", "volume", "human hair", "fullness", "hair"],
+    tags: ["double drawn", "premium", "human hair"],
     featured: false,
     status: "In Stock",
     color: "Brown"
@@ -501,13 +519,13 @@ export const allProducts = [
     image: DoubleDrawn3,
     category: "Hair",
     subcategory: "Double Drawn",
-    description: "Double drawn hair for added volume and thickness.",
-    url: "/hair",
+    description: "Double drawn hair for added volume.",
+    url: "/hair?product=hair-12", // Direct product URL
     page: "hair",
     type: "beauty",
     length: "20-22 inches",
     hairType: "human",
-    tags: ["double drawn", "volume", "thick", "human hair", "full", "hair"],
+    tags: ["double drawn", "volume", "human hair"],
     featured: false,
     status: "In Stock",
     color: "Black"
@@ -519,34 +537,34 @@ export const allProducts = [
     image: DoubleDrawn4,
     category: "Hair",
     subcategory: "Double Drawn",
-    description: "Luxury double drawn human hair with exceptional quality and texture.",
-    url: "/hair",
+    description: "Luxury double drawn human hair.",
+    url: "/hair?product=hair-13", // Direct product URL
     page: "hair",
     type: "beauty",
     length: "26-28 inches",
     hairType: "human",
-    tags: ["double drawn", "luxury", "quality", "human hair", "texture", "hair"],
+    tags: ["double drawn", "luxury", "human hair"],
     featured: false,
     status: "In Stock",
     color: "Black"
   },
   {
     id: 'hair-14',
-    name: "Double Drawn Supreme",
-    price: 1299.99,
+    name: "SDD Magic Bounce",
+    price: 1999.99,
     image: DoubleDrawn5,
     category: "Hair",
     subcategory: "Double Drawn",
-    description: "Double drawn supreme human hair for professional styling needs.",
-    url: "/hair",
+    description: "SDD Magic Bounce human hair.",
+    url: "/hair?product=hair-14", // Direct product URL
     page: "hair",
     type: "beauty",
-    length: "22-24 inches",
+    length: "20 inches",
     hairType: "human",
-    tags: ["double drawn", "supreme", "professional", "human hair", "styling", "hair"],
-    featured: false,
+    tags: ["sdd", "magic bounce", "human hair"],
+    featured: true,
     status: "In Stock",
-    color: "Brown"
+    color: "Black"
   },
   {
     id: 'hair-15',
@@ -555,13 +573,13 @@ export const allProducts = [
     image: Glueless1,
     category: "Hair",
     subcategory: "Glueless",
-    description: "Glueless lace front human hair wig. Easy to wear, no adhesive needed.",
-    url: "/hair",
+    description: "Glueless lace front human hair wig.",
+    url: "/hair?product=hair-15", // Direct product URL
     page: "hair",
     type: "beauty",
     length: "20-22 inches",
     hairType: "human",
-    tags: ["glueless", "lace front", "wig", "human hair", "easy", "no adhesive", "hair"],
+    tags: ["glueless", "lace front", "wig", "human hair"],
     featured: true,
     status: "In Stock",
     color: "Black"
@@ -573,13 +591,13 @@ export const allProducts = [
     image: Glueless2,
     category: "Hair",
     subcategory: "Glueless",
-    description: "Easy wear glueless human hair wig with adjustable straps.",
-    url: "/hair",
+    description: "Easy wear glueless human hair wig.",
+    url: "/hair?product=hair-16", // Direct product URL
     page: "hair",
     type: "beauty",
     length: "18-20 inches",
     hairType: "human",
-    tags: ["glueless", "easy wear", "wig", "adjustable", "human hair", "hair"],
+    tags: ["glueless", "easy wear", "wig", "human hair"],
     featured: false,
     status: "In Stock",
     color: "Brown"
@@ -591,13 +609,13 @@ export const allProducts = [
     image: Glueless3,
     category: "Hair",
     subcategory: "Glueless",
-    description: "Glueless HD lace human hair wig with invisible hairline.",
-    url: "/hair",
+    description: "Glueless HD lace human hair wig.",
+    url: "/hair?product=hair-17", // Direct product URL
     page: "hair",
     type: "beauty",
     length: "22-24 inches",
     hairType: "human",
-    tags: ["glueless", "hd lace", "wig", "invisible", "human hair", "hairline", "hair"],
+    tags: ["glueless", "hd lace", "wig", "human hair"],
     featured: false,
     status: "In Stock",
     color: "Black"
@@ -605,35 +623,35 @@ export const allProducts = [
   {
     id: 'hair-18',
     name: "Breathable Glueless",
-    price: 1599.99,
+    price: 1049.99,
     image: Glueless4,
     category: "Hair",
     subcategory: "Glueless",
-    description: "Breathable glueless human hair wig with comfortable cap construction.",
-    url: "/hair",
+    description: "Breathable glueless human hair wig.",
+    url: "/hair?product=hair-18", // Direct product URL
     page: "hair",
     type: "beauty",
-    length: "20-22 inches",
+    length: "16 inches",
     hairType: "human",
-    tags: ["glueless", "breathable", "wig", "comfortable", "human hair", "hair"],
+    tags: ["glueless", "breathable", "wig", "human hair"],
     featured: false,
     status: "In Stock",
     color: "Black"
   },
   {
     id: 'hair-19',
-    name: "Chic Pixie Bob",
-    price: 689.99,
+    name: "Chic Pixie Cut",
+    price: 499.99,
     image: Pixie1,
     category: "Hair",
     subcategory: "Pixie",
-    description: "Chic pixie bob human hair wig. Short and stylish cut.",
-    url: "/hair",
+    description: "Chic pixie cut human hair wig.",
+    url: "/hair?product=hair-19", // Direct product URL
     page: "hair",
     type: "beauty",
     length: "12-14 inches",
     hairType: "human",
-    tags: ["pixie", "bob", "short", "human hair", "wig", "chic", "hair"],
+    tags: ["pixie", "chic", "wig", "human hair"],
     featured: false,
     status: "In Stock",
     color: "Black"
@@ -645,13 +663,13 @@ export const allProducts = [
     image: Pixie2,
     category: "Hair",
     subcategory: "Pixie",
-    description: "Modern pixie cut human hair wig with textured layers.",
-    url: "/hair",
+    description: "Modern pixie cut human hair wig.",
+    url: "/hair?product=hair-20", // Direct product URL
     page: "hair",
     type: "beauty",
     length: "14-16 inches",
     hairType: "human",
-    tags: ["pixie", "modern", "textured", "human hair", "wig", "layers", "hair"],
+    tags: ["pixie", "modern", "wig", "human hair"],
     featured: false,
     status: "In Stock",
     color: "Brown"
@@ -663,13 +681,13 @@ export const allProducts = [
     image: Pixie3,
     category: "Hair",
     subcategory: "Pixie",
-    description: "Textured pixie human hair wig for a natural look.",
-    url: "/hair",
+    description: "Textured pixie human hair wig.",
+    url: "/hair?product=hair-21", // Direct product URL
     page: "hair",
     type: "beauty",
     length: "12-14 inches",
     hairType: "human",
-    tags: ["pixie", "textured", "natural", "human hair", "wig", "hair"],
+    tags: ["pixie", "textured", "wig", "human hair"],
     featured: false,
     status: "In Stock",
     color: "Black"
@@ -681,13 +699,13 @@ export const allProducts = [
     image: SddDonorChocBrown,
     category: "Hair",
     subcategory: "SDD",
-    description: "SDD chocolate brown human hair. Super double drawn for maximum fullness.",
-    url: "/hair",
+    description: "SDD chocolate brown human hair.",
+    url: "/hair?product=hair-22", // Direct product URL
     page: "hair",
     type: "beauty",
     length: "20-22 inches",
     hairType: "human",
-    tags: ["sdd", "chocolate brown", "double drawn", "human hair", "full", "hair"],
+    tags: ["sdd", "chocolate brown", "human hair"],
     featured: false,
     status: "In Stock",
     color: "Chocolate Brown"
@@ -699,13 +717,13 @@ export const allProducts = [
     image: SddJerryCurls1,
     category: "Hair",
     subcategory: "SDD",
-    description: "SDD jerry curls pro human hair. Defined curls with super volume.",
-    url: "/hair",
+    description: "SDD jerry curls pro human hair.",
+    url: "/hair?product=hair-23", // Direct product URL
     page: "hair",
     type: "beauty",
     length: "22-24 inches",
     hairType: "human",
-    tags: ["sdd", "jerry curls", "pro", "curly", "human hair", "volume", "hair"],
+    tags: ["sdd", "jerry curls", "pro", "human hair"],
     featured: false,
     status: "In Stock",
     color: "Black"
@@ -717,13 +735,13 @@ export const allProducts = [
     image: SddJerryCurls,
     category: "Hair",
     subcategory: "SDD",
-    description: "SDD classic jerry curls human hair. Timeless curly style.",
-    url: "/hair",
+    description: "SDD classic jerry curls human hair.",
+    url: "/hair?product=hair-24", // Direct product URL
     page: "hair",
     type: "beauty",
     length: "20-22 inches",
     hairType: "human",
-    tags: ["sdd", "jerry curls", "classic", "curly", "human hair", "timeless", "hair"],
+    tags: ["sdd", "jerry curls", "classic", "human hair"],
     featured: false,
     status: "In Stock",
     color: "Black"
@@ -735,13 +753,13 @@ export const allProducts = [
     image: SddLindyDonor,
     category: "Hair",
     subcategory: "SDD",
-    description: "SDD lindy donor human hair. Premium quality for weaving.",
-    url: "/hair",
+    description: "SDD lindy donor human hair.",
+    url: "/hair?product=hair-25", // Direct product URL
     page: "hair",
     type: "beauty",
     length: "24-26 inches",
     hairType: "human",
-    tags: ["sdd", "lindy", "donor", "human hair", "weaving", "premium", "hair"],
+    tags: ["sdd", "lindy", "donor", "human hair"],
     featured: false,
     status: "In Stock",
     color: "Black"
@@ -753,13 +771,13 @@ export const allProducts = [
     image: SddPixelCurly,
     category: "Hair",
     subcategory: "SDD",
-    description: "SDD pixel curly human hair. Small tight curls for unique style.",
-    url: "/hair",
+    description: "SDD pixel curly human hair.",
+    url: "/hair?product=hair-26", // Direct product URL
     page: "hair",
     type: "beauty",
     length: "18-20 inches",
     hairType: "human",
-    tags: ["sdd", "pixel", "curly", "human hair", "tight curls", "unique", "hair"],
+    tags: ["sdd", "pixel", "curly", "human hair"],
     featured: false,
     status: "In Stock",
     color: "Black"
@@ -771,13 +789,13 @@ export const allProducts = [
     image: SddWaterwave,
     category: "Hair",
     subcategory: "SDD",
-    description: "SDD water wave human hair. Natural looking beach waves.",
-    url: "/hair",
+    description: "SDD water wave human hair.",
+    url: "/hair?product=hair-27", // Direct product URL
     page: "hair",
     type: "beauty",
     length: "20-22 inches",
     hairType: "human",
-    tags: ["sdd", "water wave", "beach waves", "human hair", "natural", "hair"],
+    tags: ["sdd", "water wave", "human hair"],
     featured: false,
     status: "In Stock",
     color: "Black"
@@ -789,13 +807,13 @@ export const allProducts = [
     image: Sdd,
     category: "Hair",
     subcategory: "SDD",
-    description: "SDD premium collection human hair. Highest quality super double drawn.",
-    url: "/hair",
+    description: "SDD premium collection human hair.",
+    url: "/hair?product=hair-28", // Direct product URL
     page: "hair",
     type: "beauty",
     length: "22-24 inches",
     hairType: "human",
-    tags: ["sdd", "premium", "collection", "human hair", "double drawn", "quality", "hair"],
+    tags: ["sdd", "premium", "collection", "human hair"],
     featured: true,
     status: "In Stock",
     color: "Black"
@@ -807,13 +825,13 @@ export const allProducts = [
     image: Straight1,
     category: "Hair",
     subcategory: "Straight",
-    description: "Silky straight human hair extensions. Smooth and shiny finish.",
-    url: "/hair",
+    description: "Silky straight human hair extensions.",
+    url: "/hair?product=hair-29", // Direct product URL
     page: "hair",
     type: "beauty",
     length: "20-22 inches",
     hairType: "human",
-    tags: ["straight", "silky", "human hair", "smooth", "shiny", "hair"],
+    tags: ["straight", "silky", "human hair"],
     featured: false,
     status: "In Stock",
     color: "Black"
@@ -821,17 +839,17 @@ export const allProducts = [
   {
     id: 'hair-30',
     name: "Brazilian Straight",
-    price: 989.99,
+    price: 1299.99,
     image: Straight2,
     category: "Hair",
     subcategory: "Straight",
-    description: "Brazilian straight human hair. Premium quality with natural texture.",
-    url: "/hair",
+    description: "Brazilian straight human hair.",
+    url: "/hair?product=hair-30", // Direct product URL
     page: "hair",
     type: "beauty",
-    length: "22-24 inches",
+    length: "18 inches",
     hairType: "human",
-    tags: ["straight", "brazilian", "human hair", "premium", "natural", "hair"],
+    tags: ["straight", "brazilian", "human hair"],
     featured: false,
     status: "In Stock",
     color: "Black"
@@ -843,13 +861,13 @@ export const allProducts = [
     image: Straight3,
     category: "Hair",
     subcategory: "Straight",
-    description: "Mirror straight human hair. Ultra straight with glass-like shine.",
-    url: "/hair",
+    description: "Mirror straight human hair.",
+    url: "/hair?product=hair-31", // Direct product URL
     page: "hair",
     type: "beauty",
     length: "24-26 inches",
     hairType: "human",
-    tags: ["straight", "mirror", "human hair", "ultra", "shine", "hair"],
+    tags: ["straight", "mirror", "human hair"],
     featured: false,
     status: "In Stock",
     color: "Black"
@@ -861,13 +879,13 @@ export const allProducts = [
     image: Straight4,
     category: "Hair",
     subcategory: "Straight",
-    description: "Ultra straight human hair extensions. Perfectly straight for sleek styles.",
-    url: "/hair",
+    description: "Ultra straight human hair extensions.",
+    url: "/hair?product=hair-32", // Direct product URL
     page: "hair",
     type: "beauty",
     length: "20-22 inches",
     hairType: "human",
-    tags: ["straight", "ultra", "human hair", "sleek", "perfect", "hair"],
+    tags: ["straight", "ultra", "human hair"],
     featured: false,
     status: "In Stock",
     color: "Black"
@@ -879,13 +897,13 @@ export const allProducts = [
     image: Straight1,
     category: "Hair",
     subcategory: "Synthetic",
-    description: "Synthetic straight hair with natural glow. Affordable alternative to human hair.",
-    url: "/hair",
+    description: "Synthetic straight hair with natural glow.",
+    url: "/hair?product=hair-33", // Direct product URL
     page: "hair",
     type: "beauty",
     length: "20-22 inches",
     hairType: "synthetic",
-    tags: ["synthetic", "straight", "glow", "affordable", "hair", "budget"],
+    tags: ["synthetic", "straight", "glow"],
     featured: false,
     status: "Coming Soon",
     color: "Black",
@@ -898,13 +916,13 @@ export const allProducts = [
     image: Curly1,
     category: "Hair",
     subcategory: "Synthetic",
-    description: "Synthetic curly hair with fantasy colors. Fun and vibrant styles.",
-    url: "/hair",
+    description: "Synthetic curly hair with fantasy colors.",
+    url: "/hair?product=hair-34", // Direct product URL
     page: "hair",
     type: "beauty",
     length: "18-20 inches",
     hairType: "synthetic",
-    tags: ["synthetic", "curly", "fantasy", "colorful", "hair", "fun"],
+    tags: ["synthetic", "curly", "fantasy"],
     featured: false,
     status: "Coming Soon",
     color: "Multi",
@@ -917,13 +935,13 @@ export const allProducts = [
     image: SddWaterwave,
     category: "Hair",
     subcategory: "Synthetic",
-    description: "Synthetic water wave hair. Professional quality synthetic fibers.",
-    url: "/hair",
+    description: "Synthetic water wave hair.",
+    url: "/hair?product=hair-35", // Direct product URL
     page: "hair",
     type: "beauty",
     length: "22-24 inches",
     hairType: "synthetic",
-    tags: ["synthetic", "water wave", "pro", "professional", "hair", "waves"],
+    tags: ["synthetic", "water wave", "pro"],
     featured: false,
     status: "Coming Soon",
     color: "Brown",
@@ -936,13 +954,13 @@ export const allProducts = [
     image: Pixie1,
     category: "Hair",
     subcategory: "Synthetic",
-    description: "Synthetic pixie cut wig. Lightweight and easy to style.",
-    url: "/hair",
+    description: "Synthetic pixie cut wig.",
+    url: "/hair?product=hair-36", // Direct product URL
     page: "hair",
     type: "beauty",
     length: "12-14 inches",
     hairType: "synthetic",
-    tags: ["synthetic", "pixie", "lite", "lightweight", "wig", "hair"],
+    tags: ["synthetic", "pixie", "lite", "wig"],
     featured: false,
     status: "Coming Soon",
     color: "Black",
@@ -950,55 +968,46 @@ export const allProducts = [
   }
 ];
 
-// Search 
+// Search function remains unchanged
 export const searchAllProducts = (query) => {
   if (!query || query.trim() === '') return [];
   
   const searchTerm = query.toLowerCase().trim();
   
-  // Score
   const scoredProducts = allProducts.map(product => {
     let score = 0;
     
-    // Name match
     if (product.name.toLowerCase().includes(searchTerm)) {
       score += 100;
       if (product.name.toLowerCase() === searchTerm) score += 50;
     }
     
-    // Category
     if (product.category.toLowerCase().includes(searchTerm)) {
       score += 80;
     }
     
-    // Subcategory
     if (product.subcategory?.toLowerCase().includes(searchTerm)) {
       score += 70;
     }
     
-    // Description
     if (product.description?.toLowerCase().includes(searchTerm)) {
       score += 40;
     }
     
-    // Tag 
     product.tags?.forEach(tag => {
       if (tag.toLowerCase().includes(searchTerm)) {
         score += 30;
       }
     });
     
-    // Type
     if (product.type?.toLowerCase().includes(searchTerm)) {
       score += 20;
     }
     
-    // Page
     if (product.page?.toLowerCase().includes(searchTerm)) {
       score += 10;
     }
     
-    // Featured
     if (product.featured) {
       score += 5;
     }
@@ -1006,11 +1015,10 @@ export const searchAllProducts = (query) => {
     return { ...product, score };
   });
   
-  // Filter
   return scoredProducts
     .filter(product => product.score > 0)
     .sort((a, b) => b.score - a.score)
-    .slice(0, 50); // Limit to 50 results
+    .slice(0, 50);
 };
 
 export const getAllCategories = () => {
@@ -1041,31 +1049,26 @@ export const getFeaturedProducts = () => {
   return allProducts.filter(product => product.featured);
 };
 
-// Get products by category
 export const getProductsByCategory = (category) => {
   return allProducts.filter(product => 
     product.category.toLowerCase() === category.toLowerCase()
   );
 };
 
-// Get products by page
 export const getProductsByPage = (page) => {
   return allProducts.filter(product => 
     product.page.toLowerCase() === page.toLowerCase()
   );
 };
 
-// Get product by ID
 export const getProductById = (id) => {
   return allProducts.find(product => product.id === id);
 };
 
-// Get all products count
 export const getTotalProductsCount = () => {
   return allProducts.length;
 };
 
-// Get statistics
 export const getProductStats = () => {
   return {
     total: allProducts.length,

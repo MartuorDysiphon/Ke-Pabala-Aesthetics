@@ -80,6 +80,20 @@
     color: var(--checkout-text);
     margin: 0;
     letter-spacing: -0.3px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.Checkout__auto-filled {
+    font-size: 0.75rem;
+    color: var(--checkout-success);
+    font-weight: 500;
+    opacity: 0.9;
+    background: rgba(16, 185, 129, 0.1);
+    padding: 0.2rem 0.5rem;
+    border-radius: 12px;
 }
 
 /* Form Grid */
@@ -627,6 +641,66 @@
     font-size: 0.9rem;
 }
 
+/* Login Prompt */
+.Checkout__login-prompt {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: var(--checkout-spacing-sm);
+    background: var(--checkout-bg);
+}
+
+.Checkout__login-container {
+    background: var(--checkout-surface);
+    padding: var(--checkout-spacing-xl);
+    border-radius: var(--checkout-radius-lg);
+    box-shadow: var(--checkout-shadow);
+    text-align: center;
+    max-width: 500px;
+    width: 100%;
+    border: 1px solid var(--checkout-border);
+}
+
+.Checkout__login-icon {
+    font-size: 3rem;
+    color: #007AFF;
+    margin-bottom: var(--checkout-spacing-md);
+}
+
+.Checkout__login-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--checkout-text);
+    margin-bottom: 0.75rem;
+}
+
+.Checkout__login-message {
+    font-size: 0.95rem;
+    color: var(--checkout-text-light);
+    margin-bottom: var(--checkout-spacing-lg);
+    line-height: 1.5;
+}
+
+.Checkout__login-actions {
+    display: grid;
+    gap: var(--checkout-spacing-sm);
+}
+
+/* User Info in Header */
+.Checkout__user-info {
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--checkout-success);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.Checkout__user-info i {
+    font-size: 0.9rem;
+}
+
 /* Responsive Design */
 @media (max-width: 1024px) {
     .Checkout__content {
@@ -662,6 +736,12 @@
     .Checkout__cart-items {
         max-height: 300px;
     }
+    
+    .Checkout__section-title {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.25rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -679,7 +759,8 @@
         border-radius: var(--checkout-radius-md);
     }
     
-    .Checkout__success-container {
+    .Checkout__success-container,
+    .Checkout__login-container {
         padding: var(--checkout-spacing-lg);
         margin: var(--checkout-spacing-sm);
     }
@@ -695,6 +776,10 @@
     
     .Checkout__item-variants span {
         font-size: 0.65rem;
+    }
+    
+    .Checkout__user-info {
+        font-size: 0.8rem;
     }
 }
 

@@ -5,27 +5,21 @@ import './HairModal.css';
 const ProductModal = ({ product, isOpen, onClose }) => {
     const [selectedColor, setSelectedColor] = useState('Natural Black');
     const [selectedLength, setSelectedLength] = useState(product.length || '20-22 inches');
-    const [quantity, setQuantity] = useState(1);
+    const [customLengthValue, setCustomLengthValue] = useState('');
     const { addToCart } = useCart();
 
     const colorOptions = [
         { name: 'Natural Black', color: '#1a1a1a', standard: true },
-        { name: 'Off Black', color: '#3c3c3e', standard: false },
-        { name: 'Dark Brown', color: '#5d4037', standard: false },
-        { name: 'Light Brown', color: '#8d6e63', standard: false },
-        { name: 'Honey Blonde', color: '#ffd54f', standard: false },
+        { name: 'Dark Brown', color: '#543e37ff', standard: false },
         { name: 'Platinum Blonde', color: '#fff8e1', standard: false },
-        { name: 'Burgundy', color: '#880e4f', standard: false },
-        { name: 'Auburn', color: '#a52a2a', standard: false },
-        { name: 'Rose Gold', color: '#b76e79', standard: false }
+        { name: 'Purple', color: '#780040ff', standard: false },
+        { name: 'red', color: '#f90000ff', standard: false },
     ];
 
     const lengthPresets = [
         { length: '16 inches', desc: 'Shoulder Length' },
         { length: '20 inches', desc: 'Mid Back' },
-        { length: '24 inches', desc: 'Waist Length' },
-        { length: '28 inches', desc: 'Hip Length' },
-    ];
+        { length: 'Custom', desc: 'Specify your own length' },];
 
     const wigSpecs = {
         'Human Hair Wig': {
@@ -68,7 +62,8 @@ const ProductModal = ({ product, isOpen, onClose }) => {
 
     const handleAddToCart = () => {
         const colorData = colorOptions.find(c => c.name === selectedColor);
-        const finalProductName = `${product.name} - ${selectedColor} - ${selectedLength}`;
+        const finalLength = selectedLength === 'Custom' ? customLengthValue : selectedLength;
+        const finalProductName = `${product.name} - ${selectedColor} - ${finalLength}`;
         
         const totalPrice = calculateTotalPrice();
         
@@ -78,15 +73,17 @@ const ProductModal = ({ product, isOpen, onClose }) => {
                 displayName: finalProductName,
                 price: totalPrice.toFixed(2),
                 selectedColor: selectedColor,
-                selectedLength: selectedLength,
-                isPremiumColor: !colorData.standard
+                selectedLength: finalLength,
+                isPremiumColor: !colorData.standard,
+                isCustomLength: selectedLength === 'Custom'
             },
-            quantity
+            1
         );
 
+        // Reset form
         setSelectedColor('Natural Black');
         setSelectedLength('20-22 inches');
-        setQuantity(1);
+        setCustomLengthValue('');
         onClose();
         alert('Added to cart!');
     };
@@ -95,7 +92,15 @@ const ProductModal = ({ product, isOpen, onClose }) => {
         const basePrice = parseFloat(product.price);
         const colorData = colorOptions.find(c => c.name === selectedColor);
         const colorCost = !colorData.standard ? 100 : 0;
-        return (basePrice + colorCost) * quantity;
+        const lengthCost = selectedLength === 'Custom' ? 100 : 0;
+        return basePrice + colorCost + lengthCost;
+    };
+
+    const handleLengthSelect = (length) => {
+        setSelectedLength(length);
+        if (length !== 'Custom') {
+            setCustomLengthValue('');
+        }
     };
 
     if (!isOpen) return null;
@@ -149,6 +154,13 @@ const ProductModal = ({ product, isOpen, onClose }) => {
                             {selectedColor && (
                                 <div className="hr-total-price">
                                     Total: <span>R{calculateTotalPrice().toFixed(2)}</span>
+                                    {(selectedLength === 'Custom' || !colorOptions.find(c => c.name === selectedColor)?.standard) && (
+                                        <div style={{ fontSize: '11px', color: '#86868b', marginTop: '4px' }}>
+                                            Includes: 
+                                            {!colorOptions.find(c => c.name === selectedColor)?.standard && ' Premium Color (+R100)'}
+                                            {selectedLength === 'Custom' && ' Custom Length (+R100)'}
+                                        </div>
+                                    )}
                                 </div>
                             )}
                         </div>
@@ -197,10 +209,16 @@ const ProductModal = ({ product, isOpen, onClose }) => {
                                             className={`hr-length-option ${
                                                 selectedLength === preset.length ? 'hr-selected' : ''
                                             }`}
-                                            onClick={() => setSelectedLength(preset.length)}
+                                            onClick={() => handleLengthSelect(preset.length)}
+                                            title={preset.length === 'Custom' ? 'Custom length - +R100' : preset.desc}
                                         >
                                             <div className="hr-length-text">{preset.length}</div>
                                             <div className="hr-length-desc">{preset.desc}</div>
+                                            {preset.length === 'Custom' && (
+                                                <div style={{ fontSize: '10px', color: '#f0c040', fontWeight: '600', marginTop: '2px' }}>
+                                                    +R100
+                                                </div>
+                                            )}
                                         </button>
                                     ))}
                                 </div>
@@ -208,45 +226,26 @@ const ProductModal = ({ product, isOpen, onClose }) => {
                                     <div className="hr-custom-length-input">
                                         <input 
                                             type="text"
-                                            value={selectedLength}
-                                            onChange={(e) => setSelectedLength(e.target.value)}
+                                            value={customLengthValue}
+                                            onChange={(e) => setCustomLengthValue(e.target.value)}
                                             placeholder="Enter custom length (e.g., 18-20 inches)"
                                             className="hr-length-input"
                                         />
+                                        <div style={{ fontSize: '11px', color: '#f0c040', marginTop: '4px', fontWeight: '500' }}>
+                                            Custom length requires +R100 premium
+                                        </div>
                                     </div>
                                 )}
-                            </div>
-
-                            {/* Quantity */}
-                            <div className="hr-option-group">
-                                <div className="hr-option-label">Quantity</div>
-                                <div className="hr-quantity-selector">
-                                    <button 
-                                        className="hr-qty-btn hr-minus"
-                                        onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                                        aria-label="Decrease quantity"
-                                    >
-                                        −
-                                    </button>
-                                    <span className="hr-qty-value">{quantity}</span>
-                                    <button 
-                                        className="hr-qty-btn hr-plus"
-                                        onClick={() => setQuantity(quantity + 1)}
-                                        aria-label="Increase quantity"
-                                    >
-                                        +
-                                    </button>
-                                </div>
                             </div>
                         </div>
 
                         {/* Add to Cart Button */}
                         <button 
                             className={`hr-add-to-cart-btn ${
-                                !selectedColor ? 'hr-disabled' : ''
+                                !selectedColor || (selectedLength === 'Custom' && !customLengthValue) ? 'hr-disabled' : ''
                             }`}
                             onClick={handleAddToCart}
-                            disabled={!selectedColor}
+                            disabled={!selectedColor || (selectedLength === 'Custom' && !customLengthValue)}
                         >
                             Add to Cart • R{calculateTotalPrice().toFixed(2)}
                         </button>

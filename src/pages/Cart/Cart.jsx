@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../../context/CartContext';
+import { useUser } from '@clerk/clerk-react';
 import './Cart.css';
 
 const Cart = () => {
     const { cart, removeFromCart, updateQuantity, clearCart, getTotalPrice } = useCart();
+    const { isSignedIn } = useUser();
+    const navigate = useNavigate();
     const [isProcessing, setIsProcessing] = useState(false);
 
     const handleQuantityChange = (item, newQuantity) => {
@@ -12,18 +15,14 @@ const Cart = () => {
         
         setIsProcessing(true);
         
-        // Ensure quantity is a valid number
         const validatedQuantity = parseInt(newQuantity);
         
         if (isNaN(validatedQuantity) || validatedQuantity < 1) {
-            // Remove item if quantity is invalid or less than 1
-            removeFromCart(item.id, item.selectedColor, item.selectedLength);
+            removeFromCart(item.id, item.color, item.size);
         } else {
-            // Update quantity
-            updateQuantity(item.id, item.selectedColor, item.selectedLength, validatedQuantity);
+            updateQuantity(item.id, item.color, item.size, validatedQuantity);
         }
         
-        // Reset processing state after a short delay
         setTimeout(() => setIsProcessing(false), 100);
     };
 
@@ -32,16 +31,13 @@ const Cart = () => {
         
         const value = e.target.value;
         
-        // Only allow numbers
         if (/^\d*$/.test(value)) {
             const newQuantity = parseInt(value) || 0;
             
             if (newQuantity === 0) {
-                // Remove item immediately if quantity is 0
-                removeFromCart(item.id, item.selectedColor, item.selectedLength);
+                removeFromCart(item.id, item.color, item.size);
             } else {
-                // Update quantity
-                updateQuantity(item.id, item.selectedColor, item.selectedLength, newQuantity);
+                updateQuantity(item.id, item.color, item.size, newQuantity);
             }
         }
     };
@@ -51,8 +47,7 @@ const Cart = () => {
         
         const value = e.target.value;
         if (value === '' || value === '0') {
-            // Remove item if input is empty or 0 on blur
-            removeFromCart(item.id, item.selectedColor, item.selectedLength);
+            removeFromCart(item.id, item.color, item.size);
         }
     };
 
@@ -60,7 +55,7 @@ const Cart = () => {
         if (isProcessing) return;
         
         setIsProcessing(true);
-        removeFromCart(item.id, item.selectedColor, item.selectedLength);
+        removeFromCart(item.id, item.color, item.size);
         setTimeout(() => setIsProcessing(false), 100);
     };
 
@@ -71,6 +66,15 @@ const Cart = () => {
             setIsProcessing(true);
             clearCart();
             setTimeout(() => setIsProcessing(false), 100);
+        }
+    };
+
+    const handleCheckoutClick = (e) => {
+        if (!isSignedIn) {
+            e.preventDefault();
+            if (window.confirm('Please sign in to proceed to checkout. Would you like to sign in now?')) {
+                navigate('/sign-in?redirect_url=/checkout');
+            }
         }
     };
 
@@ -108,7 +112,7 @@ const Cart = () => {
                 <div className="cart-content">
                     <div className="cart-items-section">
                         {cart.items.map((item) => (
-                            <div key={`${item.id}-${item.selectedColor}-${item.selectedLength}`} className="cart-item">
+                            <div key={`${item.id}-${item.color}-${item.size}`} className="cart-item">
                                 <div className="cart-item-image">
                                     <img src={item.image} alt={item.name} />
                                 </div>
@@ -116,8 +120,8 @@ const Cart = () => {
                                 <div className="cart-item-details">
                                     <h3 className="cart-item-name">{item.displayName || item.name}</h3>
                                     <div className="cart-item-variants">
-                                        <span className="variant-tag">{item.selectedColor}</span>
-                                        <span className="variant-tag">{item.selectedLength}</span>
+                                        <span className="variant-tag">{item.color}</span>
+                                        <span className="variant-tag">{item.size}</span>
                                         {item.isPremiumColor && (
                                             <span className="variant-tag premium">+R100</span>
                                         )}
@@ -192,8 +196,13 @@ const Cart = () => {
                                 <span>R{getTotalPrice().toFixed(2)}</span>
                             </div>
 
-                            <Link to="/checkout" className="hr-btn hr-btn-primary hr-btn-full">
-                                <i className="fas fa-lock"></i> Proceed to Checkout
+                            <Link 
+                                to="/checkout" 
+                                className="hr-btn hr-btn-primary hr-btn-full"
+                                onClick={handleCheckoutClick}
+                            >
+                                <i className="fas fa-lock"></i> 
+                                {isSignedIn ? 'Proceed to Checkout' : 'Sign In to Checkout'}
                             </Link>
                             
                             <Link to="/hair" className="continue-shopping-link">

@@ -1,5 +1,6 @@
 // Jeans.jsx - Compact & Responsive
-import React, { useState, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import JeansModal from '../../components/JeansModal/JeansModal';
 import './jeans.css';
 
@@ -12,83 +13,63 @@ import Jean5 from '../../assets/Jeans/jean (5).jpeg';
 const Jeans = () => {
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [sortBy, setSortBy] = useState('default');
     const [selectedImage, setSelectedImage] = useState(null);
     const [isImageModalOpen, setIsImageModalOpen] = useState(false);
+    
+    // Get query parameters
+    const [searchParams] = useSearchParams();
+    const productId = searchParams.get('product');
 
-    const jeansProducts = useMemo(() => [
+    const jeansProducts = [
         {
             id: 1,
             name: "H&M Ashwood Jeans",
             price: 299.99,
             image: Jean1,
-            category: "Slim Fit",
-            description: "Stonewashed slim-fit jeans with a modern ash grey finish.",
-            featured: true
+            description: "Stonewashed slim-fit jeans with a modern ash grey finish."
         },
         {
             id: 2,
             name: "Zara Misty Blue Skirt",
             price: 399.99,
             image: Jean2,
-            category: "A-Line",
-            description: "A-line denim skirt in a soft misty blue wash.",
-            featured: true
+            description: "A-line denim skirt in a soft misty blue wash."
         },
         {
             id: 3,
             name: "Oceanline Jean",
             price: 289.99,
             image: Jean3,
-            category: "Straight Fit",
-            description: "Classic straight-leg jeans in deep ocean blue.",
-            featured: true
+            description: "Classic straight-leg jeans in deep ocean blue."
         },
         {
             id: 4,
             name: "Trueblue Skinny Jean",
             price: 299.99,
             image: Jean4,
-            category: "Skinny Fit",
-            description: "High-stretch skinny jeans in true blue indigo.",
-            featured: true
+            description: "High-stretch skinny jeans in true blue indigo."
         },
         {
             id: 5,
             name: "Zara Denim Jacket",
             price: 449.99,
             image: Jean5,
-            category: "Oversized",
-            description: "Oversized denim jacket with raw hem details.",
-            featured: true
+            description: "Oversized denim jacket with raw hem details."
         }
-    ], []);
-
-    const sortOptions = [
-        { value: 'default', label: 'Default' },
-        { value: 'price-low', label: 'Price: Low to High' },
-        { value: 'price-high', label: 'Price: High to Low' },
-        { value: 'name-asc', label: 'Name: A to Z' },
-        { value: 'name-desc', label: 'Name: Z to A' }
     ];
 
-    const sortedProducts = useMemo(() => {
-        const products = [...jeansProducts];
-        
-        switch (sortBy) {
-            case 'price-low':
-                return products.sort((a, b) => a.price - b.price);
-            case 'price-high':
-                return products.sort((a, b) => b.price - a.price);
-            case 'name-desc':
-                return products.sort((a, b) => b.name.localeCompare(a.name));
-            case 'name-asc':
-                return products.sort((a, b) => a.name.localeCompare(b.name));
-            case 'default':
-            default:
-                return products;
+    // Auto-open modal based on query parameter
+    useEffect(() => {
+        if (productId) {
+            // Extract numeric ID from "jeans-1", "jeans-2", etc.
+            const numericId = parseInt(productId.replace('jeans-', ''));
+            const product = jeansProducts.find(p => p.id === numericId);
+            if (product) {
+                setSelectedProduct(product);
+                setIsModalOpen(true);
+            }
         }
-    }, [jeansProducts, sortBy]);
+    }, [productId]);
 
     const handleProductClick = (product) => {
         setSelectedProduct(product);
@@ -104,6 +85,10 @@ const Jeans = () => {
     const closeModal = () => {
         setIsModalOpen(false);
         setSelectedProduct(null);
+        // Remove query parameter when closing modal
+        if (productId) {
+            window.history.replaceState({}, '', '/jeans');
+        }
     };
 
     const closeImageModal = () => {
@@ -114,30 +99,12 @@ const Jeans = () => {
     return (
         <div className="jeans-page">
             <div className="jeans-container">
-                {/* Header - Compact */}
                 <div className="jeans-header">
-                    <h1 className="jeans-title">Denim Collection</h1>
-                    <p className="jeans-subtitle">5 premium pieces</p>
-                    
-                    {/* Sort Control */}
-                    <div className="jeans-sort-control">
-                        <select 
-                            value={sortBy} 
-                            onChange={(e) => setSortBy(e.target.value)}
-                            className="jeans-sort-select"
-                        >
-                            {sortOptions.map(option => (
-                                <option key={option.value} value={option.value}>
-                                    {option.label}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
+                    <h1 className="section-title">Denim Collection</h1>
                 </div>
 
-                {/* Product Grid - 2 columns on phones, 5 on large screens */}
                 <div className="jeans-grid">
-                    {sortedProducts.map(product => (
+                    {jeansProducts.map(product => (
                         <div 
                             key={product.id} 
                             className="jeans-card"
@@ -153,15 +120,6 @@ const Jeans = () => {
                                     className="jeans-image"
                                 />
                                 
-                                {/* Badges */}
-                                <div className="jeans-badges">
-                                    {product.featured && (
-                                        <span className="jeans-badge-featured">Featured</span>
-                                    )}
-                                    <span className="jeans-badge-category">{product.category}</span>
-                                </div>
-                                
-                                {/* Zoom Overlay */}
                                 <div className="jeans-image-overlay">
                                     <span className="jeans-zoom-icon">🔍</span>
                                 </div>
@@ -188,7 +146,6 @@ const Jeans = () => {
                     ))}
                 </div>
 
-                {/* Modals */}
                 {selectedProduct && (
                     <JeansModal
                         product={selectedProduct}
