@@ -1,0 +1,336 @@
+<!-- submission.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submission</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --modal-bg: #ffffff;
+            --modal-overlay: rgba(0, 0, 0, 0.7);
+            --modal-text-primary: #1d1d1f;
+            --modal-text-secondary: #86868b;
+            --modal-border: #f0f0f0;
+            --modal-surface: #f8f9fa;
+            --modal-accent: #000000;
+            --modal-premium: #f0c040;
+            --modal-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            --modal-transition: all 0.15s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--modal-overlay);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .submission__container {
+            width: 100%;
+            max-width: 800px;
+            animation: fadeIn 0.2s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .submission__card {
+            background: var(--modal-bg);
+            border-radius: 12px;
+            padding: 2.5rem 2rem;
+            box-shadow: var(--modal-shadow);
+            animation: scaleIn 0.2s ease;
+            position: relative;
+        }
+
+        @keyframes scaleIn {
+            from { 
+                opacity: 0; 
+                transform: scale(0.95); 
+            }
+            to { 
+                opacity: 1; 
+                transform: scale(1); 
+            }
+        }
+
+        /* Close button like modals */
+        .submission__close {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: none;
+            background: var(--modal-surface);
+            color: var(--modal-text-secondary);
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--modal-transition);
+        }
+
+        .submission__close:hover {
+            background: var(--modal-accent);
+            color: white;
+        }
+
+        .submission__logo-wrapper {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .submission__logo {
+            max-width: 180px;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .submission__content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        /* Checkmark - Minimal like modals */
+        .submission__checkmark {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--modal-surface);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.5rem;
+            color: #4CAF50;
+            font-size: 2rem;
+            font-weight: bold;
+            animation: checkmarkAppear 0.3s ease;
+        }
+
+        @keyframes checkmarkAppear {
+            0% { 
+                opacity: 0; 
+                transform: scale(0.5); 
+            }
+            50% { 
+                transform: scale(1.1); 
+            }
+            100% { 
+                opacity: 1; 
+                transform: scale(1); 
+            }
+        }
+
+        .submission__title {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--modal-text-primary);
+            margin: 0;
+            line-height: 1.2;
+            text-align: center;
+        }
+
+        .submission__message {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--modal-text-secondary);
+            text-align: center;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .submission__divider {
+            width: 60px;
+            height: 1px;
+            background: var(--modal-border);
+            margin: 0.5rem 0;
+        }
+
+        .submission__redirect {
+            font-size: 12px;
+            color: var(--modal-text-secondary);
+            background: var(--modal-surface);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            border: 1px solid var(--modal-border);
+        }
+
+        .submission__countdown {
+            color: var(--modal-text-primary);
+            font-weight: 700;
+            margin: 0 2px;
+        }
+
+        .submission__button {
+            background: var(--modal-accent);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 32px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--modal-transition);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 1rem;
+        }
+
+        .submission__button:hover {
+            background: #45484b;
+        }
+
+        .submission__button:active {
+            transform: scale(0.98);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .submission__card {
+                padding: 2rem 1.5rem;
+            }
+            
+            .submission__logo {
+                max-width: 150px;
+            }
+            
+            .submission__title {
+                font-size: 20px;
+            }
+            
+            .submission__message {
+                font-size: 13px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .submission__card {
+                padding: 1.5rem 1rem;
+            }
+            
+            .submission__logo {
+                max-width: 120px;
+            }
+            
+            .submission__checkmark {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+            
+            .submission__title {
+                font-size: 18px;
+            }
+            
+            .submission__message {
+                font-size: 12px;
+            }
+            
+            .submission__button {
+                padding: 10px 24px;
+                font-size: 13px;
+                width: 100%;
+            }
+            
+            .submission__close {
+                top: 8px;
+                right: 8px;
+                width: 24px;
+                height: 24px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .submission__card {
+                padding: 1.25rem 0.75rem;
+            }
+            
+            .submission__logo {
+                max-width: 100px;
+            }
+            
+            .submission__title {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="submission__container">
+        <div class="submission__card">
+            <button class="submission__close" onclick="redirectToHome()">✕</button>
+            
+            <div class="submission__logo-wrapper">
+                <img src="../src/assets/Logo/IMG.jpg" alt="Logo" class="submission__logo"> 
+                
+            </div>
+            
+            <div class="submission__content">
+                <div class="submission__checkmark">✓</div>
+                
+                <h1 class="submission__title">Submitted Successfully</h1>
+                
+                <p class="submission__message">
+                    Thank you for reaching out. We've received your submission and will get back to you within 24-48 hours.
+                </p>
+                
+                <div class="submission__divider"></div>
+                
+                <p class="submission__redirect">
+                    Redirecting to home in <span class="submission__countdown" id="countdown">5</span> seconds...
+                </p>
+                
+                <button class="submission__button" onclick="redirectToHome()">
+                    Back to Home
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Auto-redirect with countdown
+        let countdown = 5;
+        const countdownElement = document.getElementById('countdown');
+        
+        const timer = setInterval(() => {
+            countdown--;
+            if (countdownElement) {
+                countdownElement.textContent = countdown;
+            }
+            
+            if (countdown <= 0) {
+                clearInterval(timer);
+                redirectToHome();
+            }
+        }, 1000);
+        
+        function redirectToHome() {
+            window.location.href = 'https://www.kepabalaaesthetics.shop/';
+        }
+        
+        document.querySelector('.submission__button').addEventListener('click', redirectToHome);
+        document.querySelector('.submission__close').addEventListener('click', redirectToHome);
+    </script>
+</body>
+</html>

@@ -4,6 +4,9 @@ import { SignedOut } from '@clerk/clerk-react';
 import Layout from './components/layout';
 import Home from './pages/Home/home';
 import Hair from './pages/Hair/hair';
+import StraightHair from './pages/Hair/straight/straight';
+import Curlyhair from './pages/Hair/curly/curly';
+import Glueless from './pages/Hair/glueless/glueless';
 import Iphones from './pages/Iphones/iphones';
 import Jeans from './pages/Jeans/jeans';
 import Cart from './pages/Cart/Cart';
@@ -27,6 +30,9 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="hair" element={<Hair />} />
+            <Route path="straight" element={<StraightHair />} />
+            <Route path="curly" element={<Curlyhair />} />
+            <Route path="glueless" element={<Glueless />} />
             <Route path="iphones" element={<Iphones />} />
             <Route path="jeans" element={<Jeans />} />
             <Route path="cart" element={<Cart />} />

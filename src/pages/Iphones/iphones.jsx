@@ -244,7 +244,7 @@ const Iphones = () => {
         <div className="ip-page">
             <div className="ip-container">
                 <div className="category-header">
-                    <h1 className="section-title">iPhone Collection</h1>
+                    <h1 className="section-title">Shop Aesthetic iPhones</h1>
                 </div>
 
                 {/* COMPACT SINGLE LINE SUBHEADER */}

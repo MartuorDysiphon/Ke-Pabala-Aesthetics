@@ -1,0 +1,752 @@
+/* curlyModal.css - EXACT HAIRMODAL STYLE */
+:root {
+    --modal-bg: #ffffff;
+    --modal-overlay: rgba(0, 0, 0, 0.7);
+    --modal-text-primary: #1d1d1f;
+    --modal-text-secondary: #86868b;
+    --modal-border: #f0f0f0;
+    --modal-surface: #f8f9fa;
+    --modal-accent: #000000;
+    --modal-premium: #f0c040;
+    --modal-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    --modal-transition: all 0.15s ease;
+}
+
+/* Modal Overlay - EXACT HairModal */
+.curly-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 10px;
+}
+
+/* Modal Container - EXACT HairModal */
+.curly-modal-container {
+    background: white;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    animation: modalFadeIn 0.2s ease;
+}
+
+@keyframes modalFadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* Close Button - EXACT HairModal */
+.modal-close-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: none;
+    background: #f5f5f5;
+    color: #666;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
+    z-index: 10;
+}
+
+.modal-close-btn:hover {
+    background: #e5e5e5;
+    color: #000;
+}
+
+/* Mobile Header - Hidden by default */
+.mobile-modal-header {
+    display: none;
+}
+
+/* Main Layout - EXACT HairModal grid */
+.modal-main-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    padding: 24px;
+    min-height: 500px;
+}
+
+/* Visual Section - EXACT HairModal */
+.modal-visual-section {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 30px;
+    height: 100%;
+}
+
+.product-image-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.product-main-image {
+    width: 100%;
+    height: auto;
+    max-height: 320px;
+    object-fit: contain;
+}
+
+/* Product Badge - EXACT HairModal type badge */
+.product-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Image Navigation - Minimal like HairModal */
+.image-navigation {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    right: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    pointer-events: none;
+}
+
+.nav-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.9);
+    color: #666;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
+    pointer-events: auto;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.nav-btn:hover {
+    background: #e5e5e5;
+    color: #000;
+}
+
+.image-counter {
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 12px;
+    pointer-events: none;
+}
+
+/* Thumbnail Grid - Simple like HairModal */
+.thumbnail-grid {
+    display: flex;
+    gap: 8px;
+    margin-top: 16px;
+    padding: 4px 0;
+    overflow-x: auto;
+}
+
+.thumbnail-grid::-webkit-scrollbar {
+    height: 4px;
+}
+
+.thumbnail-grid::-webkit-scrollbar-track {
+    background: #f0f0f0;
+    border-radius: 4px;
+}
+
+.thumbnail-grid::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+
+.thumbnail-item {
+    flex: 0 0 50px;
+    height: 50px;
+    border-radius: 6px;
+    border: 2px solid transparent;
+    background: white;
+    padding: 2px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    overflow: hidden;
+}
+
+.thumbnail-item:hover {
+    transform: translateY(-2px);
+}
+
+.thumbnail-item.active {
+    border-color: #000;
+}
+
+.thumbnail-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+/* Info Section - EXACT HairModal */
+.modal-info-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Product Header - EXACT HairModal */
+.product-header-section {
+    margin-bottom: 0;
+}
+
+.product-title-wrapper {
+    margin-bottom: 4px;
+}
+
+.product-title-main {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1d1d1f;
+    margin: 0 0 4px 0;
+    line-height: 1.2;
+}
+
+.product-category-tags {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.category-label {
+    font-size: 12px;
+    color: #86868b;
+    font-weight: 500;
+    margin: 0;
+}
+
+.subcategory-label {
+    font-size: 12px;
+    color: #86868b;
+    font-weight: 500;
+}
+
+/* Desktop Price - EXACT HairModal style but hidden on mobile */
+.desktop-price-display {
+    display: none;
+}
+
+/* Price Summary - EXACT HairModal specs style */
+.price-summary-card {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    background: #f8f9fa;
+    padding: 16px;
+    border-radius: 8px;
+    font-size: 12px;
+}
+
+.price-total-section {
+    grid-column: span 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #e5e5e5;
+    margin-bottom: 8px;
+}
+
+.total-label {
+    color: #86868b;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 11px;
+}
+
+.total-amount {
+    color: #1d1d1f;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.price-details {
+    grid-column: span 2;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.price-detail-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+}
+
+.price-detail-item span:first-child {
+    color: #86868b;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 11px;
+}
+
+.price-detail-item span:last-child {
+    color: #1d1d1f;
+    font-weight: 500;
+    font-size: 12px;
+}
+
+.price-detail-item.premium span:last-child {
+    color: #f0c040;
+    font-weight: 600;
+}
+
+/* Selection Cards - EXACT HairModal option groups */
+.selection-card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.selection-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.selection-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1d1d1f;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0;
+}
+
+.selection-count {
+    font-size: 11px;
+    color: #86868b;
+    font-weight: 500;
+}
+
+.premium-color-note {
+    font-size: 11px;
+    color: #f0c040;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* Length Options - EXACT HairModal length style */
+.length-selection-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+.length-selection-option {
+    padding: 10px 8px;
+    background: #f5f5f5;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #1d1d1f;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 2px;
+}
+
+.length-selection-option:hover {
+    background: #e5e5e5;
+}
+
+.length-selection-option.selected {
+    background: #000000;
+    color: white;
+}
+
+.length-value-display {
+    font-weight: 600;
+    font-size: 11px;
+}
+
+.length-price-display {
+    font-size: 10px;
+    opacity: 0.8;
+}
+
+.length-selection-option.selected .length-price-display {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Color Options - EXACT HairModal circles */
+.color-selection-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+}
+
+.color-selection-option {
+    position: relative;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
+}
+
+.color-selection-option:hover {
+    transform: scale(1.1);
+}
+
+.color-selection-option.selected {
+    border-color: #000000;
+    transform: scale(1.1);
+}
+
+.color-option-visual {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid white;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
+.color-selection-option.selected .color-option-visual {
+    border-color: white;
+}
+
+.color-selected-indicator {
+    position: absolute;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    z-index: 2;
+}
+
+.color-premium-tag {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background: #f0c040;
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+}
+
+.color-option-label {
+    display: none; /* Hide labels like HairModal */
+}
+
+/* Quantity Selector - EXACT HairModal style */
+.quantity-selector {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: #f5f5f5;
+    border-radius: 6px;
+    padding: 8px 16px;
+    width: fit-content;
+}
+
+.qty-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    border: none;
+    background: white;
+    color: #1d1d1f;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
+}
+
+.qty-btn:hover {
+    background: #e5e5e5;
+}
+
+.qty-value {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1d1d1f;
+    min-width: 30px;
+    text-align: center;
+}
+
+/* Add to Cart Button - EXACT HairModal */
+.add-to-cart-button-main {
+    width: 100%;
+    padding: 14px;
+    background: #000000;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    margin-top: 8px;
+}
+
+.add-to-cart-button-main:hover:not(:disabled) {
+    background: #45484b;
+}
+
+.add-to-cart-button-main:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Guarantee Info - EXACT HairModal */
+.guarantee-info {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 12px 0 0 0;
+    margin-top: 12px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.guarantee-badge {
+    font-size: 11px;
+    color: #666;
+    font-weight: 500;
+    padding: 4px 8px;
+    background: #f8f9fa;
+    border-radius: 12px;
+    border: 1px solid #e5e5e5;
+    flex: 1;
+    text-align: center;
+}
+
+/* ========== RESPONSIVE BREAKPOINTS ========== */
+
+/* Tablet */
+@media (max-width: 768px) {
+    .modal-main-content {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 20px;
+        min-height: auto;
+    }
+    
+    .modal-visual-section {
+        height: 240px;
+        padding: 20px;
+    }
+    
+    .product-main-image {
+        max-height: 200px;
+    }
+    
+    .product-title-main {
+        font-size: 18px;
+    }
+    
+    .color-selection-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+    }
+    
+    .color-selection-option {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .color-option-visual {
+        width: 32px;
+        height: 32px;
+    }
+    
+    .length-selection-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .mobile-modal-header {
+        display: flex;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .curly-modal-container {
+        max-height: 95vh;
+        border-radius: 10px;
+    }
+    
+    .modal-main-content {
+        padding: 16px;
+        gap: 16px;
+    }
+    
+    .modal-close-btn {
+        top: 8px;
+        right: 8px;
+        width: 24px;
+        height: 24px;
+        font-size: 14px;
+    }
+    
+    .modal-visual-section {
+        height: 200px;
+        padding: 16px;
+    }
+    
+    .product-main-image {
+        max-height: 160px;
+    }
+    
+    .price-summary-card {
+        grid-template-columns: 1fr;
+        gap: 8px;
+        padding: 12px;
+    }
+    
+    .product-title-main {
+        font-size: 16px;
+    }
+    
+    .color-selection-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+    }
+    
+    .color-selection-option {
+        width: 36px;
+        height: 36px;
+    }
+    
+    .color-option-visual {
+        width: 28px;
+        height: 28px;
+    }
+    
+    .length-selection-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .length-selection-option {
+        padding: 8px 6px;
+        font-size: 11px;
+    }
+    
+    .add-to-cart-button-main {
+        padding: 12px;
+        font-size: 13px;
+    }
+    
+    .quantity-selector {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .guarantee-info {
+        flex-direction: column;
+        gap: 6px;
+    }
+    
+    .thumbnail-item {
+        flex: 0 0 40px;
+        height: 40px;
+    }
+}
+
+/* Small Mobile */
+@media (max-width: 360px) {
+    .modal-main-content {
+        padding: 12px;
+    }
+    
+    .modal-visual-section {
+        height: 180px;
+    }
+    
+    .product-title-main {
+        font-size: 15px;
+    }
+    
+    .color-selection-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 6px;
+    }
+    
+    .color-selection-option {
+        width: 32px;
+        height: 32px;
+    }
+    
+    .color-option-visual {
+        width: 24px;
+        height: 24px;
+    }
+    
+    .length-selection-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .qty-btn {
+        width: 24px;
+        height: 24px;
+        font-size: 14px;
+    }
+    
+    .qty-value {
+        font-size: 14px;
+    }
+}

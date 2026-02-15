@@ -127,8 +127,8 @@ const Home = () => {
             <section className="Home__hero-section">
                 <div className="Home__container Home__hero-container">
                     <div className="Home__hero-content">
-                        <h1 className="Home__hero-title">Curated Quality,<br />Defined Style.</h1>
-                        <p className="Home__hero-description">Discover premium human hair, certified iPhones, and designer denim — all curated for those who appreciate exceptional quality.</p>
+                        <h1 className="Home__hero-title">Quality You Trust. <br />Style You Wear.</h1>
+                        <p className="Home__hero-description">Shop premium human hair with a natural finish, original iPhones tested for performance, and well fitted jeans built for daily wear.</p>
                         <div className="Home__hero-buttons">
                             <Link to="/hair" className="Home__hr-btn Home__hr-btn-primary">Shop Hair</Link>
                             <Link to="/iphones" className="Home__hr-btn Home__hr-btn-secondary">Shop iPhones</Link>

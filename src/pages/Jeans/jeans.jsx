@@ -100,7 +100,7 @@ const Jeans = () => {
         <div className="jeans-page">
             <div className="jeans-container">
                 <div className="jeans-header">
-                    <h1 className="section-title">Denim Collection</h1>
+                    <h1 className="section-title">Shop Denim Jeans</h1>
                 </div>
 
                 <div className="jeans-grid">
