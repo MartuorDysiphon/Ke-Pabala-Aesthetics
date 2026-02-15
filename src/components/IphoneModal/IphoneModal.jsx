@@ -166,18 +166,33 @@ const IphoneModal = ({ product, isOpen, onClose }) => {
     const colorOptions = appleColorOptions[baseModel] || ['Space Gray', 'Silver'];
     const specs = iphoneSpecs[baseModel] || iphoneSpecs["iPhone 12"];
 
-    // Initialize selections
+    // Initialize storage selection
     useEffect(() => {
-        if (availableStorageOptions.length > 0 && !selectedStorage) {
-            setSelectedStorage(availableStorageOptions[0].storage);
+        if (availableStorageOptions.length > 0) {
+            // Check if current selectedStorage is valid for the new options
+            const isValidStorage = availableStorageOptions.some(opt => opt.storage === selectedStorage);
+            
+            if (!selectedStorage || !isValidStorage) {
+                setSelectedStorage(availableStorageOptions[0].storage);
+            }
+        } else {
+            setSelectedStorage('');
         }
-    }, [selectedCondition, availableStorageOptions]);
+    }, [selectedCondition, availableStorageOptions, selectedStorage, baseModel]);
 
+    // Initialize color selection
     useEffect(() => {
-        if (colorOptions.length > 0 && !selectedColor) {
-            setSelectedColor(colorOptions[0]);
+        if (colorOptions.length > 0) {
+            // Check if current selectedColor is valid for the new options
+            const isValidColor = colorOptions.includes(selectedColor);
+            
+            if (!selectedColor || !isValidColor) {
+                setSelectedColor(colorOptions[0]);
+            }
+        } else {
+            setSelectedColor('');
         }
-    }, [colorOptions]);
+    }, [colorOptions, selectedColor, baseModel]);
 
     const getCurrentPrice = () => {
         if (!selectedStorage) return 0;
@@ -303,7 +318,7 @@ const IphoneModal = ({ product, isOpen, onClose }) => {
                                                 }`}
                                                 onClick={() => {
                                                     setSelectedCondition(condition);
-                                                    setSelectedStorage('');
+                                                    // Storage will be reset by useEffect
                                                 }}
                                                 title={getConditionDescription(condition)}
                                             >
