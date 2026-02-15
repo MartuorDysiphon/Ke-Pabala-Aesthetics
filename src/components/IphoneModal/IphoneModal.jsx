@@ -1,206 +1,163 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { useCart } from '../../context/CartContext';
 import './IphoneModal.css';
 
+// Move static data outside the component to prevent recreation on each render
+const IPHONE_PRICING = {
+    "iPhone 7": {
+        "Pre-Owned": [{ storage: '32GB', price: 2500 }],
+        "New": [{ storage: '32GB', price: 3000 }]
+    },
+    "iPhone 7 Plus": {
+        "Pre-Owned": [
+            { storage: '32GB', price: 3050 },
+            { storage: '128GB', price: 3200 }
+        ],
+        "New": [{ storage: '128GB', price: 3400 }]
+    },
+    "iPhone 8": {
+        "Pre-Owned": [{ storage: '64GB', price: 2950 }],
+        "New": [{ storage: '64GB', price: 3400 }]
+    },
+    "iPhone 8 Plus": {
+        "Pre-Owned": [{ storage: '64GB', price: 3600 }],
+        "New": [{ storage: '64GB', price: 4000 }]
+    },
+    "iPhone X": {
+        "Pre-Owned": [{ storage: '64GB', price: 3900 }],
+        "New": [{ storage: '64GB', price: 4300 }]
+    },
+    "iPhone XR": {
+        "Pre-Owned": [
+            { storage: '64GB', price: 4100 },
+            { storage: '128GB', price: 4500 }
+        ],
+        "New": [
+            { storage: '64GB', price: 4500 },
+            { storage: '128GB', price: 5000 }
+        ]
+    },
+    "iPhone 11": {
+        "Pre-Owned": [
+            { storage: '64GB', price: 5100 },
+            { storage: '128GB', price: 5550 }
+        ],
+        "New": [
+            { storage: '64GB', price: 5500 },
+            { storage: '128GB', price: 6150 }
+        ]
+    },
+    "iPhone 11 Pro": {
+        "Pre-Owned": [{ storage: '64GB', price: 6400 }],
+        "New": [{ storage: '64GB', price: 7400 }]
+    },
+    "iPhone 12": {
+        "Pre-Owned": [
+            { storage: '64GB', price: 6800 },
+            { storage: '128GB', price: 7000 }
+        ],
+        "New": [
+            { storage: '64GB', price: 6800 },
+            { storage: '128GB', price: 7100 }
+        ]
+    }
+};
+
+const APPLE_COLOR_OPTIONS = {
+    "iPhone 7": ['Black', 'Silver', 'Gold', 'Rose Gold', 'Red', 'Jet Black'],
+    "iPhone 7 Plus": ['Black', 'Silver', 'Gold', 'Rose Gold', 'Red', 'Jet Black'],
+    "iPhone 8": ['Space Gray', 'Silver', 'Gold', 'Red'],
+    "iPhone 8 Plus": ['Space Gray', 'Silver', 'Gold', 'Red'],
+    "iPhone X": ['Space Gray', 'Silver'],
+    "iPhone XR": ['Black', 'White', 'Blue', 'Yellow', 'Coral', 'Red'],
+    "iPhone 11": ['Black', 'Green', 'Yellow', 'Purple', 'Red', 'White'],
+    "iPhone 11 Pro": ['Midnight Green', 'Space Gray', 'Silver', 'Gold'],
+    "iPhone 12": ['Black', 'White', 'Green', 'Blue', 'Purple', 'Red']
+};
+
+const IPHONE_SPECS = {
+    "iPhone 7": { display: '4.7" Retina HD', chip: 'A10 Fusion', camera: '12MP', battery: 'Up to 13h' },
+    "iPhone 7 Plus": { display: '5.5" Retina HD', chip: 'A10 Fusion', camera: 'Dual 12MP', battery: 'Up to 14h' },
+    "iPhone 8": { display: '4.7" Retina HD', chip: 'A11 Bionic', camera: '12MP', battery: 'Up to 13h' },
+    "iPhone 8 Plus": { display: '5.5" Retina HD', chip: 'A11 Bionic', camera: 'Dual 12MP', battery: 'Up to 14h' },
+    "iPhone X": { display: '5.8" Super Retina HD', chip: 'A11 Bionic', camera: 'Dual 12MP', battery: 'Up to 13h' },
+    "iPhone XR": { display: '6.1" Liquid Retina HD', chip: 'A12 Bionic', camera: '12MP', battery: 'Up to 16h' },
+    "iPhone 11": { display: '6.1" Liquid Retina HD', chip: 'A13 Bionic', camera: 'Dual 12MP', battery: 'Up to 17h' },
+    "iPhone 11 Pro": { display: '5.8" Super Retina XDR', chip: 'A13 Bionic', camera: 'Triple 12MP', battery: 'Up to 18h' },
+    "iPhone 12": { display: '6.1" Super Retina XDR', chip: 'A14 Bionic', camera: 'Dual 12MP', battery: 'Up to 17h' }
+};
+
 const IphoneModal = ({ product, isOpen, onClose }) => {
+    const { addToCart } = useCart();
+
+    // State for selections
     const [selectedCondition, setSelectedCondition] = useState('Pre-Owned');
     const [selectedStorage, setSelectedStorage] = useState('');
     const [selectedColor, setSelectedColor] = useState('');
-    const { addToCart } = useCart();
-
-    // Complete pricing structure based on your list
-    const iphonePricing = {
-        "iPhone 7": {
-            "Pre-Owned": [
-                { storage: '32GB', price: 2500 }
-            ],
-            "New": [
-                { storage: '32GB', price: 3000 }
-            ]
-        },
-        "iPhone 7 Plus": {
-            "Pre-Owned": [
-                { storage: '32GB', price: 3050 },
-                { storage: '128GB', price: 3200 }
-            ],
-            "New": [
-                { storage: '128GB', price: 3400 }
-            ]
-        },
-        "iPhone 8": {
-            "Pre-Owned": [
-                { storage: '64GB', price: 2950 }
-            ],
-            "New": [
-                { storage: '64GB', price: 3400 }
-            ]
-        },
-        "iPhone 8 Plus": {
-            "Pre-Owned": [
-                { storage: '64GB', price: 3600 }
-            ],
-            "New": [
-                { storage: '64GB', price: 4000 }
-            ]
-        },
-        "iPhone X": {
-            "Pre-Owned": [
-                { storage: '64GB', price: 3900 }
-            ],
-            "New": [
-                { storage: '64GB', price: 4300 }
-            ]
-        },
-        "iPhone XR": {
-            "Pre-Owned": [
-                { storage: '64GB', price: 4100 },
-                { storage: '128GB', price: 4500 }
-            ],
-            "New": [
-                { storage: '64GB', price: 4500 },
-                { storage: '128GB', price: 5000 }
-            ]
-        },
-        "iPhone 11": {
-            "Pre-Owned": [
-                { storage: '64GB', price: 5100 },
-                { storage: '128GB', price: 5550 }
-            ],
-            "New": [
-                { storage: '64GB', price: 5500 },
-                { storage: '128GB', price: 6150 }
-            ]
-        },
-        "iPhone 11 Pro": {
-            "Pre-Owned": [
-                { storage: '64GB', price: 6400 }
-            ],
-            "New": [
-                { storage: '64GB', price: 7400 }
-            ]
-        },
-        "iPhone 12": {
-            "Pre-Owned": [
-                { storage: '64GB', price: 6800 },
-                { storage: '128GB', price: 7000 }
-            ],
-            "New": [
-                { storage: '64GB', price: 6800 },
-                { storage: '128GB', price: 7100 }
-            ]
-        }
-    };
-
-    const appleColorOptions = {
-        "iPhone 7": ['Black', 'Silver', 'Gold', 'Rose Gold', 'Red', 'Jet Black'],
-        "iPhone 7 Plus": ['Black', 'Silver', 'Gold', 'Rose Gold', 'Red', 'Jet Black'],
-        "iPhone 8": ['Space Gray', 'Silver', 'Gold', 'Red'],
-        "iPhone 8 Plus": ['Space Gray', 'Silver', 'Gold', 'Red'],
-        "iPhone X": ['Space Gray', 'Silver'],
-        "iPhone XR": ['Black', 'White', 'Blue', 'Yellow', 'Coral', 'Red'],
-        "iPhone 11": ['Black', 'Green', 'Yellow', 'Purple', 'Red', 'White'],
-        "iPhone 11 Pro": ['Midnight Green', 'Space Gray', 'Silver', 'Gold'],
-        "iPhone 12": ['Black', 'White', 'Green', 'Blue', 'Purple', 'Red']
-    };
-
-    const iphoneSpecs = {
-        "iPhone 7": {
-            display: '4.7" Retina HD',
-            chip: 'A10 Fusion',
-            camera: '12MP',
-            battery: 'Up to 13h'
-        },
-        "iPhone 7 Plus": {
-            display: '5.5" Retina HD',
-            chip: 'A10 Fusion',
-            camera: 'Dual 12MP',
-            battery: 'Up to 14h'
-        },
-        "iPhone 8": {
-            display: '4.7" Retina HD',
-            chip: 'A11 Bionic',
-            camera: '12MP',
-            battery: 'Up to 13h'
-        },
-        "iPhone 8 Plus": {
-            display: '5.5" Retina HD',
-            chip: 'A11 Bionic',
-            camera: 'Dual 12MP',
-            battery: 'Up to 14h'
-        },
-        "iPhone X": {
-            display: '5.8" Super Retina HD',
-            chip: 'A11 Bionic',
-            camera: 'Dual 12MP',
-            battery: 'Up to 13h'
-        },
-        "iPhone XR": {
-            display: '6.1" Liquid Retina HD',
-            chip: 'A12 Bionic',
-            camera: '12MP',
-            battery: 'Up to 16h'
-        },
-        "iPhone 11": {
-            display: '6.1" Liquid Retina HD',
-            chip: 'A13 Bionic',
-            camera: 'Dual 12MP',
-            battery: 'Up to 17h'
-        },
-        "iPhone 11 Pro": {
-            display: '5.8" Super Retina XDR',
-            chip: 'A13 Bionic',
-            camera: 'Triple 12MP',
-            battery: 'Up to 18h'
-        },
-        "iPhone 12": {
-            display: '6.1" Super Retina XDR',
-            chip: 'A14 Bionic',
-            camera: 'Dual 12MP',
-            battery: 'Up to 17h'
-        }
-    };
 
     const baseModel = product.baseName;
     const conditionOptions = ['Pre-Owned', 'New'];
-    const availableStorageOptions = iphonePricing[baseModel]?.[selectedCondition] || [];
-    const colorOptions = appleColorOptions[baseModel] || ['Space Gray', 'Silver'];
-    const specs = iphoneSpecs[baseModel] || iphoneSpecs["iPhone 12"];
+    
+    // Use useMemo to derive values based on current state
+    const availableStorageOptions = useMemo(() => {
+        return IPHONE_PRICING[baseModel]?.[selectedCondition] || [];
+    }, [baseModel, selectedCondition]);
+    
+    const colorOptions = useMemo(() => {
+        return APPLE_COLOR_OPTIONS[baseModel] || ['Space Gray', 'Silver'];
+    }, [baseModel]);
+    
+    const specs = useMemo(() => {
+        return IPHONE_SPECS[baseModel] || IPHONE_SPECS["iPhone 12"];
+    }, [baseModel]);
 
-    // Initialize storage selection
+    // Reset selections when modal opens with a new product
+    useEffect(() => {
+        if (isOpen) {
+            // Reset to defaults when modal opens with a new product
+            setSelectedCondition('Pre-Owned');
+            
+            // Get default storage from available options
+            const defaultStorageOptions = IPHONE_PRICING[baseModel]?.['Pre-Owned'] || [];
+            setSelectedStorage(defaultStorageOptions.length > 0 ? defaultStorageOptions[0].storage : '');
+            
+            // Get default color
+            const defaultColors = APPLE_COLOR_OPTIONS[baseModel] || ['Space Gray', 'Silver'];
+            setSelectedColor(defaultColors.length > 0 ? defaultColors[0] : '');
+        }
+    }, [isOpen, baseModel]);
+
+    // Validate current storage selection
     useEffect(() => {
         if (availableStorageOptions.length > 0) {
-            // Check if current selectedStorage is valid for the new options
-            const isValidStorage = availableStorageOptions.some(opt => opt.storage === selectedStorage);
-            
-            if (!selectedStorage || !isValidStorage) {
+            const isValid = availableStorageOptions.some(opt => opt.storage === selectedStorage);
+            if (!isValid) {
                 setSelectedStorage(availableStorageOptions[0].storage);
             }
         } else {
             setSelectedStorage('');
         }
-    }, [selectedCondition, availableStorageOptions, selectedStorage, baseModel]);
+    }, [availableStorageOptions, selectedStorage]);
 
-    // Initialize color selection
+    // Validate current color selection
     useEffect(() => {
         if (colorOptions.length > 0) {
-            // Check if current selectedColor is valid for the new options
-            const isValidColor = colorOptions.includes(selectedColor);
-            
-            if (!selectedColor || !isValidColor) {
+            const isValid = colorOptions.includes(selectedColor);
+            if (!isValid) {
                 setSelectedColor(colorOptions[0]);
             }
         } else {
             setSelectedColor('');
         }
-    }, [colorOptions, selectedColor, baseModel]);
+    }, [colorOptions, selectedColor]);
 
-    const getCurrentPrice = () => {
+    const getCurrentPrice = useCallback(() => {
         if (!selectedStorage) return 0;
         const storageOption = availableStorageOptions.find(opt => opt.storage === selectedStorage);
         return storageOption ? storageOption.price : 0;
-    };
+    }, [selectedStorage, availableStorageOptions]);
 
-    const handleAddToCart = () => {
+    const handleAddToCart = useCallback(() => {
         if (!selectedStorage || !selectedColor) {
             alert('Please select storage and color');
             return;
@@ -219,14 +176,14 @@ const IphoneModal = ({ product, isOpen, onClose }) => {
                 selectedCondition: selectedCondition,
                 baseModel: baseModel
             },
-            1 // Always add 1 quantity
+            1
         );
 
         onClose();
         alert('Added to cart!');
-    };
+    }, [addToCart, baseModel, getCurrentPrice, onClose, product, selectedColor, selectedCondition, selectedStorage]);
 
-    const getColorHex = (colorName) => {
+    const getColorHex = useCallback((colorName) => {
         const colorMap = {
             'Black': '#000000',
             'White': '#F5F5F7',
@@ -244,13 +201,13 @@ const IphoneModal = ({ product, isOpen, onClose }) => {
             'Jet Black': '#1C1C1E'
         };
         return colorMap[colorName] || '#8E8E93';
-    };
+    }, []);
 
-    const getConditionDescription = (condition) => {
+    const getConditionDescription = useCallback((condition) => {
         return condition === 'Pre-Owned' 
             ? 'Certified refurbished, excellent condition' 
             : 'Brand new, sealed in original box';
-    };
+    }, []);
 
     if (!isOpen) return null;
 
@@ -307,18 +264,17 @@ const IphoneModal = ({ product, isOpen, onClose }) => {
                             <div className="option-group">
                                 <div className="option-label">Condition</div>
                                 <div className="condition-options">
-                                    {conditionOptions.map((condition, index) => {
-                                        if (iphonePricing[baseModel]?.[condition]?.length === 0) return null;
+                                    {conditionOptions.map((condition) => {
+                                        if (IPHONE_PRICING[baseModel]?.[condition]?.length === 0) return null;
                                         
                                         return (
                                             <button
-                                                key={index}
+                                                key={condition}
                                                 className={`condition-option ${
                                                     selectedCondition === condition ? 'selected' : ''
                                                 }`}
                                                 onClick={() => {
                                                     setSelectedCondition(condition);
-                                                    // Storage will be reset by useEffect
                                                 }}
                                                 title={getConditionDescription(condition)}
                                             >
@@ -333,9 +289,9 @@ const IphoneModal = ({ product, isOpen, onClose }) => {
                             <div className="option-group">
                                 <div className="option-label">Storage</div>
                                 <div className="storage-options">
-                                    {availableStorageOptions.map((option, index) => (
+                                    {availableStorageOptions.map((option) => (
                                         <button
-                                            key={index}
+                                            key={option.storage}
                                             className={`storage-option ${
                                                 selectedStorage === option.storage ? 'selected' : ''
                                             }`}
@@ -351,9 +307,9 @@ const IphoneModal = ({ product, isOpen, onClose }) => {
                             <div className="option-group">
                                 <div className="option-label">Color</div>
                                 <div className="color-options">
-                                    {colorOptions.map((color, index) => (
+                                    {colorOptions.map((color) => (
                                         <button
-                                            key={index}
+                                            key={color}
                                             className={`color-option ${
                                                 selectedColor === color ? 'selected' : ''
                                             }`}

@@ -91,7 +91,6 @@ const StraightHairModal = ({ product, isOpen, onClose }) => {
     const handleAddToCart = () => {
         if (!selectedLength || !selectedColor) return;
 
-        const lengthData = getSelectedLengthData();
         const finalProductName = `${product.name} - ${colorOptions[selectedColor]?.name || selectedColor} - ${selectedLength}`;
         
         const cartItem = {
