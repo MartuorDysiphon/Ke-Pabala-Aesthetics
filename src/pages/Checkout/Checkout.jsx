@@ -33,6 +33,7 @@ const Checkout = () => {
     const [showReceipt, setShowReceipt] = useState(false);
     const [orderCart, setOrderCart] = useState(null);
     const [showLoginPrompt, setShowLoginPrompt] = useState(false);
+    const [apiError, setApiError] = useState(null);
 
     // Pre-fill user data from Clerk when signed in
     useEffect(() => {
@@ -96,6 +97,7 @@ const Checkout = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setApiError(null);
         
         // Check authentication
         if (!isSignedIn) {
@@ -103,21 +105,17 @@ const Checkout = () => {
             return;
         }
 
-        setIsSubmitting(true);
-
         // Validation
         const requiredFields = ['firstName', 'lastName', 'email', 'phone', 'address', 'suburb', 'city', 'province', 'postalCode'];
         const missingFields = requiredFields.filter(field => !formData[field]);
         
         if (missingFields.length > 0) {
             alert('Please fill in all required fields.');
-            setIsSubmitting(false);
             return;
         }
 
         if (cart.items.length === 0) {
             alert('Your cart is empty.');
-            setIsSubmitting(false);
             return;
         }
 
@@ -125,7 +123,6 @@ const Checkout = () => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(formData.email)) {
             alert('Please enter a valid email address.');
-            setIsSubmitting(false);
             return;
         }
 
@@ -134,9 +131,10 @@ const Checkout = () => {
         const cleanedPhone = formData.phone.replace(/\s/g, '');
         if (!phoneRegex.test(cleanedPhone)) {
             alert('Please enter a valid South African phone number.');
-            setIsSubmitting(false);
             return;
         }
+
+        setIsSubmitting(true);
 
         try {
             const newOrderNumber = generateOrderNumber();
@@ -147,13 +145,19 @@ const Checkout = () => {
                 total: getTotalPrice()
             };
             setOrderCart(cartSnapshot);
-            
-            // Formspree Integration for Order Notification
-            const formspreeResponse = await fetch('https://formspree.io/f/mjgewery', {
+
+            const selectedDelivery = deliveryOptions.find(d => d.id === formData.deliveryMethod);
+            const subtotal = getTotalPrice();
+            const deliveryCost = selectedDelivery?.cost || 0;
+            const total = subtotal + deliveryCost;
+
+            // Run both API calls in parallel for faster execution
+            const apiCalls = [];
+
+            // Formspree Integration (non-critical - can fail silently)
+            const formspreePromise = fetch('https://formspree.io/f/mjgewery', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     _subject: `New Order #${newOrderNumber} - Ke Pabala Aesthetics`,
                     orderNumber: newOrderNumber,
@@ -168,42 +172,45 @@ const Checkout = () => {
                     deliveryCost: `R${deliveryCost.toFixed(2)}`,
                     total: `R${total.toFixed(2)}`,
                     _replyto: formData.email
-                }),
-            });
+                })
+            }).catch(err => console.warn('Formspree notification failed:', err));
 
-            if (!formspreeResponse.ok) {
-                console.warn('Formspree notification failed. Proceeding with order.');
-            }
+            apiCalls.push(formspreePromise);
 
-            // Backend order creation with user ID
-            try {
-                await fetch(`${API_BASE}/orders/${userId}`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        items: cart.items,
-                        customerInfo: formData,
-                        deliveryMethod: selectedDelivery,
-                        paymentMethod: formData.paymentMethod,
-                        subtotal: subtotal,
-                        deliveryCost: deliveryCost,
-                        total: total,
-                        userId: userId,
-                        userEmail: formData.email
-                    })
-                });
-            } catch (backendError) {
-                console.error('Backend order creation failed:', backendError);
-            }
-            
-            await new Promise(resolve => setTimeout(resolve, 2000));
-            
+            // Backend order creation
+            const backendPromise = fetch(`${API_BASE}/orders/${userId}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    items: cart.items,
+                    customerInfo: formData,
+                    deliveryMethod: selectedDelivery,
+                    paymentMethod: formData.paymentMethod,
+                    subtotal: subtotal,
+                    deliveryCost: deliveryCost,
+                    total: total,
+                    userId: userId,
+                    userEmail: formData.email,
+                    orderNumber: newOrderNumber
+                })
+            }).catch(err => console.error('Backend order creation failed:', err));
+
+            apiCalls.push(backendPromise);
+
+            // Wait for both API calls to complete (or timeout after 5 seconds)
+            await Promise.race([
+                Promise.all(apiCalls),
+                new Promise(resolve => setTimeout(resolve, 5000)) // 5 second timeout
+            ]);
+
+            // Clear cart and complete order immediately
             clearCart();
             setOrderComplete(true);
             setShowReceipt(true);
             
         } catch (error) {
             console.error('Order processing error:', error);
+            setApiError('Failed to process order. Please try again.');
             alert('Failed to process order. Please try again.');
         } finally {
             setIsSubmitting(false);
@@ -577,6 +584,12 @@ const Checkout = () => {
                                     )}
                                 </div>
                             </section>
+                            
+                            {apiError && (
+                                <div className="Checkout__error-message" style={{ color: '#ff3b30', textAlign: 'center', marginBottom: '1rem' }}>
+                                    <i className="fas fa-exclamation-circle"></i> {apiError}
+                                </div>
+                            )}
                             
                             <button 
                                 type="submit" 
