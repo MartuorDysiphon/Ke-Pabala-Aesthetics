@@ -142,6 +142,26 @@
     display: flex;
     flex-direction: column;
     height: 100%;
+    animation: fadeInUp 0.5s ease forwards;
+    opacity: 0;
+}
+
+.Home__featured-card:nth-child(1) { animation-delay: 0.1s; }
+.Home__featured-card:nth-child(2) { animation-delay: 0.2s; }
+.Home__featured-card:nth-child(3) { animation-delay: 0.3s; }
+.Home__featured-card:nth-child(4) { animation-delay: 0.4s; }
+.Home__featured-card:nth-child(5) { animation-delay: 0.5s; }
+.Home__featured-card:nth-child(6) { animation-delay: 0.6s; }
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .Home__featured-card:hover {
@@ -168,19 +188,59 @@
     transform: scale(1.08);
 }
 
+/* Category badge with Font Awesome icon */
 .Home__featured-category {
     position: absolute;
     top: 16px;
     left: 16px;
     background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(4px);
     color: white;
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 700;
-    padding: 4px 10px;
-    border-radius: 12px;
+    padding: 6px 12px;
+    border-radius: 20px;
     text-transform: uppercase;
     letter-spacing: 0.8px;
     z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.Home__featured-category i {
+    font-size: 12px;
+    opacity: 0.9;
+}
+
+/* Sale Badge */
+.Home__sale-badge {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: #ff3b30;
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+    z-index: 2;
+    box-shadow: 0 2px 8px rgba(255, 59, 48, 0.3);
+    text-transform: uppercase;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 59, 48, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(255, 59, 48, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 59, 48, 0);
+    }
 }
 
 .Home__featured-badge {
@@ -230,16 +290,43 @@
     overflow: hidden;
 }
 
+/* Detail highlights with icons */
+.detail-highlight {
+    font-weight: 600;
+    color: #1d1d1f;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.detail-highlight i {
+    font-size: 11px;
+    color: #666;
+    width: 14px;
+}
+
+.detail-meta {
+    font-size: 11px;
+    color: #86868b;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 4px;
+}
+
+.detail-meta i {
+    font-size: 10px;
+    width: 14px;
+    color: #999;
+}
+
 .Home__featured-details {
     font-size: 12px;
     color: #86868b;
     margin-bottom: 16px;
-    line-height: 1.4;
+    line-height: 1.5;
     flex-grow: 1;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
 }
 
 .Home__featured-footer {
@@ -255,15 +342,23 @@
     font-weight: 700;
     color: #1d1d1f;
     white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.Home__featured-price i {
+    font-size: 14px;
+    color: #ff3b30;
 }
 
 .Home__featured-button {
-    padding: 4px;
+    padding: 8px 16px;
     background: #000000;
     color: white;
     border: none;
     border-radius: 8px;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 600;
     cursor: pointer;
     display: flex;
@@ -271,7 +366,6 @@
     gap: 6px;
     transition: all 0.15s ease;
     white-space: nowrap;
-    min-width: 90px;
 }
 
 .Home__featured-button:hover {
@@ -280,7 +374,7 @@
 }
 
 .Home__featured-button i {
-    font-size: 11px;
+    font-size: 12px;
 }
 
 /* Responsive Design - Tablets (3 per row) */
@@ -406,9 +500,23 @@
     .Home__featured-price {
         font-size: 15px;
     }
+    
+    .Home__featured-category {
+        font-size: 9px;
+        padding: 4px 8px;
+    }
+    
+    .Home__sale-badge {
+        font-size: 10px;
+        padding: 3px 10px;
+    }
+    
+    .detail-meta {
+        font-size: 10px;
+    }
 }
 
-/* Responsive Design - Phones (MODIFIED FOR INLINE BUTTONS) */
+/* Responsive Design - Phones */
 @media (max-width: 600px) {
     .Home__hero-title {
         font-size: 32px;
@@ -419,20 +527,19 @@
         margin-bottom: 32px;
     }
     
-    /* KEY CHANGE: Keep buttons inline and scale them */
     .Home__hero-buttons {
-        flex-direction: row; /* Keep buttons in a horizontal line */
-        flex-wrap: wrap; /* Allow wrapping only if absolutely necessary */
+        flex-direction: row;
+        flex-wrap: wrap;
         justify-content: center;
-        gap: 10px; /* Slightly reduce gap */
+        gap: 10px;
     }
     
     .Home__hr-btn {
-        padding: 10px 18px; /* Scaled-down padding */
-        font-size: 13px; /* Scaled-down font */
-        width: auto; /* Override any full-width rule */
-        max-width: none; /* Remove max-width constraint */
-        flex-shrink: 1; /* Allow buttons to shrink proportionally */
+        padding: 10px 18px;
+        font-size: 13px;
+        width: auto;
+        max-width: none;
+        flex-shrink: 1;
     }
     
     .Home__hero-image {
@@ -459,9 +566,8 @@
     }
     
     .Home__featured-button {
-        min-width: 80px;
         padding: 6px 12px;
-        font-size: 11px;
+        font-size: 12px;
     }
     
     .Home__featured-price {
@@ -469,7 +575,7 @@
     }
 }
 
-/* Responsive Design - Small Phones (MODIFIED FOR INLINE BUTTONS) */
+/* Responsive Design - Small Phones */
 @media (max-width: 480px) {
     .Home__container {
         padding: 0 16px;
@@ -483,7 +589,6 @@
         font-size: 14px;
     }
     
-    /* Further scale buttons for very small screens */
     .Home__hero-buttons {
         gap: 8px;
     }
@@ -510,38 +615,60 @@
     
     .Home__featured-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
+        gap: 16px;
     }
     
     .Home__featured-image {
-        height: 200px;
+        height: 180px;
     }
     
     .Home__featured-content {
-        padding: 16px;
+        padding: 14px;
     }
     
     .Home__featured-title {
-        font-size: 15px;
+        font-size: 14px;
     }
     
     .Home__featured-details {
-        font-size: 13px;
-        margin-bottom: 16px;
+        font-size: 11px;
+        margin-bottom: 14px;
     }
     
     .Home__featured-footer {
-        gap: 12px;
+        gap: 10px;
     }
     
     .Home__featured-price {
-        font-size: 16px;
+        font-size: 15px;
     }
     
     .Home__featured-button {
-        min-width: 90px;
-        padding: 8px 16px;
+        min-width: 80px;
+        padding: 6px 12px;
+        font-size: 11px;
+    }
+    
+    .Home__featured-category {
+        font-size: 8px;
+        padding: 3px 8px;
+        top: 12px;
+        left: 12px;
+    }
+    
+    .Home__sale-badge {
+        font-size: 9px;
+        padding: 3px 8px;
+        top: 12px;
+        right: 12px;
+    }
+    
+    .detail-highlight {
         font-size: 12px;
+    }
+    
+    .detail-meta {
+        font-size: 9px;
     }
 }
 
@@ -555,7 +682,6 @@
         font-size: 13px;
     }
     
-    /* Final scaling for the smallest screens */
     .Home__hero-buttons {
         gap: 6px;
     }
@@ -572,19 +698,25 @@
     
     .Home__featured-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
+        gap: 12px;
     }
     
     .Home__featured-image {
-        height: 180px;
+        height: 150px;
     }
     
     .Home__featured-title {
-        font-size: 14px;
+        font-size: 13px;
     }
     
     .Home__featured-price {
-        font-size: 15px;
+        font-size: 14px;
+    }
+    
+    .Home__featured-button {
+        min-width: 70px;
+        padding: 5px 10px;
+        font-size: 10px;
     }
 }
 

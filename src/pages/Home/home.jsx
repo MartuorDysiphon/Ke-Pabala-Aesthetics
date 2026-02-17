@@ -2,102 +2,136 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import ProductModal from '../../components/HairModal/HairModal';
 import IphoneModal from '../../components/IphoneModal/IphoneModal';
-import JeansModal from '../../components/JeansModal/JeansModal'; // Added JeansModal import
+import JeansModal from '../../components/JeansModal/JeansModal';
 import './home.css';
 
 import HeroIMG from '../../assets/Logo/hero.png';
 
-// Hair product images
-import Blondie from '../../assets/Hair/blondie.jpg';
-import Straight1 from '../../assets/Hair/straight1.jpg';
+// Hair product imports (from straight.jsx structure)
+import singleDrawn1 from '../../assets/Hair/Single Drawn/Single Drawn 1.jpeg';
+import superDD1 from '../../assets/Hair/Super Double Drawn/Super Double Drawn 1.jpeg';
 
-// iPhone product images
+// iPhone product imports (from iphones.jsx)
 import Iphone12 from '../../assets/Iphones/iphone 12.jpg';
 import IphoneXR from '../../assets/Iphones/iphone xr.jpg';
 
-// Jean product images - Updated to new products
+// Jean product imports (from jeans.jsx)
+import Jean1 from '../../assets/Jeans/jean (1).jpeg'; // H&M Ashwood Jeans
 import Jean2 from '../../assets/Jeans/jean (4).jpeg'; // Zara Misty Blue Skirt
-import Jean5 from '../../assets/Jeans/jean (5).jpeg'; // Zara Denim Jacket
 
 const Home = () => {
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [selectedIphone, setSelectedIphone] = useState(null);
     const [isHairModalOpen, setIsHairModalOpen] = useState(false);
     const [isIphoneModalOpen, setIsIphoneModalOpen] = useState(false);
-    const [isJeansModalOpen, setIsJeansModalOpen] = useState(false); // Added Jeans modal state
+    const [isJeansModalOpen, setIsJeansModalOpen] = useState(false);
 
+    // Featured products - exactly 6 items (2 from each category) with "sale" badges only
     const featuredProducts = [
-        // Hair Products
-        {   id: 1, 
-            name: "Sun-Kissed Blondie", 
-            price: 1349.99, 
-            image: Blondie, 
-            category: "Straight", 
-            type: "hair",
-            subtype: "human",
-            length: "24-26 inches" ,
-            description: "Premium quality double drawn human hair"
-        },
-        {   id: 2, 
-            name: "Silky Straight", 
-            price: 929.99, 
-            image: Straight1, 
-            category: "Straight", 
-            type: "hair",
-            subtype: "human",
-            length: "20-22 inches",
-            description: "Volume-boosting Straight hair"
-        },
-        // iPhone Products
+        // 2 Hair Products (from straight.jsx)
         {
-            id: 3,
+            id: 'single-drawn',
+            name: "Single Drawn Virgin Hair Collection",
+            baseName: "Single Drawn Hair",
+            price: 1250.00,
+            image: singleDrawn1,
+            category: "Single Drawn",
+            type: "hair",
+            subtype: "human",
+            length: "18-26 inches",
+            description: "Premium single drawn virgin hair with natural thickness variation. 100% human hair.",
+            imageCount: 10,
+            lengths: ["18 inches", "20 inches", "22 inches", "24 inches", "26 inches"],
+            textures: ["Silky Straight", "Bone Straight"],
+            colors: ["Natural Black", "Jet Black", "Dark Brown"],
+            status: "Available"
+        },
+        {
+            id: 'super-dd',
+            name: "Super Double Drawn Luxury Collection",
+            baseName: "Super DD Hair",
+            price: 2450.00,
+            image: superDD1,
+            category: "Super Double Drawn",
+            type: "hair",
+            subtype: "human",
+            length: "22-30 inches",
+            description: "Ultra-luxury super double drawn hair with maximum thickness consistency. Premium quality.",
+            imageCount: 11,
+            lengths: ["22 inches", "24 inches", "26 inches", "28 inches", "30 inches"],
+            textures: ["Silky Straight", "Bone Straight", "Chocolate Straight"],
+            colors: ["Natural Black", "Jet Black", "Dark Brown", "Chocolate Brown"],
+            status: "Available"
+        },
+        
+        // 2 iPhone Products (from iphones.jsx)
+        {
+            id: 9,
             name: "iPhone 12",
-            price: "8999.99",
+            baseName: "iPhone 12",
+            price: 6800.00,
             image: Iphone12,
-            category: "iPhone",
+            category: "iPhone 12",
             type: "iphone",
-            storage: "128GB/256GB",
+            storage: "64GB/128GB/256GB",
             series: "12",
-            condition: "Refurbished",
+            condition: "Pre-Owned",
             color: "Black",
             status: "Available",
-            featured: true
+            modelYear: "2020",
+            defaultStorage: "64GB",
+            description: "5G capable with A14 Bionic chip and Super Retina XDR display. Grade A refurbished.",
+            features: ["5G", "A14 Bionic", "OLED Display", "Face ID"]
         },
         {
-            id: 4,
+            id: 6,
             name: "iPhone XR",
-            price: "5299.99",
+            baseName: "iPhone XR",
+            price: 4100.00,
             image: IphoneXR,
-            category: "iPhone",
+            category: "iPhone XR",
             type: "iphone",
             storage: "64GB/128GB",
             series: "XR",
-            condition: "Good",
+            condition: "Pre-Owned",
             color: "Coral",
-            status: "Low Stock"
+            status: "Available",
+            modelYear: "2018",
+            defaultStorage: "64GB",
+            description: "Liquid Retina display with advanced Face ID and A12 Bionic chip. Excellent condition.",
+            features: ["Liquid Retina", "Face ID", "A12 Bionic", "Dual SIM"]
         },
-        // Jeans Products - UPDATED
+        
+        // 2 Jeans Products (from jeans.jsx)
         {
-            id: 5,
+            id: 2,
             name: "Zara Misty Blue Skirt",
+            baseName: "Zara Misty Blue Skirt",
             price: 399.99,
             image: Jean2,
             category: "Denim Skirt",
             type: "jean",
             subcategory: "A-Line",
+            fit: "A-Line",
+            wash: "Misty Blue",
             description: "A relaxed A-line denim skirt in a soft misty blue wash, featuring a midi length and side slits for effortless movement.",
-            featured: true
+            material: "100% Cotton Denim",
+            features: ["Midi Length", "Side Slits", "A-Line Cut", "Button Front"]
         },
         {
-            id: 6,
-            name: "Zara Denim Jacket",
-            price: 449.99,
-            image: Jean5,
-            category: "Denim Jacket",
+            id: 1,
+            name: "H&M Ashwood Jeans",
+            baseName: "H&M Ashwood Jeans",
+            price: 299.99,
+            image: Jean1,
+            category: "Denim Jeans",
             type: "jean",
-            subcategory: "Oversized",
-            description: "An oversized washed denim jacket with a relaxed fit, raw hem details, and a versatile medium wash for layered styling.",
-            featured: true
+            subcategory: "Slim Fit",
+            fit: "Slim Fit",
+            wash: "Ash Grey",
+            description: "Stonewashed slim-fit jeans with a modern ash grey finish and comfortable stretch fabric.",
+            material: "98% Cotton, 2% Elastane",
+            features: ["Slim Fit", "Stretch Denim", "5-Pocket Style", "Stonewashed"]
         }
     ];
 
@@ -107,7 +141,7 @@ const Home = () => {
             setIsIphoneModalOpen(true);
         } else if (product.type === 'jean') {
             setSelectedProduct(product);
-            setIsJeansModalOpen(true); // Use Jeans modal for jeans products
+            setIsJeansModalOpen(true);
         } else {
             setSelectedProduct(product);
             setIsHairModalOpen(true);
@@ -117,7 +151,7 @@ const Home = () => {
     const closeProductModal = () => {
         setIsHairModalOpen(false);
         setIsIphoneModalOpen(false);
-        setIsJeansModalOpen(false); // Close jeans modal too
+        setIsJeansModalOpen(false);
         setSelectedProduct(null);
         setSelectedIphone(null);
     };
@@ -156,27 +190,38 @@ const Home = () => {
                             >
                                 <div className="Home__featured-image">
                                     <img src={product.image} alt={product.name} />
-                                    <div className="Home__featured-category">{product.category}</div>
-                                    {product.featured && (
-                                        <div className="Home__featured-badge">Featured</div>
-                                    )}
-                                    {product.status === 'Low Stock' && (
-                                        <div className="Home__lowstock-badge">Low Stock</div>
-                                    )}
+                                    {/* Only ONE badge - SALE badge */}
+                                    <div className="Home__sale-badge">SALE</div>
                                 </div>
                                 <div className="Home__featured-content">
-                                    <h3 className="Home__featured-title">{product.name}</h3>
-                                    {product.type === 'hair' && (
-                                        <p className="Home__featured-details">{product.length}</p>
-                                    )}
-                                    {product.type === 'iphone' && (
-                                        <p className="Home__featured-details">{product.storage} · {product.color}</p>
-                                    )}
-                                    {product.type === 'jean' && (
-                                        <p className="Home__featured-details">{product.description}</p>
-                                    )}
+                                    <h3 className="Home__featured-title">{product.baseName || product.name}</h3>
+                                    <p className="Home__featured-details">
+                                        {product.type === 'hair' && (
+                                            <>
+                                                <span className="detail-highlight"><i className="fas fa-ruler"></i> {product.length}</span>
+                                                <br />
+                                                <span className="detail-meta"><i className="fas fa-palette"></i> {product.colors?.slice(0, 2).join(' • ')}</span>
+                                            </>
+                                        )}
+                                        {product.type === 'iphone' && (
+                                            <>
+                                                <span className="detail-highlight"><i className="fas fa-memory"></i> {product.storage} • <i className="fas fa-mobile-alt"></i> {product.color}</span>
+                                                <br />
+                                                <span className="detail-meta"><i className="fas fa-clipboard-check"></i> {product.condition} • {product.modelYear}</span>
+                                            </>
+                                        )}
+                                        {product.type === 'jean' && (
+                                            <>
+                                                <span className="detail-highlight"><i className="fas fa-tshirt"></i> {product.fit} • {product.wash}</span>
+                                                <br />
+                                                <span className="detail-meta"><i className="fas fa-tag"></i> {product.material || 'Premium Denim'}</span>
+                                            </>
+                                        )}
+                                    </p>
                                     <div className="Home__featured-footer">
-                                        <span className="Home__featured-price">R{product.price}</span>
+                                        <span className="Home__featured-price">
+                                            <i className="fas fa-tag"></i> R{typeof product.price === 'number' ? product.price.toFixed(2) : product.price}
+                                        </span>
                                         <button 
                                             className="Home__featured-button"
                                             onClick={(e) => {
@@ -184,7 +229,7 @@ const Home = () => {
                                                 openProductModal(product);
                                             }}
                                         >
-                                            <i className="fas fa-shopping-cart"></i> Buy
+                                            <i className="fas fa-shopping-cart"></i>Buy
                                         </button>
                                     </div>
                                 </div>
