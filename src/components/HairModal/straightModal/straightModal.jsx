@@ -9,7 +9,6 @@ const StraightHairModal = ({ product, isOpen, onClose }) => {
     const [quantity, setQuantity] = useState(1);
     const { addToCart } = useCart();
 
-    // Color definitions with premium tagging
     const colorOptions = useMemo(() => ({
         'Natural Black': { bg: '#1a1a1a', name: 'Natural Black', premium: false },
         'Jet Black': { bg: '#000000', name: 'Jet Black', premium: false },
@@ -66,12 +65,11 @@ const StraightHairModal = ({ product, isOpen, onClose }) => {
         })).filter(Boolean);
     }, [product?.availableColors, colorOptions]);
 
-    // Get selected length data
     const getSelectedLengthData = useCallback(() => {
         return lengthOptions.find(l => l.length === selectedLength) || lengthOptions[1];
     }, [selectedLength, lengthOptions]);
 
-    // Calculate prices
+    // prices
     const getLengthPrice = useCallback(() => {
         const lengthData = getSelectedLengthData();
         return lengthData?.price || product?.price || 0;
@@ -87,7 +85,7 @@ const StraightHairModal = ({ product, isOpen, onClose }) => {
         return (lengthPrice + colorPremium) * quantity;
     }, [getLengthPrice, isPremiumColor, quantity]);
 
-    // Handle add to cart
+    // add to cart
     const handleAddToCart = () => {
         if (!selectedLength || !selectedColor) return;
 
@@ -121,7 +119,6 @@ const StraightHairModal = ({ product, isOpen, onClose }) => {
                 <button className="straight-modal-close" onClick={onClose}>✕</button>
                 
                 <div className="straight-modal-body">
-                    {/* Left - Image */}
                     <div className="straight-modal-image">
                         <img 
                             src={product.images?.[0] || product.image} 
@@ -133,13 +130,11 @@ const StraightHairModal = ({ product, isOpen, onClose }) => {
 
                     {/* Right - Info */}
                     <div className="straight-modal-info">
-                        {/* Header */}
                         <div className="straight-modal-header">
                             <h2>{product.name}</h2>
                             <p>{product.texture} • {product.category} • {product.origin} Hair</p>
                         </div>
 
-                        {/* Specs */}
                         <div className="straight-modal-specs">
                             <div className="straight-spec-item">
                                 <span className="straight-spec-label">Quality</span>
@@ -159,7 +154,6 @@ const StraightHairModal = ({ product, isOpen, onClose }) => {
                             </div>
                         </div>
 
-                        {/* Price */}
                         <div className="straight-modal-price-section">
                             <div className="straight-base-price">R{lengthPrice.toFixed(2)}</div>
                             <div className="straight-total-price">
@@ -172,9 +166,7 @@ const StraightHairModal = ({ product, isOpen, onClose }) => {
                             </div>
                         </div>
 
-                        {/* Options */}
                         <div className="straight-modal-options-section">
-                            {/* Color */}
                             <div className="straight-option-group">
                                 <div className="straight-option-label">
                                     Color
@@ -207,7 +199,6 @@ const StraightHairModal = ({ product, isOpen, onClose }) => {
                                 </div>
                             </div>
 
-                            {/* Length with Prices */}
                             <div className="straight-option-group">
                                 <div className="straight-option-label">
                                     Length
@@ -227,7 +218,6 @@ const StraightHairModal = ({ product, isOpen, onClose }) => {
                                 </div>
                             </div>
 
-                            {/* Quantity */}
                             <div className="straight-option-group">
                                 <div className="straight-option-label">Quantity</div>
                                 <div className="straight-quantity-selector">
@@ -249,7 +239,6 @@ const StraightHairModal = ({ product, isOpen, onClose }) => {
                             </div>
                         </div>
 
-                        {/* Add to Cart */}
                         <button 
                             className="straight-add-to-cart-btn"
                             onClick={handleAddToCart}
@@ -258,7 +247,6 @@ const StraightHairModal = ({ product, isOpen, onClose }) => {
                             Add to Cart • R{totalPrice.toFixed(2)}
                         </button>
 
-                        {/* Guarantee */}
                         <div className="straight-guarantee-info">
                             <span className="straight-guarantee-badge">✓ 30-Day Returns</span>
                             <span className="straight-guarantee-badge">✓ Free Adjustments</span>
