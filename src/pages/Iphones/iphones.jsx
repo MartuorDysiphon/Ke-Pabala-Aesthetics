@@ -23,17 +23,15 @@ const Iphones = () => {
     const [selectedImage, setSelectedImage] = useState(null);
     const [isImageModalOpen, setIsImageModalOpen] = useState(false);
     
-    // Get query parameters
     const [searchParams] = useSearchParams();
     const productId = searchParams.get('product');
 
     const preOwnedIphones = useMemo(() => [
-        // iPhone 7 - Single card, multiple storage options in modal
         {
             id: 1,
             name: "iPhone 7",
             baseName: "iPhone 7",
-            price: 2500, // Starting price for 32GB Pre-Owned
+            price: 2500, 
             image: Iphone7,
             category: "iPhone",
             series: "7",
@@ -43,12 +41,12 @@ const Iphones = () => {
             modelYear: "2016",
             defaultStorage: "32GB"
         },
-        // iPhone 7 Plus - Single card
+
         {
             id: 2,
             name: "iPhone 7 Plus",
             baseName: "iPhone 7 Plus",
-            price: 3050, // Starting price for 32GB Pre-Owned
+            price: 3050, 
             image: Iphone7Plus,
             category: "iPhone",
             series: "7",

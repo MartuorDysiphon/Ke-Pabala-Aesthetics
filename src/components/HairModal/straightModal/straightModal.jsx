@@ -35,16 +35,13 @@ const StraightHairModal = ({ product, isOpen, onClose }) => {
         ];
     }, [product?.price]);
 
-    // Initialize selections
     useEffect(() => {
         if (product && isOpen) {
-            // Set default length
             if (lengthOptions.length > 0) {
                 const defaultLength = product.length || "20 inches";
                 setSelectedLength(defaultLength);
             }
             
-            // Set default color
             if (product.color) {
                 setSelectedColor(product.color);
             } else {
@@ -56,7 +53,6 @@ const StraightHairModal = ({ product, isOpen, onClose }) => {
         }
     }, [product, isOpen, lengthOptions, colorOptions]);
 
-    // Get available colors from product or use defaults
     const availableColors = useMemo(() => {
         const productColors = product?.availableColors || Object.keys(colorOptions);
         return productColors.map(color => ({
@@ -69,7 +65,6 @@ const StraightHairModal = ({ product, isOpen, onClose }) => {
         return lengthOptions.find(l => l.length === selectedLength) || lengthOptions[1];
     }, [selectedLength, lengthOptions]);
 
-    // prices
     const getLengthPrice = useCallback(() => {
         const lengthData = getSelectedLengthData();
         return lengthData?.price || product?.price || 0;
@@ -85,7 +80,6 @@ const StraightHairModal = ({ product, isOpen, onClose }) => {
         return (lengthPrice + colorPremium) * quantity;
     }, [getLengthPrice, isPremiumColor, quantity]);
 
-    // add to cart
     const handleAddToCart = () => {
         if (!selectedLength || !selectedColor) return;
 
